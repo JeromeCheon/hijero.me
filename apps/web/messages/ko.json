@@ -1,0 +1,14 @@
+{
+  "HomePage": {
+    "title": "프로젝트 준비 완료!",
+    "description": "이제 컴포넌트를 추가하고 빌드를 시작할 수 있습니다.",
+    "buttonAdded": "버튼 컴포넌트가 이미 추가되어 있습니다.",
+    "button": "버튼",
+    "darkModeHint": "d 키를 눌러 다크 모드를 토글하세요"
+  },
+  "NotFound": {
+    "title": "페이지를 찾을 수 없습니다",
+    "description": "요청하신 페이지가 존재하지 않습니다.",
+    "backHome": "홈으로 돌아가기"
+  }
+}
