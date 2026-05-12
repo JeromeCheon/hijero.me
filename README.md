@@ -1,21 +1,56 @@
-# shadcn/ui monorepo template
+# hijero.me
 
-This is a Next.js monorepo template with shadcn/ui.
+hijero.me 웹사이트를 위한 Next.js 모노레포입니다.
 
-## Adding components
+## 구조
 
-To add components to your app, run the following command at the root of your `web` app:
+```
+.
+├── apps/
+│   └── web               # Next.js 웹 애플리케이션
+└── packages/
+    ├── ui                # 공유 UI 컴포넌트 (@workspace/ui)
+    ├── eslint-config     # 공유 ESLint 설정 (@workspace/eslint-config)
+    └── typescript-config # 공유 TypeScript 설정 (@workspace/typescript-config)
+```
+
+## 요구사항
+
+- Node.js >= 20
+- pnpm 9.15.9
+
+## 시작하기
 
 ```bash
-pnpm dlx shadcn@latest add button -c apps/web
+pnpm install
+pnpm dev
 ```
 
-This will place the ui components in the `packages/ui/src/components` directory.
+## 스크립트
 
-## Using components
+| 명령어           | 설명                   |
+| ---------------- | ---------------------- |
+| `pnpm dev`       | 모든 앱 개발 서버 실행 |
+| `pnpm build`     | 모든 앱 빌드           |
+| `pnpm lint`      | 전체 린팅              |
+| `pnpm format`    | Prettier 포매팅        |
+| `pnpm typecheck` | TypeScript 타입 체크   |
 
-To use the components in your app, import them from the `ui` package.
+## UI 컴포넌트 추가
+
+```bash
+pnpm dlx shadcn@latest add <component> -c apps/web
+```
+
+`packages/ui/src/components/`에 컴포넌트가 추가됩니다.
 
 ```tsx
-import { Button } from "@workspace/ui/components/button";
+import { Button } from "@workspace/ui/components/button"
 ```
+
+## 패키지
+
+- **[apps/web](./apps/web/README.md)** — Next.js 웹 애플리케이션
+- **@workspace/ui** — shadcn/ui 기반 공유 컴포넌트 라이브러리
+- **@workspace/eslint-config** — 공유 ESLint 설정 (base, next-js, react-internal)
+- **@workspace/typescript-config** — 공유 TypeScript 설정 (base, nextjs, react-library)
