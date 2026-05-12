@@ -34,3 +34,9 @@ npm-debug.log*
 # Misc
 .DS_Store
 *.pem
+
+# .mcp
+.mcp.json
+
+# shrimp data
+shrimp_data/
