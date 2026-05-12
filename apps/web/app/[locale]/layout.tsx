@@ -1,8 +1,10 @@
 import { Geist_Mono, Space_Grotesk } from 'next/font/google'
-
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages, setRequestLocale } from 'next-intl/server'
 import '@workspace/ui/globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { cn } from '@workspace/ui/lib/utils'
+import { routing } from '@/i18n/routing'
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -14,14 +16,24 @@ const fontMono = Geist_Mono({
   variable: '--font-mono',
 })
 
-export default function RootLayout({
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }))
+}
+
+export default async function LocaleLayout({
   children,
-}: Readonly<{
+  params,
+}: {
   children: React.ReactNode
-}>) {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  setRequestLocale(locale)
+  const messages = await getMessages()
+
   return (
     <html
-      lang="en"
+      lang={locale}
       suppressHydrationWarning
       className={cn(
         'antialiased',
@@ -31,7 +43,11 @@ export default function RootLayout({
       )}
     >
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <NextIntlClientProvider messages={messages}>
+            {children}
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
