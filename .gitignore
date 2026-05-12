@@ -40,3 +40,7 @@ npm-debug.log*
 
 # shrimp data
 shrimp_data/
+
+# PRD and ROADMAP
+PRD.md
+ROADMAP.md
