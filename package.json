@@ -6,8 +6,12 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
+    "lint:fix": "turbo lint -- --fix",
     "format": "turbo format",
-    "typecheck": "turbo typecheck"
+    "format:check": "turbo format -- --check",
+    "format:fix": "turbo format -- --write",
+    "typecheck": "turbo typecheck",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@workspace/eslint-config": "workspace:*",
@@ -20,5 +24,8 @@
   "packageManager": "pnpm@9.15.9",
   "engines": {
     "node": ">=20"
+  },
+  "dependencies": {
+    "husky": "^9.1.7"
   }
 }
