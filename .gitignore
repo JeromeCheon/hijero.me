@@ -47,3 +47,6 @@ shrimp_data/
 # PRD and ROADMAP
 PRD.md
 ROADMAP.md
+
+# claude agent memory
+.claude/agent-memory

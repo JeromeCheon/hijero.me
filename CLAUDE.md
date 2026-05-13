@@ -13,6 +13,13 @@ pnpm typecheck    # 전체 타입 체크
 pnpm format       # Prettier 포매팅
 ```
 
+## Dev 서버 실행 규칙
+
+`pnpm dev`는 장시간 실행되는 프로세스다. Bash 도구로 실행할 때 반드시 `run_in_background: true` 파라미터를 사용한다.
+
+- **금지**: `pnpm dev &` 또는 `pnpm dev > log 2>&1 &` (shell background — 프로세스 추적 불가)
+- **필수**: Bash 도구의 `run_in_background: true` 파라미터 사용 (task ID 부여, 출력 파일로 모니터링 가능)
+
 shadcn 컴포넌트 추가 시 `-c apps/web`을 지정해야 하지만, 실제 생성 위치는 `packages/ui/src/components/`다:
 
 ```bash
