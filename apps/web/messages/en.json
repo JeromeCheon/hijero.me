@@ -10,5 +10,15 @@
     "title": "Page not found",
     "description": "The page you requested does not exist.",
     "backHome": "Back to home"
+  },
+  "Nav": {
+    "home": "Home",
+    "tech": "Tech",
+    "life": "Life",
+    "resume": "Resume",
+    "search": "Search",
+    "avatarLabel": "My Profile",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   }
 }
