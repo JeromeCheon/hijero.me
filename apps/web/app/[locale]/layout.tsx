@@ -4,6 +4,7 @@ import { getMessages, setRequestLocale } from 'next-intl/server'
 import '@workspace/ui/globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { RailNav } from '@/components/nav/RailNav'
+import { MobileHeader } from '@/components/nav/MobileHeader'
 import { cn } from '@workspace/ui/lib/utils'
 import { routing } from '@/i18n/routing'
 
@@ -55,7 +56,7 @@ export default async function LocaleLayout({
               </aside>
               <div className="flex min-w-0 flex-1 flex-col lg:pl-20">
                 <header className="lg:hidden">
-                  {/* TODO(human): Task-011 MobileHeader 컴포넌트 삽입 */}
+                  <MobileHeader />
                 </header>
                 <main className="mx-auto w-full max-w-[1200px] flex-1 px-4 py-6 sm:px-6 lg:px-8">
                   {children}
