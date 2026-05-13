@@ -3,6 +3,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import '@workspace/ui/globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
+import { RailNav } from '@/components/nav/RailNav'
 import { cn } from '@workspace/ui/lib/utils'
 import { routing } from '@/i18n/routing'
 
@@ -42,10 +43,25 @@ export default async function LocaleLayout({
         spaceGrotesk.variable
       )}
     >
-      <body>
+      <body className="bg-background text-foreground">
         <ThemeProvider>
           <NextIntlClientProvider messages={messages}>
-            {children}
+            <div className="relative flex min-h-svh">
+              <aside
+                aria-label="Main navigation"
+                className="hidden lg:fixed lg:inset-y-0 lg:z-30 lg:flex lg:w-20 lg:shrink-0 lg:flex-col"
+              >
+                <RailNav />
+              </aside>
+              <div className="flex min-w-0 flex-1 flex-col lg:pl-20">
+                <header className="lg:hidden">
+                  {/* TODO(human): Task-011 MobileHeader 컴포넌트 삽입 */}
+                </header>
+                <main className="mx-auto w-full max-w-[1200px] flex-1 px-4 py-6 sm:px-6 lg:px-8">
+                  {children}
+                </main>
+              </div>
+            </div>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>
