@@ -1,17 +1,24 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import {
   SquareCode,
   FileText,
   Home,
   NotebookPen,
   Mail,
-  Search,
+  Menu,
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Link, usePathname } from '@/i18n/navigation'
 import { cn } from '@workspace/ui/lib/utils'
-import Image from 'next/image'
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@workspace/ui/components/sheet'
 
 // lucide-react v1.14에는 브랜드 아이콘 미포함 — 인라인 SVG로 대체
 function GithubIcon({ className }: { className?: string }) {
@@ -72,84 +79,90 @@ const socialLinks = [
   },
 ]
 
-export function RailNav() {
+export function MobileHeader() {
+  const [open, setOpen] = useState(false)
   const pathname = usePathname()
   const t = useTranslations('Nav')
 
+  useEffect(() => {
+    // pathname 변경(라우터 이벤트)을 React state에 동기화하는 의도적 패턴
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setOpen(false)
+  }, [pathname])
+
   return (
-    <nav
-      className="flex h-full flex-col items-center gap-2 py-4"
-      aria-label={t('avatarLabel')}
+    <header
+      className={cn(
+        'sticky top-0 z-40 flex h-14 items-center justify-between border-b border-border bg-background/80 px-4 backdrop-blur-sm'
+      )}
     >
-      {/* 로고 */}
       <Link
         href="/"
-        className="mb-2 flex h-10 w-10 items-center justify-center rounded-xl font-bold text-primary"
+        className="flex items-center font-bold text-primary"
+        aria-label="홈으로 이동"
       >
         🖐🏻Hi
       </Link>
 
-      <button
-        type="button"
-        aria-label={t('search')}
-        className="flex h-10 w-10 items-center justify-center rounded-xl text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-      >
-        <Search className="size-5" />
-      </button>
-
-      <div className="my-1 h-px w-10 bg-border" />
-
-      <ul className="flex flex-col gap-1">
-        {navItems.map(({ href, icon: Icon, labelKey, exact }) => {
-          const isActive = exact ? pathname === href : pathname.startsWith(href)
-          return (
-            <li key={href}>
-              <Link
-                href={href}
-                className={cn(
-                  'flex h-14 w-14 flex-col items-center justify-center gap-1 rounded-2xl text-xs transition-colors',
-                  isActive
-                    ? 'bg-primary/10 font-medium text-primary'
-                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
-                )}
-                aria-current={isActive ? 'page' : undefined}
-              >
-                <Icon className="size-5" />
-                <span>{t(labelKey)}</span>
-              </Link>
-            </li>
-          )
-        })}
-      </ul>
-
-      <div className="mt-auto flex flex-col items-center gap-2">
-        {socialLinks.map(({ href, icon: Icon, label }, idx) => (
-          <a
-            key={idx}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={label}
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetTrigger asChild>
+          <button
+            type="button"
+            aria-label={t('openMenu')}
+            aria-expanded={open}
+            aria-controls="mobile-nav-sheet"
             className="flex h-10 w-10 items-center justify-center rounded-xl text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
-            <Icon className="size-4" />
-          </a>
-        ))}
+            <Menu className="size-5" />
+          </button>
+        </SheetTrigger>
+        <SheetContent side="left" id="mobile-nav-sheet">
+          <SheetHeader>
+            <SheetTitle className="sr-only">{t('openMenu')}</SheetTitle>
+          </SheetHeader>
+          <nav className="flex flex-col gap-1 px-2 pt-4">
+            <ul className="flex flex-col gap-1">
+              {navItems.map(({ href, icon: Icon, labelKey, exact }) => {
+                const isActive = exact
+                  ? pathname === href
+                  : pathname.startsWith(href)
+                return (
+                  <li key={href}>
+                    <Link
+                      href={href}
+                      className={cn(
+                        'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors',
+                        isActive
+                          ? 'bg-primary/10 font-medium text-primary'
+                          : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                      )}
+                      aria-current={isActive ? 'page' : undefined}
+                    >
+                      <Icon className="size-5 shrink-0" />
+                      <span>{t(labelKey)}</span>
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
 
-        <Link
-          href="/resume"
-          aria-label={t('avatarLabel')}
-          className="relative mt-2 block h-10 w-10 overflow-hidden rounded-full ring-2 ring-transparent transition-all hover:ring-primary"
-        >
-          <Image
-            src="/avatar.png"
-            alt={t('avatarLabel')}
-            fill
-            className="object-cover"
-            sizes="40px"
-          />
-        </Link>
-      </div>
-    </nav>
+            <div className="mt-4 flex items-center gap-2 px-3">
+              {socialLinks.map(({ href, icon: Icon, label }, idx) => (
+                <a
+                  key={idx}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="flex h-9 w-9 items-center justify-center rounded-xl text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                >
+                  <Icon className="size-4" />
+                </a>
+              ))}
+            </div>
+          </nav>
+        </SheetContent>
+      </Sheet>
+    </header>
   )
 }
