@@ -11,6 +11,7 @@
     "format:check": "turbo format -- --check",
     "format:fix": "turbo format -- --write",
     "typecheck": "turbo typecheck",
+    "check": "pnpm typecheck && pnpm lint && pnpm format:check",
     "prepare": "husky"
   },
   "devDependencies": {
