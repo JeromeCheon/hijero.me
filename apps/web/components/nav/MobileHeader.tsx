@@ -8,9 +8,13 @@ import {
   NotebookPen,
   Mail,
   Menu,
+  Sun,
+  Moon,
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { Link, usePathname } from '@/i18n/navigation'
+import { useTheme } from 'next-themes'
+import { Link, usePathname, useRouter } from '@/i18n/navigation'
+import { useLocale } from 'next-intl'
 import { cn } from '@workspace/ui/lib/utils'
 import {
   Sheet,
@@ -81,8 +85,17 @@ const socialLinks = [
 
 export function MobileHeader() {
   const [open, setOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
+  const { resolvedTheme, setTheme } = useTheme()
+  const locale = useLocale()
+  const router = useRouter()
   const t = useTranslations('Nav')
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     // pathname 변경(라우터 이벤트)을 React state에 동기화하는 의도적 패턴
@@ -90,10 +103,16 @@ export function MobileHeader() {
     setOpen(false)
   }, [pathname])
 
+  const toggleTheme = () =>
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
+
+  const toggleLocale = () =>
+    router.replace(pathname, { locale: locale === 'ko' ? 'en' : 'ko' })
+
   return (
     <header
       className={cn(
-        'sticky top-0 z-40 flex h-14 items-center justify-between border-b border-border bg-background/80 px-4 backdrop-blur-sm'
+        'flex h-14 items-center gap-2 border-b border-border bg-background/80 px-4 backdrop-blur-sm'
       )}
     >
       <Link
@@ -103,6 +122,39 @@ export function MobileHeader() {
       >
         🖐🏻Hi
       </Link>
+
+      <div className="flex-1" />
+
+      <div className="flex items-center gap-1 rounded-lg border border-border bg-background/80 p-1">
+        <button
+          type="button"
+          onClick={toggleTheme}
+          aria-label={
+            resolvedTheme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'
+          }
+          className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        >
+          {!mounted ? (
+            <span className="h-4 w-4" aria-hidden />
+          ) : resolvedTheme === 'dark' ? (
+            <Sun className="size-4" />
+          ) : (
+            <Moon className="size-4" />
+          )}
+        </button>
+        <button
+          type="button"
+          onClick={toggleLocale}
+          aria-label={locale === 'ko' ? '영어로 전환' : '한국어로 전환'}
+          className="flex h-8 w-8 items-center justify-center rounded-lg font-mono text-[11px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        >
+          {locale === 'ko' ? (
+            <span className="size-4">EN</span>
+          ) : (
+            <span className="size-4">KO</span>
+          )}
+        </button>
+      </div>
 
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
