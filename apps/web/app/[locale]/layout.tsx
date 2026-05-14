@@ -48,7 +48,7 @@ export default async function LocaleLayout({
       <body className="bg-background text-foreground">
         <ThemeProvider>
           <NextIntlClientProvider messages={messages}>
-            <div className="relative flex min-h-svh">
+            <div className="flex min-h-svh">
               <aside
                 aria-label="Main navigation"
                 className="hidden lg:fixed lg:inset-y-0 lg:z-30 lg:flex lg:w-20 lg:shrink-0 lg:flex-col"
@@ -56,14 +56,17 @@ export default async function LocaleLayout({
                 <RailNav />
               </aside>
               <div className="flex min-w-0 flex-1 flex-col lg:pl-20">
-                <header className="lg:hidden">
+                <header className="sticky top-0 z-40 lg:hidden">
                   <MobileHeader />
                 </header>
                 <main className="mx-auto w-full max-w-[1200px] flex-1 px-4 py-6 sm:px-6 lg:px-8">
                   {children}
                 </main>
               </div>
-              <PinnedGNB />
+              <div className="hidden lg:block">
+                {/* PinnedGNB은 데스크톱에서만 표시 (모바일은 MobileHeader에 통합) */}
+                <PinnedGNB />
+              </div>
             </div>
           </NextIntlClientProvider>
         </ThemeProvider>
