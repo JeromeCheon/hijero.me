@@ -6,6 +6,23 @@
     "button": "Button",
     "darkModeHint": "Press d to toggle dark mode"
   },
+  "Hero": {
+    "name": "Jerome",
+    "job": "Full-Stack Software Engineer",
+    "about": "About Me",
+    "experienceLabel": "I am a 5+ years experienced software engineer who has worked across various domains, from scaling IoT systems to automating AI agent-based services, by fearlessly overcoming challenges without boundaries in learning.",
+    "coffeeChatLabel": "Coffee chat",
+    "viewDetail": "View Detail"
+  },
+  "HomeSection": {
+    "recentPosts": "Recent posts",
+    "readMore": "Read more",
+    "location": "Seoul, Korea",
+    "website": "hijero.me",
+    "projects": "Projects",
+    "projectsComingSoon": "Coming soon",
+    "noPosts": "No posts yet"
+  },
   "NotFound": {
     "title": "Page not found",
     "description": "The page you requested does not exist.",
