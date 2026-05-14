@@ -130,7 +130,7 @@ export function RailNav() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={label}
-            className="flex h-10 w-10 items-center justify-center rounded-xl text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="flex h-10 w-10 items-center justify-center rounded-xl text-muted-foreground transition-all hover:scale-110 hover:bg-muted hover:text-foreground focus-visible:scale-110"
           >
             <Icon className="size-4" />
           </a>
@@ -139,7 +139,7 @@ export function RailNav() {
         <Link
           href="/resume"
           aria-label={t('avatarLabel')}
-          className="relative mt-2 block h-10 w-10 overflow-hidden rounded-full ring-2 ring-transparent transition-all hover:ring-primary"
+          className="relative mt-2 block h-10 w-10 overflow-hidden rounded-full ring-2 ring-transparent transition-all hover:scale-110 hover:ring-primary focus-visible:scale-110"
         >
           <Image
             src="/avatar.png"

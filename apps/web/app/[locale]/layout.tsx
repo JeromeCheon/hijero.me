@@ -5,6 +5,7 @@ import '@workspace/ui/globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { RailNav } from '@/components/nav/RailNav'
 import { MobileHeader } from '@/components/nav/MobileHeader'
+import { PinnedGNB } from '@/components/nav/PinnedGNB'
 import { cn } from '@workspace/ui/lib/utils'
 import { routing } from '@/i18n/routing'
 
@@ -62,6 +63,7 @@ export default async function LocaleLayout({
                   {children}
                 </main>
               </div>
+              <PinnedGNB />
             </div>
           </NextIntlClientProvider>
         </ThemeProvider>
