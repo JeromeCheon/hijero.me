@@ -20,5 +20,16 @@
     "avatarLabel": "My Profile",
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
+  },
+  "PostList": {
+    "allTag": "All",
+    "sortLatest": "Latest",
+    "sortPopular": "Popular",
+    "readingTime": "{minutes} min read",
+    "empty": "No posts found",
+    "emptyTagged": "No posts with this tag",
+    "postCount": "{count} posts",
+    "techTitle": "About Tech, Development",
+    "lifeTitle": "About Life, Etc"
   }
 }
