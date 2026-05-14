@@ -20,5 +20,16 @@
     "avatarLabel": "내 프로필",
     "openMenu": "메뉴 열기",
     "closeMenu": "메뉴 닫기"
+  },
+  "PostList": {
+    "allTag": "전체",
+    "sortLatest": "최신순",
+    "sortPopular": "인기순",
+    "readingTime": "{minutes}분 읽기",
+    "empty": "포스트가 없습니다",
+    "emptyTagged": "해당 태그의 포스트가 없습니다",
+    "postCount": "{count}개의 포스트",
+    "techTitle": "개발 관련",
+    "lifeTitle": "일상 관련"
   }
 }
