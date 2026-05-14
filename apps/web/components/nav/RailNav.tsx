@@ -1,13 +1,6 @@
 'use client'
 
-import {
-  SquareCode,
-  FileText,
-  Home,
-  NotebookPen,
-  Mail,
-  Search,
-} from 'lucide-react'
+import { SquareCode, Home, NotebookPen, Mail, Search } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Link, usePathname } from '@/i18n/navigation'
 import { cn } from '@workspace/ui/lib/utils'
@@ -46,12 +39,6 @@ const navItems = [
   { href: '/', icon: Home, labelKey: 'home' as const, exact: true },
   { href: '/tech', icon: SquareCode, labelKey: 'tech' as const, exact: false },
   { href: '/life', icon: NotebookPen, labelKey: 'life' as const, exact: false },
-  {
-    href: '/resume',
-    icon: FileText,
-    labelKey: 'resume' as const,
-    exact: false,
-  },
 ]
 
 const socialLinks = [
