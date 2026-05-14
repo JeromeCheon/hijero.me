@@ -24,6 +24,9 @@ const withMDX = createMDX({
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   transpilePackages: ['@workspace/ui'],
+  images: {
+    remotePatterns: [{ hostname: 'cdn.buymeacoffee.com' }],
+  },
 }
 
 export default withNextIntl(withMDX(nextConfig))
