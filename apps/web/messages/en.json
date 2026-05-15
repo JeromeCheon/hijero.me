@@ -37,6 +37,9 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
   },
+  "Post": {
+    "backToList": "← {category} list"
+  },
   "PostList": {
     "allTag": "All",
     "sortLatest": "Latest",
