@@ -37,6 +37,9 @@
     "openMenu": "메뉴 열기",
     "closeMenu": "메뉴 닫기"
   },
+  "Post": {
+    "backToList": "← {category} 목록"
+  },
   "PostList": {
     "allTag": "전체",
     "sortLatest": "최신순",
