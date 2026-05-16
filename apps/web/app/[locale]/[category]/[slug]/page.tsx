@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import type { Metadata } from 'next'
 
 import { getAllPosts } from '@/lib/posts/getAllPosts'
@@ -96,7 +96,7 @@ export default async function PostPage({
   const headings = extractHeadings(post.content)
 
   const formattedDate = post.publishedAt.slice(0, 10)
-
+  const t = await getTranslations('PostList')
   return (
     <>
       <ReadingProgressBar />
@@ -131,7 +131,7 @@ export default async function PostPage({
               <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
                 <time dateTime={post.publishedAt}>{formattedDate}</time>
                 <span aria-hidden>·</span>
-                <span>{post.readingTime}분 읽기</span>
+                <span>{t('readingTime', { minutes: post.readingTime })}</span>
                 <span aria-hidden>·</span>
                 <ViewCount slug={post.slug} />
               </div>
