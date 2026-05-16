@@ -45,7 +45,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
   return (
     <nav
       aria-label="목차"
-      className="sticky top-20 hidden w-56 shrink-0 xl:block"
+      className="sticky top-8 hidden max-h-[calc(100vh-4rem)] w-56 shrink-0 self-start overflow-y-auto xl:block"
     >
       <p className="mb-3 text-xs font-semibold tracking-wider text-muted-foreground uppercase">
         목차
