@@ -5,6 +5,7 @@ import type {
   HTMLAttributes,
   OlHTMLAttributes,
 } from 'react'
+import CodeBlock from '@/components/post/CodeBlock'
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -54,10 +55,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </code>
     ),
-    pre: ({ children, ...props }: HTMLAttributes<HTMLPreElement>) => (
-      <pre className="my-4 overflow-x-auto rounded-lg p-4" {...props}>
-        {children}
-      </pre>
+    pre: (props) => (
+      <CodeBlock
+        {...(props as React.HTMLAttributes<HTMLPreElement> & {
+          'data-language'?: string
+        })}
+      />
     ),
     blockquote: ({
       children,
