@@ -142,7 +142,7 @@ export default async function PostPage({
                   {post.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground"
+                      className="rounded-full bg-primary/10 px-3 py-1 text-xs text-primary"
                     >
                       #{tag}
                     </span>

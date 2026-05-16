@@ -55,7 +55,7 @@ export function PostListItem({ post }: PostListItemProps) {
           {post.tags.map((tag) => (
             <span
               key={tag}
-              className="text-xs text-muted-foreground transition-colors group-hover:text-foreground/70"
+              className="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary transition-colors group-hover:bg-primary/20"
             >
               #{tag}
             </span>
