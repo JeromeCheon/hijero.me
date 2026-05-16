@@ -56,14 +56,48 @@ function LifePageContent({ locale, tag, sort }: ContentProps) {
 
   return (
     <div className="mx-auto max-w-2xl py-8">
-      {/* 헤더 */}
-      <div className="mb-8">
-        <h1 className="mb-1 text-3xl font-bold">{t('lifeTitle')}</h1>
-        <p className="text-sm text-muted-foreground">
-          {t('postCount', { count: filteredPosts.length })}
-        </p>
+      <div className="flex flex-row justify-between gap-2">
+        {/* 헤더 */}
+        <div className="mb-8">
+          <h1 className="mb-1 text-3xl font-bold">{t('lifeTitle')}</h1>
+          <p className="text-sm text-muted-foreground">
+            {t('postCount', { count: filteredPosts.length })}
+          </p>
+        </div>
+        <div>
+          {/* 정렬 버튼 */}
+          <div className="flex gap-1">
+            <Link
+              href={{
+                pathname: '/life',
+                query: { ...(tag ? { tag } : {}), sort: 'latest' },
+              }}
+              className={cn(
+                'rounded-md px-3 py-1 text-sm transition-colors',
+                activeSort === 'latest'
+                  ? 'bg-foreground font-medium text-background'
+                  : 'text-muted-foreground hover:text-foreground'
+              )}
+            >
+              {t('sortLatest')}
+            </Link>
+            <Link
+              href={{
+                pathname: '/life',
+                query: { ...(tag ? { tag } : {}), sort: 'popular' },
+              }}
+              className={cn(
+                'rounded-md px-3 py-1 text-sm transition-colors',
+                activeSort === 'popular'
+                  ? 'bg-foreground font-medium text-background'
+                  : 'text-muted-foreground hover:text-foreground'
+              )}
+            >
+              {t('sortPopular')}
+            </Link>
+          </div>
+        </div>
       </div>
-
       {/* 태그 필터 + 정렬 토글 */}
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         {/* 태그 칩 */}
@@ -96,38 +130,6 @@ function LifePageContent({ locale, tag, sort }: ContentProps) {
               #{tagItem}
             </Link>
           ))}
-        </div>
-
-        {/* 정렬 버튼 */}
-        <div className="flex gap-1">
-          <Link
-            href={{
-              pathname: '/life',
-              query: { ...(tag ? { tag } : {}), sort: 'latest' },
-            }}
-            className={cn(
-              'rounded-md px-3 py-1 text-sm transition-colors',
-              activeSort === 'latest'
-                ? 'bg-foreground font-medium text-background'
-                : 'text-muted-foreground hover:text-foreground'
-            )}
-          >
-            {t('sortLatest')}
-          </Link>
-          <Link
-            href={{
-              pathname: '/life',
-              query: { ...(tag ? { tag } : {}), sort: 'popular' },
-            }}
-            className={cn(
-              'rounded-md px-3 py-1 text-sm transition-colors',
-              activeSort === 'popular'
-                ? 'bg-foreground font-medium text-background'
-                : 'text-muted-foreground hover:text-foreground'
-            )}
-          >
-            {t('sortPopular')}
-          </Link>
         </div>
       </div>
 
