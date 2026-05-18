@@ -124,7 +124,7 @@ export function RailNav() {
         ))}
 
         <Link
-          href="/resume"
+          href="#"
           aria-label={t('avatarLabel')}
           className="relative mt-2 block h-10 w-10 overflow-hidden rounded-full ring-2 ring-transparent transition-all hover:scale-110 hover:ring-primary focus-visible:scale-110"
         >
