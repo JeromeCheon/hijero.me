@@ -1,12 +1,14 @@
 'use client'
 
 import Giscus from '@giscus/react'
+import { useLocale } from 'next-intl'
 import { useTheme } from 'next-themes'
 
 // Giscus GitHub Discussions 댓글 컴포넌트
 // 환경변수 미설정 시 렌더링 스킵 (빌드 실패 방지)
 export default function GiscusComments() {
   const { resolvedTheme } = useTheme()
+  const locale = useLocale()
 
   const repo = process.env.NEXT_PUBLIC_GISCUS_REPO
   const repoId = process.env.NEXT_PUBLIC_GISCUS_REPO_ID
@@ -28,7 +30,7 @@ export default function GiscusComments() {
         emitMetadata="0"
         inputPosition="bottom"
         theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
-        lang="ko"
+        lang={locale}
         loading="lazy"
       />
     </div>
