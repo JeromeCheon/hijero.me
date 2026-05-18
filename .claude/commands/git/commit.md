@@ -29,7 +29,7 @@ Commit type prefixes to use:
 - `test:` — adding or modifying tests
 - `ci:` — CI/CD pipeline configuration
 
-Add a scope in parentheses when it clarifies the area: `feat(auth): Add OAuth login`.
+Do NOT add a scope in parentheses — use plain type prefixes only (e.g., `feat: Add OAuth login`, never `feat(auth): Add OAuth login`).
 
 Aim for the **minimum number of commits** that still separates meaningfully different concerns. Don't split a single cohesive change just to have more commits.
 
@@ -45,7 +45,7 @@ Example output format:
 ```
 Proposed commits:
 
-1. feat(auth): Add login form component
+1. feat: Add login form component
    - apps/web/components/auth/LoginForm.tsx
    - apps/web/app/(auth)/login/page.tsx
 
@@ -66,7 +66,7 @@ Once the user confirms, execute each commit in order:
 
 **Commit message rules:**
 
-- The verb after `type:` or `type(scope):` **must start with a capital letter** (e.g., `feat: Add login`, not `feat: add login`)
+- The verb after `type:` **must start with a capital letter** (e.g., `feat: Add login`, not `feat: add login`)
 - The message must be a single line
 - Do NOT add any trailers, footers, or signatures such as "Co-Authored-By", "Signed-off-by", or any other generated text
 - Only the conventional commit message itself
