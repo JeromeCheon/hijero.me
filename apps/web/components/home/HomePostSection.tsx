@@ -17,9 +17,9 @@ export async function HomePostSection({
   const posts = getAllPosts(locale, category).slice(0, 3)
 
   const tabs = [
-    { key: undefined, label: 'All' },
-    { key: 'tech' as const, label: 'Tech' },
-    { key: 'life' as const, label: 'Life' },
+    { key: undefined, label: t('tabAll') },
+    { key: 'tech' as const, label: t('tabTech') },
+    { key: 'life' as const, label: t('tabLife') },
   ]
 
   return (

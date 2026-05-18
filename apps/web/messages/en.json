@@ -21,7 +21,10 @@
     "website": "hijero.me",
     "projects": "Projects",
     "projectsComingSoon": "Coming soon",
-    "noPosts": "No posts yet"
+    "noPosts": "No posts yet",
+    "tabAll": "All",
+    "tabTech": "Tech",
+    "tabLife": "Life"
   },
   "NotFound": {
     "title": "Page not found",
@@ -38,7 +41,9 @@
     "closeMenu": "Close menu"
   },
   "Post": {
-    "backToList": "← {category} list"
+    "backToList": "← {category} list",
+    "relatedPosts": "Related posts",
+    "tableOfContents": "Table of contents"
   },
   "PostList": {
     "allTag": "All",

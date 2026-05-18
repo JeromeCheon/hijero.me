@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
 
 import { cn } from '@workspace/ui/lib/utils'
 
@@ -12,6 +13,7 @@ interface TableOfContentsProps {
 
 // 포스트 본문 헤딩 기반 목차 컴포넌트 — xl 이상 우측 sticky 배치
 export default function TableOfContents({ headings }: TableOfContentsProps) {
+  const t = useTranslations('Post')
   const [activeId, setActiveId] = useState<string>('')
 
   useEffect(() => {
@@ -44,11 +46,11 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
 
   return (
     <nav
-      aria-label="목차"
+      aria-label={t('tableOfContents')}
       className="sticky top-8 hidden max-h-[calc(100vh-4rem)] w-56 shrink-0 self-start overflow-y-auto xl:block"
     >
       <p className="mb-3 text-xs font-semibold tracking-wider text-muted-foreground uppercase">
-        목차
+        {t('tableOfContents')}
       </p>
       <ul className="space-y-1.5 text-sm">
         {headings.map(({ id, text, level }) => (

@@ -1,3 +1,5 @@
+import { getTranslations } from 'next-intl/server'
+
 import { Link } from '@/i18n/navigation'
 import { getAllPosts } from '@/lib/posts/getAllPosts'
 import type { Post } from '@/lib/posts/types'
@@ -12,10 +14,11 @@ function scorePost(current: Post, candidate: Post): number {
   return intersection.length
 }
 
-export default function RelatedPosts({
+export default async function RelatedPosts({
   currentPost,
   locale,
 }: RelatedPostsProps) {
+  const t = await getTranslations('Post')
   const allPosts = getAllPosts(locale)
 
   const related = allPosts
@@ -36,7 +39,7 @@ export default function RelatedPosts({
 
   return (
     <section className="mt-16 border-t border-border pt-8">
-      <h2 className="mb-6 text-lg font-semibold">관련 포스트</h2>
+      <h2 className="mb-6 text-lg font-semibold">{t('relatedPosts')}</h2>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {related.map((post) => (
           <Link
