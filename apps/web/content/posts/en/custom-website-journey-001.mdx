@@ -1,0 +1,108 @@
+---
+slug: custom-website-journey-001
+title: 'Building My Own Website, Part 1: Why I Started and How I Approached It'
+description: 'The first chapter of my journey building a personal site with Next.js App Router v16+, shadcn/ui, Tailwind CSS v4, and Supabase.'
+category: tech
+tags:
+  - Next.js
+  - Supabase
+publishedAt: '2026-05-16'
+featured: true
+---
+
+## Why I Started
+
+Back in July 2021, during my first internship, I got my initial taste of real-world development — and made a mental note that I'd build my own website someday.
+
+At the time, I figured it was more important to sharpen my skills through hands-on projects and work experience than to invest in a personal site. For quick write-ups on troubleshooting and retrospectives, I'd just use a dedicated blogging platform.
+
+So I tried velog first, then migrated to Tistory and wrote a few posts — but the habit never really stuck. Without enough motivation to maintain the space, I kept putting it off.
+
+Five years into my career, all the hard-won know-how and lessons from failure never got properly documented. They lived in my head for a while, then faded before I knew it.
+
+For any developer — especially a junior who's early in their career — you really need to revisit what you've learned and keep digesting it through writing. I wasn't doing that.
+
+Then AI started evolving at a breakneck pace, and the landscape of software development began to shift. Hurdles that used to be bottlenecks are now surmountable with AI by your side, and individual developers can build things faster and more freely than ever before.
+
+I decided it was finally time to act on that "someday."
+
+> Build a portfolio-grade web app that captures the project experience, know-how, and mindset I've accumulated — while also establishing a personal brand.<br/><br/>
+> Create something I genuinely care about, built entirely with my own hands, that shows the world who I really am.<br/><br/>
+> And while I'm at it, level up my ability to work effectively with AI.
+
+## How I Approached It
+
+The first question I wrestled with was: _how should I actually run this project?_
+
+The features I wanted to build were roughly mapped out — the deeper question was how to execute them step by step.
+
+My conclusion: adopt an **AI pair programming** workflow, using [Claude Code](https://claude.ai/code) (v2.1.142, claude-sonnet-4-6) as a senior developer collaborator.
+
+I looked at other AI agents — Codex CLI, Gemini CLI — but Claude Code was the tool I'd grown most comfortable with at work, and I wanted to put its full ecosystem (subagents, skills, MCP) to real use on this project.
+
+It took some back-and-forth to land on this approach, driven by two competing concerns.
+
+First, going fully DIY on the frontend. I wanted to design every component myself, drawing on my React experience — but the energy drain from CSS publishing (responsive layouts, pixel-level spacing, animations) would be brutal. I'd end up spending more time debugging styles than actually shipping features.
+
+On the flip side, handing everything over to AI didn't sit right either. Calling it "my own website" while not really understanding the code underneath would be a contradiction — and it wouldn't help me grow.
+
+The approach I landed on: pair with AI, but keep the key decisions in my own hands. Not just autocomplete — we think through design choices together, Claude drives the implementation, and I take ownership of layout structure, component wiring, and architectural decisions. Learning alongside building was part of the point.
+
+This is where **Context Engineering** becomes critical. There's a huge quality gap between throwing a vague prompt at an LLM and giving it structured context. With that in mind, I designed a pipeline from the very beginning of the planning phase:
+
+1. **PRD Generation Subagent**: Bounce ideas back and forth to draft an initial Product Requirements Document
+2. **PRD Validation Subagent**: Review technical feasibility and flag risks to refine the PRD
+3. **ROADMAP Subagent**: Break the PRD down into a phased development roadmap (Phase/Task units)
+4. **[Shrimp Task Manager](https://github.com/cjo4m06/mcp-shrimp-task-manager)**: Track and execute tasks from the roadmap one step at a time
+
+This pipeline kept the entire development effort coherent and on track.
+
+### Design
+
+No designer on this project, so references were everything.
+
+While browsing [Dribbble](https://dribbble.com/) for portfolio inspiration, [UntitledUI's portfolio design](https://dribbble.com/shots/23324524-Online-portfolio-Untitled-UI) stopped me cold. Clean, information-dense — exactly the feel I was after, and a solid base to build from.
+
+For UX, I referenced [EunWoo Park's ark-log](https://ark-log.vercel.app/engineering). The way it naturally blends a tech blog with a project portfolio was exactly the hybrid structure I had in mind.
+
+I combined both references to target a **"tech blog + portfolio"** hybrid architecture.
+
+### Development
+
+Naming the project was the first challenge. Starting from my English name "Jerome," I settled on `hijero.me` — a domain that's literally part of my name, carrying the idea of putting everything about me in one place.
+
+For the **project structure, I went with a Turbo-powered monorepo**. It leaves room to add new apps and packages down the road, with shared code managed in a single repository. I'll cover the specifics in the next post.
+
+#### Frontend
+
+**Next.js App Router v16+**: Blog posts get statically generated at build time (SSG), while dynamic data like view counts gets server-rendered (SSR) — this hybrid approach maps naturally onto React Server Components.
+
+**shadcn/ui**: Rather than installing an npm package, you copy component source code directly into your project. I wanted to explore this model of full component ownership while still getting Radix UI's accessibility guarantees and CVA's type-safe variant management.
+
+**Tailwind CSS v4**: The shift to a CSS variable-based configuration system in v4 made the integration with `shadcn/ui` feel a lot more natural.
+
+**MDX file-based content**: Posts are managed as `.mdx` files rather than stored in a database. Edit history shows up in git commit history, and static generation at build time means zero DB queries. I'll walk through the MDX pipeline setup in the next post.
+
+#### Backend
+
+My initial options were PostgreSQL + NestJS, or maybe a lightweight Express server. But once I listed out the actual server-side features I needed, the picture changed quickly.
+
+- Post view count tracking (`post_views`)
+- Viewer fingerprint logs for 24-hour deduplication (`post_view_logs`)
+- Future comment support (planning to use Giscus with GitHub Discussions)
+
+The scope was clearly limited — and on top of that, I'd been wanting to give **Supabase** a proper try in a real project. It bundles PostgreSQL + Auth + Storage + Row Level Security in one place, covers MVP requirements on the free plan, and there was no reason not to give it a shot.
+
+#### Infrastructure
+
+The deployment platform decision didn't take long. **Vercel** was the natural choice — Next.js is built by the same team, every App Router feature works out of the box, and PR-based Preview URL deploys fit perfectly into the development workflow.
+
+## Wrapping Up
+
+From initial planning to first deployable state: about five days. The PRD → validation → ROADMAP → Shrimp Task Manager pipeline genuinely helped keep development on track. Experiencing firsthand how much more coherent AI collaboration gets when you bring structured context — rather than vague prompts — was one of the biggest takeaways.
+
+There were some unexpectedly interesting problems to solve along the way: wiring up Material Design 3's Rail Navigation pattern with shadcn/ui, building a 24-hour deduplication system using `SHA-256(IP + User-Agent + Accept-Language)` without cookies, and working out how to access next-intl v4 messages from both Server and Client Components. Each one was an "oh, so that's how you do it" moment.
+
+That's how the first commit of [hijero.me](https://github.com/JeromeCheon/hijero.me) came to be. It's less a finished product than a living project I'll keep shaping over time — adding features, writing more, and steadily building up this space.
+
+Starting with the next post, I'll go deep into the actual implementation phase by phase: monorepo structure, navigation architecture, MDX pipeline setup, and the view count system.
