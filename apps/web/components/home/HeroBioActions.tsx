@@ -39,7 +39,7 @@ export function HeroBioActions({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start">
           <DropdownMenuItem asChild>
-            <Link href="/resume">{viewDetailLabel}</Link>
+            <Link href="#">{viewDetailLabel}</Link>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

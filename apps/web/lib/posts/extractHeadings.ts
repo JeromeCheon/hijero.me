@@ -17,7 +17,7 @@ function toSlugId(text: string): string {
   return text
     .toLowerCase()
     .replace(/\s+/g, '-')
-    .replace(/[^\wㄱ-힝가-힣-]/g, '')
+    .replace(/[^\wㄱ-ㆎ가-힣-]/g, '')
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '')
 }
