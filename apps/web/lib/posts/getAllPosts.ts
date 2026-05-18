@@ -1,5 +1,6 @@
 // Server Component에서만 import할 것 — 'use server' 없이 서버 전용 파일
 // 이 파일은 Node.js fs 모듈을 사용하므로 Client Component에서 import 불가
+import { cache } from 'react'
 import fs from 'fs'
 import path from 'path'
 
@@ -11,13 +12,10 @@ import type { Post } from './types'
 
 const CONTENT_DIR = path.join(process.cwd(), 'content', 'posts')
 
-export function getAllPosts(
-  locale: string,
-  category?: 'tech' | 'life'
-): Post[] {
+// 동일 요청 내 locale별 디스크 읽기를 1회로 제한 (generateMetadata, Page, RelatedPosts 중복 방지)
+const readAllPosts = cache(function readAllPostsRaw(locale: string): Post[] {
   const localeDir = path.join(CONTENT_DIR, locale)
 
-  // 디렉토리가 존재하지 않으면 빈 배열 반환
   if (!fs.existsSync(localeDir)) {
     return []
   }
@@ -56,6 +54,15 @@ export function getAllPosts(
       content,
     })
   }
+
+  return posts
+})
+
+export function getAllPosts(
+  locale: string,
+  category?: 'tech' | 'life'
+): Post[] {
+  const posts = readAllPosts(locale)
 
   // category 필터링
   const filtered =
