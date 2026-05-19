@@ -39,3 +39,28 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## transpilePackages
 
 `next.config.mjs`에서 `@workspace/ui`를 `transpilePackages`에 포함시킨다. 로컬 패키지가 pre-build되지 않으므로 Next.js가 직접 트랜스파일한다.
+
+## Notion CMS
+
+`lib/notion/` — Notion API 연동 레이어
+
+| 파일          | 역할                                                                                     |
+| ------------- | ---------------------------------------------------------------------------------------- |
+| `client.ts`   | 싱글턴 Client (`getNotionClient()`)                                                      |
+| `mappers.ts`  | 프로퍼티 추출기 (`extractTitle`, `extractRichText`, `extractMultiSelect`, `extractDate`) |
+| `blocks.ts`   | 블록 재귀 fetch + Markdown 변환 (`fetchBlocksRecursive`, `blocksToMarkdown`)             |
+| `projects.ts` | `getProjects()`, `getProjectById()` — React cache 래핑, 지수 백오프 재시도               |
+
+`lib/resume/` — 정적 fallback 데이터 (Notion API 실패 시 자동 사용)
+
+환경변수 (`apps/web/.env`):
+
+- `NOTION_API_KEY` — Notion Integration 키
+- `NOTION_PORTFOLIO_DB_ID` — Portfolio DB ID
+
+## 라우트
+
+| 경로                      | 설명                                |
+| ------------------------- | ----------------------------------- |
+| `/[locale]/resume`        | 이력서 페이지 (ISR revalidate=1800) |
+| `/[locale]/projects/[id]` | 프로젝트 상세 페이지 (Notion UUID)  |

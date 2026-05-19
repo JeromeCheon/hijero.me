@@ -45,8 +45,15 @@ pnpm dlx shadcn@latest add <component> -c apps/web
 `packages/ui/src/components/`에 컴포넌트가 추가됩니다.
 
 ```tsx
-import { Button } from "@workspace/ui/components/button"
+import { Button } from '@workspace/ui/components/button'
 ```
+
+## 주요 기능
+
+- **블로그 (tech / life)** — MDX 기반 포스트, Giscus 댓글, 조회수 카운터
+- **이력서 (`/resume`)** — Notion CMS 연동 프로젝트 카드, 클릭 시 상세 페이지 (`/projects/[id]`)
+- **다국어 (i18n)** — next-intl 기반 한국어 / 영어 지원
+- **다크/라이트 테마** — `d` 키 단축키, next-themes
 
 ## 패키지
 
