@@ -3,7 +3,11 @@ import { getTranslations } from 'next-intl/server'
 import { BadgeCheck } from 'lucide-react'
 import { HeroBioActions } from './HeroBioActions'
 
-export async function HeroBio() {
+interface HeroBioProps {
+  showActions?: boolean
+}
+
+export async function HeroBio({ showActions = true }: HeroBioProps) {
   const t = await getTranslations('Hero')
 
   const buyMeACoffeeUrl = process.env.NEXT_PUBLIC_BUY_ME_COFFEE_URL ?? '#'
@@ -36,12 +40,14 @@ export async function HeroBio() {
             <h1 className="text-2xl font-bold tracking-tight">{t('name')}</h1>
             <p className="mt-0.5 text-muted-foreground">{t('job')}</p>
           </div>
-          <HeroBioActions
-            buyMeACoffeeUrl={buyMeACoffeeUrl}
-            calChatUrl={calChatUrl}
-            coffeeChatLabel={t('coffeeChatLabel')}
-            viewDetailLabel={t('viewDetail')}
-          />
+          {showActions && (
+            <HeroBioActions
+              buyMeACoffeeUrl={buyMeACoffeeUrl}
+              calChatUrl={calChatUrl}
+              coffeeChatLabel={t('coffeeChatLabel')}
+              viewDetailLabel={t('viewDetail')}
+            />
+          )}
         </div>
 
         {/* Experience */}
