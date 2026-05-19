@@ -1,17 +1,17 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { setRequestLocale } from 'next-intl/server'
 
+import { routing } from '@/i18n/routing'
 import { getProjectById, getProjects } from '@/lib/notion/projects'
 import { ProjectDetail } from '@/components/project/ProjectDetail'
 
 export const revalidate = 1800
 
-const locales = ['ko', 'en']
-
 export async function generateStaticParams() {
   try {
     const projects = await getProjects()
-    return locales.flatMap((locale) =>
+    return routing.locales.flatMap((locale) =>
       projects.map((project) => ({ locale, id: project.id }))
     )
   } catch {
@@ -22,7 +22,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>
+  params: Promise<{ locale: string; id: string }>
 }): Promise<Metadata> {
   const { id } = await params
   const project = await getProjectById(id)
@@ -38,7 +38,9 @@ export default async function ProjectPage({
 }: {
   params: Promise<{ locale: string; id: string }>
 }) {
-  const { id } = await params
+  const { locale, id } = await params
+  setRequestLocale(locale)
+
   const project = await getProjectById(id)
   if (!project) notFound()
   return <ProjectDetail project={project} />
