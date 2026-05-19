@@ -1,6 +1,7 @@
 import { cache } from 'react'
 import { isFullPageOrDataSource, isFullPage } from '@notionhq/client'
 import type { Project } from '@/lib/resume/types'
+import { koResumeData } from '@/lib/resume/data.ko'
 import { getNotionClient } from './client'
 import {
   extractTitle,
@@ -9,6 +10,11 @@ import {
   extractDate,
 } from './mappers'
 import { fetchBlocksRecursive, blocksToMarkdown } from './blocks'
+
+// 정적 fallback: Notion API 실패 또는 슬러그 ID로 접근 시 사용
+function getStaticProjectById(id: string): Project | null {
+  return koResumeData.projects.find((p) => p.id === id) ?? null
+}
 
 async function withRetry<T>(fn: () => Promise<T>, maxRetries = 3): Promise<T> {
   for (let attempt = 0; attempt < maxRetries; attempt++) {
@@ -85,7 +91,7 @@ export const getProjectById = cache(
         withRetry(() => fetchBlocksRecursive(notion, id)),
       ])
 
-      if (!isFullPage(page)) return null
+      if (!isFullPage(page)) return getStaticProjectById(id)
 
       const markdownContent = blocksToMarkdown(blocks)
 
@@ -100,7 +106,8 @@ export const getProjectById = cache(
       }
     } catch (err) {
       console.error('[notion] getProjectById 오류:', err)
-      return null
+      // Notion API 실패 시 정적 데이터에서 fallback
+      return getStaticProjectById(id)
     }
   }
 )
