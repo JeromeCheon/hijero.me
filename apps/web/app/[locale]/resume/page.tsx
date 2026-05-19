@@ -1,5 +1,3 @@
-export const revalidate = 1800
-
 import { setRequestLocale } from 'next-intl/server'
 
 import { HeroBio } from '@/components/home/HeroBio'
@@ -7,6 +5,8 @@ import { ProfileSection } from '@/components/resume/ProfileSection'
 import { ProjectsSection } from '@/components/resume/ProjectsSection'
 import { SkillsSection } from '@/components/resume/SkillsSection'
 import { WorkExperienceSection } from '@/components/resume/WorkExperienceSection'
+
+export const revalidate = 1800
 
 export default async function ResumePage({
   params,
