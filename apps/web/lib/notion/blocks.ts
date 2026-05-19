@@ -1,5 +1,5 @@
 import { Client, isFullBlock } from '@notionhq/client'
-import type { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints'
+import type { BlockObjectResponse } from '@notionhq/client'
 
 type BlockWithChildren = BlockObjectResponse & {
   _children?: BlockWithChildren[]
