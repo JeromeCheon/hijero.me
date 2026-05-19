@@ -55,6 +55,11 @@ export const getProjects = cache(async (): Promise<Project[]> => {
     return response.results
       .filter(isFullPageOrDataSource)
       .filter(isFullPage)
+      .sort((a, b) => {
+        const aStart = extractDate(a.properties, 'Date')?.start ?? ''
+        const bStart = extractDate(b.properties, 'Date')?.start ?? ''
+        return bStart.localeCompare(aStart)
+      })
       .map((page) => ({
         id: page.id,
         name: extractTitle(page.properties, 'Name'),

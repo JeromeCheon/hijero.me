@@ -1,3 +1,5 @@
+export const revalidate = 1800
+
 import { HeroBio } from '@/components/home/HeroBio'
 import { ProfileSection } from '@/components/resume/ProfileSection'
 import { ProjectsSection } from '@/components/resume/ProjectsSection'

@@ -50,6 +50,9 @@
       "projects": "프로젝트"
     }
   },
+  "Project": {
+    "backToResume": "← 이력서로 돌아가기"
+  },
   "Post": {
     "backToList": "← {category} 목록",
     "relatedPosts": "관련 포스트",
