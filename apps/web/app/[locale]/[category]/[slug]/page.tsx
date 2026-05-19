@@ -152,7 +152,7 @@ export default async function PostPage({
             </header>
 
             {/* MDX 본문 */}
-            <article className="prose prose-neutral dark:prose-invert max-w-none">
+            <article className="prose max-w-none prose-neutral dark:prose-invert">
               <MDXContent />
             </article>
 
