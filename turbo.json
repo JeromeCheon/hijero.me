@@ -21,5 +21,9 @@
       "persistent": true
     }
   },
-  "globalEnv": ["SUPABASE_SERVICE_ROLE_KEY"]
+  "globalEnv": [
+    "SUPABASE_SERVICE_ROLE_KEY",
+    "NOTION_API_KEY",
+    "NOTION_PORTFOLIO_DB_ID"
+  ]
 }
