@@ -35,10 +35,20 @@
     "home": "Home",
     "tech": "Tech",
     "life": "Life",
+    "resume": "Resume",
     "search": "Search",
     "avatarLabel": "My Profile",
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
+  },
+  "Resume": {
+    "profile": {
+      "about": "About",
+      "skills": "Skills",
+      "experience": "Experience",
+      "education": "Education",
+      "projects": "Projects"
+    }
   },
   "Post": {
     "backToList": "← {category} list",

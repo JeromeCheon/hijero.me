@@ -35,10 +35,20 @@
     "home": "홈",
     "tech": "기술",
     "life": "일상",
+    "resume": "이력서",
     "search": "검색",
     "avatarLabel": "내 프로필",
     "openMenu": "메뉴 열기",
     "closeMenu": "메뉴 닫기"
+  },
+  "Resume": {
+    "profile": {
+      "about": "소개",
+      "skills": "기술 스택",
+      "experience": "경력",
+      "education": "학력",
+      "projects": "프로젝트"
+    }
   },
   "Post": {
     "backToList": "← {category} 목록",
