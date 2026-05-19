@@ -1,4 +1,4 @@
-import type { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints'
+import type { PageObjectResponse } from '@notionhq/client'
 
 export function extractTitle(
   properties: PageObjectResponse['properties'],
