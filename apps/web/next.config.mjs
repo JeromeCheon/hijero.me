@@ -26,7 +26,11 @@ const nextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   transpilePackages: ['@workspace/ui'],
   images: {
-    remotePatterns: [{ hostname: 'cdn.buymeacoffee.com' }],
+    remotePatterns: [
+      { hostname: 'cdn.buymeacoffee.com' },
+      { hostname: 'prod-files-secure.s3.us-west-2.amazonaws.com' },
+      { hostname: 'www.notion.so' },
+    ],
   },
 }
 
