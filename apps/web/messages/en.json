@@ -50,6 +50,9 @@
       "projects": "Projects"
     }
   },
+  "Project": {
+    "backToResume": "← Back to Resume"
+  },
   "Post": {
     "backToList": "← {category} list",
     "relatedPosts": "Related posts",
