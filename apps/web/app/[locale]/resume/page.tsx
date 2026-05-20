@@ -1,4 +1,5 @@
-import { setRequestLocale } from 'next-intl/server'
+import type { Metadata } from 'next'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { HeroBio } from '@/components/home/HeroBio'
 import { ProfileSection } from '@/components/resume/ProfileSection'
@@ -8,11 +9,35 @@ import { WorkExperienceSection } from '@/components/resume/WorkExperienceSection
 
 export const revalidate = 1800
 
-export default async function ResumePage({
+type ResumePageProps = { params: Promise<{ locale: string }> }
+
+export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ locale: string }>
-}) {
+}: ResumePageProps): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'Meta.resume' })
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hijero-me.vercel.app'
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: t('title'),
+      description: t('description'),
+      url: `${siteUrl}/${locale}/resume`,
+      siteName: 'hijero.me',
+      locale,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('title'),
+      description: t('description'),
+    },
+  }
+}
+
+export default async function ResumePage({ params }: ResumePageProps) {
   const { locale } = await params
   setRequestLocale(locale)
 
