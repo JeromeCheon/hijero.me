@@ -4,6 +4,7 @@ import { getMessages, setRequestLocale } from 'next-intl/server'
 import '@workspace/ui/globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { RailNav } from '@/components/nav/RailNav'
+import { CommandPalette } from '@/components/search/CommandPalette'
 import { MobileHeader } from '@/components/nav/MobileHeader'
 import { PinnedGNB } from '@/components/nav/PinnedGNB'
 import { cn } from '@workspace/ui/lib/utils'
@@ -48,6 +49,7 @@ export default async function LocaleLayout({
       <body className="bg-background text-foreground">
         <ThemeProvider>
           <NextIntlClientProvider messages={messages}>
+            <CommandPalette />
             <div className="flex min-h-svh">
               <aside
                 aria-label="Main navigation"

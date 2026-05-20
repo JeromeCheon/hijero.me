@@ -58,6 +58,12 @@
     "relatedPosts": "Related posts",
     "tableOfContents": "Table of contents"
   },
+  "Search": {
+    "placeholder": "Search...",
+    "noResults": "No results found",
+    "posts": "Posts",
+    "pages": "Pages"
+  },
   "PostList": {
     "allTag": "All",
     "sortLatest": "Latest",
@@ -68,5 +74,23 @@
     "postCount": "{count} posts",
     "techTitle": "About Tech, Development",
     "lifeTitle": "About Life, Etc"
+  },
+  "Meta": {
+    "home": {
+      "title": "Jerome | Full-Stack Software Engineer",
+      "description": "Portfolio of Jerome, a 5-year full-stack developer spanning IoT systems to AI agent services"
+    },
+    "tech": {
+      "title": "Tech | Jerome",
+      "description": "Posts about development, architecture, and technology trends"
+    },
+    "life": {
+      "title": "Life | Jerome",
+      "description": "Posts about daily life and thoughts"
+    },
+    "resume": {
+      "title": "Resume | Jerome",
+      "description": "Jerome's resume — experience, projects, and tech stack"
+    }
   }
 }

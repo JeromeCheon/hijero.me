@@ -29,6 +29,7 @@ export function RailNav() {
         type="button"
         aria-label={t('search')}
         className="flex h-10 w-10 items-center justify-center rounded-xl text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        onClick={() => window.dispatchEvent(new CustomEvent('open-search'))}
       >
         <Search className="size-5" />
       </button>

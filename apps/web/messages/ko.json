@@ -58,6 +58,12 @@
     "relatedPosts": "관련 포스트",
     "tableOfContents": "목차"
   },
+  "Search": {
+    "placeholder": "검색어를 입력하세요...",
+    "noResults": "검색 결과가 없습니다",
+    "posts": "포스트",
+    "pages": "페이지"
+  },
   "PostList": {
     "allTag": "전체",
     "sortLatest": "최신순",
@@ -68,5 +74,23 @@
     "postCount": "{count}개의 포스트",
     "techTitle": "개발 관련",
     "lifeTitle": "일상 관련"
+  },
+  "Meta": {
+    "home": {
+      "title": "Jerome | Full-Stack Software Engineer",
+      "description": "IoT 시스템 확장부터 AI 에이전트 서비스까지 다양한 도메인을 넘나드는 5년 차 풀스택 개발자 Jerome의 포트폴리오"
+    },
+    "tech": {
+      "title": "Tech | Jerome",
+      "description": "개발, 아키텍처, 기술 트렌드에 관한 포스트"
+    },
+    "life": {
+      "title": "Life | Jerome",
+      "description": "일상과 생각을 담은 포스트"
+    },
+    "resume": {
+      "title": "Resume | Jerome",
+      "description": "Jerome의 이력서 — 경력, 프로젝트, 기술 스택"
+    }
   }
 }
