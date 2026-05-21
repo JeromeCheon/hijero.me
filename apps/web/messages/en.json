@@ -11,6 +11,7 @@
     "job": "Full-Stack Software Engineer",
     "about": "About Me",
     "experienceLabel": "I am a 5+ years experienced software engineer who has worked across various domains, from scaling IoT systems to automating AI agent-based services, by fearlessly overcoming challenges without boundaries in learning.",
+    "experienceResumeLabel": "I go beyond simply implementing given requirements well — I relentlessly dig into the essence and root cause of problems, questioning why they are needed, and I pursue making meaningful, real contributions to customers and the company.\n\nWith a small team, I have joyfully built diverse experience spanning Web FE, BE, infrastructure operations, resource management, and team leadership — through the process of analyzing system problems and their root causes to grow an IoT service that once failed at just a few thousand devices into one that stably controls and manages an average of 50,000 devices per month within the same resources, over four years.\n\nRecently, in step with the AI era, I have been expanding my joy of learning further — into improving team development productivity through AI Agent adoption and building RAG-based AI Agents.",
     "coffeeChatLabel": "Coffee chat",
     "viewDetail": "View Detail"
   },
