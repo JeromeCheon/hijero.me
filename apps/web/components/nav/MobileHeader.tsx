@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Menu, Sun, Moon } from 'lucide-react'
+import { Menu, Sun, Moon, Search } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import { useLocale } from 'next-intl'
@@ -60,6 +60,14 @@ export function MobileHeader() {
       <div className="flex-1" />
 
       <div className="flex items-center gap-1 rounded-lg border border-border bg-background/80 p-1">
+        <button
+          type="button"
+          aria-label={t('search')}
+          onClick={() => window.dispatchEvent(new CustomEvent('open-search'))}
+          className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        >
+          <Search className="size-4" />
+        </button>
         <button
           type="button"
           onClick={toggleTheme}
