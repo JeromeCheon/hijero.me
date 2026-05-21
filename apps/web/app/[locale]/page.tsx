@@ -8,8 +8,7 @@ type Props = { params: Promise<{ locale: string }> }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'Meta.home' })
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hijero-me.vercel.app'
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hijero.me'
   return {
     title: t('title'),
     description: t('description'),
