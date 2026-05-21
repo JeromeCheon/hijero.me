@@ -195,3 +195,17 @@ code[data-theme*=' '] span {
 .prose pre {
   @apply bg-transparent p-0;
 }
+
+/* inline code 블록의 백틱(backtick) 숨기기 */
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+  content: "";
+}
+
+/* blockquote의 큰따옴표(quote marks) 숨기기 */
+.prose blockquote p:first-of-type::before,
+.prose blockquote p:last-of-type::after {
+  content: none;
+}
+
+
