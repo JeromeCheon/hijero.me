@@ -9,6 +9,7 @@ import { MobileHeader } from '@/components/nav/MobileHeader'
 import { PinnedGNB } from '@/components/nav/PinnedGNB'
 import { cn } from '@workspace/ui/lib/utils'
 import { routing } from '@/i18n/routing'
+import { Analytics } from "@vercel/analytics/next"
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -47,6 +48,7 @@ export default async function LocaleLayout({
       )}
     >
       <body className="bg-background text-foreground">
+        <Analytics />
         <ThemeProvider>
           <NextIntlClientProvider messages={messages}>
             <CommandPalette />
