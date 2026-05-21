@@ -143,14 +143,25 @@ function extractText(richTextBlock: {
     .map((text) => {
       let content = text.plain_text || ''
 
-      if (text.annotations) {
-        if (text.annotations.code) content = `\`${content}\``
-        if (text.annotations.bold) content = `**${content}**`
-        if (text.annotations.italic) content = `*${content}*`
-        if (text.annotations.strikethrough) content = `~~${content}~~`
-      }
+      const trimmed = content.trim()
+      if (trimmed) {
+        const leading = content.match(/^\s*/)?.[0] || ''
+        const trailing = content.match(/\s*$/)?.[0] || ''
+        let decorated = trimmed
 
-      if (text.href) content = `[${content}](${text.href})`
+        if (text.annotations) {
+          if (text.annotations.code) decorated = `\`${decorated}\``
+          if (text.annotations.bold) decorated = `**${decorated}**`
+          if (text.annotations.italic) decorated = `*${decorated}*`
+          if (text.annotations.strikethrough) decorated = `~~${decorated}~~`
+        }
+
+        if (text.href) {
+          decorated = `[${decorated}](${text.href})`
+        }
+
+        content = `${leading}${decorated}${trailing}`
+      }
 
       return content
     })
