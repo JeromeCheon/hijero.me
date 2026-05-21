@@ -1,15 +1,15 @@
 import type { MetadataRoute } from 'next'
 import { getAllPosts } from '@/lib/posts/getAllPosts'
+import { getProjects } from '@/lib/notion/projects'
+import { routing } from '@/i18n/routing'
 
-const locales = ['ko', 'en']
 const staticRoutes = ['', '/tech', '/life', '/resume']
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hijero-me.vercel.app'
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hijero.me'
   const now = new Date()
 
-  const staticEntries = locales.flatMap((locale) =>
+  const staticEntries = routing.locales.flatMap((locale) =>
     staticRoutes.map((route) => ({
       url: `${siteUrl}/${locale}${route}`,
       lastModified: now,
@@ -20,7 +20,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const postEntries = (
     await Promise.all(
-      locales.map(async (locale) => {
+      routing.locales.map(async (locale) => {
         const posts = getAllPosts(locale)
         return posts.map((post) => ({
           url: `${siteUrl}/${locale}/${post.category}/${post.slug}`,
@@ -32,5 +32,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     )
   ).flat()
 
-  return [...staticEntries, ...postEntries]
+  // Notion API 실패 시 빈 배열로 안전하게 처리
+  const projects = await getProjects().catch(() => [])
+  const projectEntries = routing.locales.flatMap((locale) =>
+    projects.map((project) => ({
+      url: `${siteUrl}/${locale}/projects/${project.id}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    }))
+  )
+
+  return [...staticEntries, ...postEntries, ...projectEntries]
 }
