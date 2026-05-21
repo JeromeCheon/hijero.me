@@ -42,7 +42,7 @@ export default async function ResumePage({ params }: ResumePageProps) {
 
   return (
     <div className="space-y-6">
-      <HeroBio showActions={false} />
+      <HeroBio showActions={false} showFullBio />
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_2fr]">
         <div className="space-y-4">
           <ProfileSection />

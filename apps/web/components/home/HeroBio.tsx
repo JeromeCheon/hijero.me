@@ -5,9 +5,13 @@ import { HeroBioActions } from './HeroBioActions'
 
 interface HeroBioProps {
   showActions?: boolean
+  showFullBio?: boolean
 }
 
-export async function HeroBio({ showActions = true }: HeroBioProps) {
+export async function HeroBio({
+  showActions = true,
+  showFullBio = false,
+}: HeroBioProps) {
   const t = await getTranslations('Hero')
 
   const buyMeACoffeeUrl = process.env.NEXT_PUBLIC_BUY_ME_COFFEE_URL ?? '#'
@@ -53,9 +57,21 @@ export async function HeroBio({ showActions = true }: HeroBioProps) {
         {/* Experience */}
         <div className="mt-5">
           <p className="text-sm font-medium">{t('about')}</p>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {t('experienceLabel')}
-          </p>
+          {showFullBio ? (
+            <div className="mt-1 space-y-3">
+              {t('experienceResumeLabel')
+                .split('\n\n')
+                .map((para, i) => (
+                  <p key={i} className="text-sm text-muted-foreground">
+                    {para}
+                  </p>
+                ))}
+            </div>
+          ) : (
+            <p className="mt-1 text-sm text-muted-foreground">
+              {t('experienceLabel')}
+            </p>
+          )}
         </div>
       </div>
     </section>
