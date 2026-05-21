@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
+import { useRouter } from '@/i18n/navigation'
 import {
   Command,
   CommandDialog,
@@ -109,7 +109,7 @@ export function CommandPalette() {
 
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
-      <Command>
+      <Command shouldFilter={false}>
         <CommandInput
           placeholder={t('placeholder')}
           value={query}
