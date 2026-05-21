@@ -13,8 +13,7 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'Meta.life' })
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hijero-me.vercel.app'
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hijero.me'
   return {
     title: t('title'),
     description: t('description'),
