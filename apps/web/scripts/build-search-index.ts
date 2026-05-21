@@ -28,62 +28,26 @@ type Locale = (typeof LOCALES)[number]
 
 const NAV_ITEMS: Record<Locale, SearchIndexItem[]> = {
   ko: [
-    {
-      type: 'page',
-      slug: 'home',
-      title: '홈',
-      url: '/ko/',
-      locale: 'ko',
-    },
-    {
-      type: 'page',
-      slug: 'tech',
-      title: 'Tech',
-      url: '/ko/tech',
-      locale: 'ko',
-    },
-    {
-      type: 'page',
-      slug: 'life',
-      title: 'Life',
-      url: '/ko/life',
-      locale: 'ko',
-    },
+    { type: 'page', slug: 'home', title: '홈', url: '/', locale: 'ko' },
+    { type: 'page', slug: 'tech', title: 'Tech', url: '/tech', locale: 'ko' },
+    { type: 'page', slug: 'life', title: 'Life', url: '/life', locale: 'ko' },
     {
       type: 'page',
       slug: 'resume',
       title: '이력서',
-      url: '/ko/resume',
+      url: '/resume',
       locale: 'ko',
     },
   ],
   en: [
-    {
-      type: 'page',
-      slug: 'home',
-      title: 'Home',
-      url: '/en/',
-      locale: 'en',
-    },
-    {
-      type: 'page',
-      slug: 'tech',
-      title: 'Tech',
-      url: '/en/tech',
-      locale: 'en',
-    },
-    {
-      type: 'page',
-      slug: 'life',
-      title: 'Life',
-      url: '/en/life',
-      locale: 'en',
-    },
+    { type: 'page', slug: 'home', title: 'Home', url: '/', locale: 'en' },
+    { type: 'page', slug: 'tech', title: 'Tech', url: '/tech', locale: 'en' },
+    { type: 'page', slug: 'life', title: 'Life', url: '/life', locale: 'en' },
     {
       type: 'page',
       slug: 'resume',
       title: 'Resume',
-      url: '/en/resume',
+      url: '/resume',
       locale: 'en',
     },
   ],
@@ -106,8 +70,8 @@ function buildIndexForLocale(locale: Locale): SearchIndexItem[] {
       const category = data.category as string | undefined
       const url =
         category === 'tech' || category === 'life'
-          ? `/${locale}/${category}/${slug}`
-          : `/${locale}/tech/${slug}`
+          ? `/${category}/${slug}`
+          : `/tech/${slug}`
 
       items.push({
         type: 'post',
