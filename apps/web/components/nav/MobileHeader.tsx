@@ -5,6 +5,7 @@ import { Menu, Sun, Moon, Search } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import { useLocale } from 'next-intl'
+import Image from 'next/image'
 
 import { Link, usePathname, useRouter } from '@/i18n/navigation'
 import { navItems, socialLinks } from '@/config/nav'
@@ -49,12 +50,14 @@ export function MobileHeader() {
         'flex h-14 items-center gap-2 border-b border-border bg-background/80 px-4 backdrop-blur-sm'
       )}
     >
-      <Link
-        href="/"
-        className="flex items-center font-bold text-primary"
-        aria-label="홈으로 이동"
-      >
-        🖐🏻Hi
+      <Link href="/" aria-label="홈으로 이동">
+        <Image
+          src="/logo.png"
+          alt="hijero"
+          width={32}
+          height={32}
+          className="rounded-full"
+        />
       </Link>
 
       <div className="flex-1" />

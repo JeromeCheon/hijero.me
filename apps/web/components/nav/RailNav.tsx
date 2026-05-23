@@ -18,11 +18,14 @@ export function RailNav() {
       aria-label={t('avatarLabel')}
     >
       {/* 로고 */}
-      <Link
-        href="/"
-        className="mb-2 flex h-10 w-10 items-center justify-center rounded-xl font-bold text-primary"
-      >
-        🖐🏻Hi
+      <Link href="/" className="mb-2" aria-label="홈으로 이동">
+        <Image
+          src="/logo.png"
+          alt="hijero"
+          width={40}
+          height={40}
+          className="rounded-full"
+        />
       </Link>
 
       <button
