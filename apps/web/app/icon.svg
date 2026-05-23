@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 680">
+  <circle cx="340" cy="340" r="310" fill="#111111"/>
+  <g transform="translate(143, 93)">
+    <!-- ROW 0: P P G G P P J J -->
+    <rect x="0"   y="0"   width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="50"  y="0"   width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="100" y="0"   width="44" height="44" rx="8" fill="#C0BDD4"/>
+    <rect x="150" y="0"   width="44" height="44" rx="8" fill="#C0BDD4"/>
+    <rect x="200" y="0"   width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="250" y="0"   width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="300" y="0"   width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="350" y="0"   width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <!-- ROW 1: P P G G P P J J -->
+    <rect x="0"   y="50"  width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="50"  y="50"  width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="100" y="50"  width="44" height="44" rx="8" fill="#C0BDD4"/>
+    <rect x="150" y="50"  width="44" height="44" rx="8" fill="#C0BDD4"/>
+    <rect x="200" y="50"  width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="250" y="50"  width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="300" y="50"  width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="350" y="50"  width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <!-- ROW 2: P P G G P P J J -->
+    <rect x="0"   y="100" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="50"  y="100" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="100" y="100" width="44" height="44" rx="8" fill="#C0BDD4"/>
+    <rect x="150" y="100" width="44" height="44" rx="8" fill="#C0BDD4"/>
+    <rect x="200" y="100" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="250" y="100" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="300" y="100" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="350" y="100" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <!-- ROW 3: P P P P P P J J  crossbar -->
+    <rect x="0"   y="150" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="50"  y="150" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="100" y="150" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="150" y="150" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="200" y="150" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="250" y="150" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="300" y="150" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="350" y="150" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <!-- ROW 4: P P P P P P J J -->
+    <rect x="0"   y="200" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="50"  y="200" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="100" y="200" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="150" y="200" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="200" y="200" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="250" y="200" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="300" y="200" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="350" y="200" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <!-- ROW 5: P P G G P P J J -->
+    <rect x="0"   y="250" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="50"  y="250" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="100" y="250" width="44" height="44" rx="8" fill="#C0BDD4"/>
+    <rect x="150" y="250" width="44" height="44" rx="8" fill="#C0BDD4"/>
+    <rect x="200" y="250" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="250" y="250" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="300" y="250" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="350" y="250" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <!-- ROW 6: P P J J P P J J -->
+    <rect x="0"   y="300" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="50"  y="300" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="100" y="300" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="150" y="300" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="200" y="300" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="250" y="300" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="300" y="300" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="350" y="300" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <!-- ROW 7: P P J J P P J J -->
+    <rect x="0"   y="350" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="50"  y="350" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="100" y="350" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="150" y="350" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="200" y="350" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="250" y="350" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="300" y="350" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="350" y="350" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <!-- ROW 8: P P J J J J J J -->
+    <rect x="0"   y="400" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="50"  y="400" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="100" y="400" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="150" y="400" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="200" y="400" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="250" y="400" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="300" y="400" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="350" y="400" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <!-- ROW 9: P P J J J J J J -->
+    <rect x="0"   y="450" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="50"  y="450" width="44" height="44" rx="8" fill="#5B3FE0"/>
+    <rect x="100" y="450" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="150" y="450" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="200" y="450" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="250" y="450" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="300" y="450" width="44" height="44" rx="8" fill="#3DBD8A"/>
+    <rect x="350" y="450" width="44" height="44" rx="8" fill="#3DBD8A"/>
+  </g>
+</svg>
