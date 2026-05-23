@@ -78,19 +78,19 @@
   },
   "Meta": {
     "home": {
-      "title": "Jerome | Full-Stack Software Engineer",
+      "title": "🖐🏻 hijero.me",
       "description": "IoT 시스템 확장부터 AI 에이전트 서비스까지 다양한 도메인을 넘나드는 5년 차 풀스택 개발자 Jerome의 포트폴리오"
     },
     "tech": {
-      "title": "Tech | Jerome",
+      "title": "Tech | hijero.me",
       "description": "개발, 아키텍처, 기술 트렌드에 관한 포스트"
     },
     "life": {
-      "title": "Life | Jerome",
+      "title": "Life | hijero.me",
       "description": "일상과 생각을 담은 포스트"
     },
     "resume": {
-      "title": "Resume | Jerome",
+      "title": "Resume | hijero.me",
       "description": "Jerome의 이력서 — 경력, 프로젝트, 기술 스택"
     }
   }
