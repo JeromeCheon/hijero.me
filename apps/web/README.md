@@ -11,7 +11,12 @@ hijero.me의 Next.js 웹 애플리케이션입니다.
 | Tailwind CSS            | v4                 |
 | shadcn/ui               | radix-luma         |
 | TypeScript              | 5.9.3              |
+| next-intl               | 4.12.0             |
+| @supabase/supabase-js   | 2.105.4            |
 | @notionhq/client        | 5.21.0             |
+| @giscus/react           | 3.1.0              |
+| @vercel/analytics       | 2.0.1              |
+| rehype-pretty-code      | 0.14.3             |
 | react-markdown          | 10.1.0             |
 | @tailwindcss/typography | 0.5.19             |
 
@@ -34,12 +39,19 @@ pnpm dev
 
 ```
 apps/web/
-├── app/          # Next.js App Router (layout, page)
-├── components/   # 앱 전용 컴포넌트
-├── hooks/        # 앱 전용 훅
+├── app/                  # Next.js App Router
+│   └── actions/          # Server Actions (incrementViewCount)
+├── components/           # 앱 전용 컴포넌트
+├── content/posts/{ko,en}/ # MDX 포스트
+├── hooks/                # 앱 전용 훅
+├── i18n/                 # next-intl 라우팅 설정
+├── messages/             # UI 번역 파일 {ko,en}.json
+├── scripts/              # 빌드 스크립트 (build-search-index.ts)
 └── lib/
-    ├── notion/   # Notion CMS 연동 (client, mappers, blocks, projects)
-    └── resume/   # 정적 이력서 데이터 (Notion API 실패 시 fallback)
+    ├── notion/           # Notion CMS 연동
+    ├── supabase/         # client / server / admin / database.types.ts
+    ├── posts/            # MDX 파싱 유틸
+    └── resume/           # 정적 이력서 데이터 (Notion API 실패 시 fallback)
 ```
 
 ## UI 컴포넌트

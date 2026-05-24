@@ -11,6 +11,7 @@ pnpm build        # 모든 앱 빌드
 pnpm lint         # 전체 린팅
 pnpm typecheck    # 전체 타입 체크
 pnpm format       # Prettier 포매팅
+pnpm check        # typecheck + lint + format:check 일괄 검사
 ```
 
 ## Dev 서버 실행 규칙
@@ -60,3 +61,14 @@ PostCSS 설정은 `packages/ui/postcss.config.mjs`에서 중앙화되며, `apps/
 
 - 모든 내부 패키지는 `@workspace/` 네임스페이스 사용
 - 패키지 간 참조는 `workspace:*` 프로토콜 사용
+
+## i18n (next-intl)
+
+로케일: `ko`(기본), `en` — 모든 라우트는 `/[locale]/` 접두사를 가진다.
+번역: `apps/web/messages/{ko,en}.json` / MDX: `apps/web/content/posts/{ko,en}/`
+로케일 전환: `useRouter().replace(pathname, { locale })` 패턴.
+
+## 환경변수
+
+`apps/web/.env` — 전체 목록은 `apps/web/.env.example` 참고.
+주요 그룹: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_SUPABASE_*`, `SUPABASE_SERVICE_ROLE_KEY`, `NOTION_*`, `NEXT_PUBLIC_GISCUS_*`.
