@@ -77,6 +77,7 @@ export function MobileHeader() {
           aria-label={
             resolvedTheme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'
           }
+          suppressHydrationWarning
           className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
         >
           {!mounted ? (
