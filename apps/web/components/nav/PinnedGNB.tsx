@@ -38,6 +38,7 @@ export function PinnedGNB() {
         aria-label={
           resolvedTheme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'
         }
+        suppressHydrationWarning
         className="flex h-10 w-10 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
       >
         {!mounted ? (
