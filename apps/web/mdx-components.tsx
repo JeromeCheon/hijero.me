@@ -4,6 +4,9 @@ import type {
   BlockquoteHTMLAttributes,
   HTMLAttributes,
   OlHTMLAttributes,
+  TableHTMLAttributes,
+  TdHTMLAttributes,
+  ThHTMLAttributes,
 } from 'react'
 import CodeBlock from '@/components/post/CodeBlock'
 
@@ -100,6 +103,26 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <li className="leading-7" {...props}>
         {children}
       </li>
+    ),
+    table: ({ children, ...props }: TableHTMLAttributes<HTMLTableElement>) => (
+      <div className="my-6 w-full overflow-x-auto">
+        <table className="w-full border-collapse text-sm" {...props}>
+          {children}
+        </table>
+      </div>
+    ),
+    th: ({ children, ...props }: ThHTMLAttributes<HTMLTableCellElement>) => (
+      <th
+        className="border border-border bg-muted px-4 py-2 text-left font-semibold"
+        {...props}
+      >
+        {children}
+      </th>
+    ),
+    td: ({ children, ...props }: TdHTMLAttributes<HTMLTableCellElement>) => (
+      <td className="border border-border px-4 py-2" {...props}>
+        {children}
+      </td>
     ),
     ...components,
   }
