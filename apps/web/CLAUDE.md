@@ -42,25 +42,27 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Notion CMS
 
-`lib/notion/` — Notion API 연동 레이어
+`lib/notion/` — 상세: `lib/notion/CLAUDE.md`
 
-| 파일          | 역할                                                                                     |
-| ------------- | ---------------------------------------------------------------------------------------- |
-| `client.ts`   | 싱글턴 Client (`getNotionClient()`)                                                      |
-| `mappers.ts`  | 프로퍼티 추출기 (`extractTitle`, `extractRichText`, `extractMultiSelect`, `extractDate`) |
-| `blocks.ts`   | 블록 재귀 fetch + Markdown 변환 (`fetchBlocksRecursive`, `blocksToMarkdown`)             |
-| `projects.ts` | `getProjects()`, `getProjectById()` — React cache 래핑, 지수 백오프 재시도               |
+## Supabase
 
-`lib/resume/` — 정적 fallback 데이터 (Notion API 실패 시 자동 사용)
+`lib/supabase/` — 상세 (클라이언트 3종 분리, 조회수 구조): `lib/supabase/CLAUDE.md`
 
-환경변수 (`apps/web/.env`):
+## 검색 인덱스
 
-- `NOTION_API_KEY` — Notion Integration 키
-- `NOTION_PORTFOLIO_DB_ID` — Portfolio DB ID
+`scripts/build-search-index.ts` — 상세 (prebuild 훅, CDN 서빙, 인덱스 스키마): `scripts/CLAUDE.md`
+
+## i18n
+
+`i18n/` — next-intl 설정. 번역: `messages/{ko,en}.json`. MDX: `content/posts/{ko,en}/`.
 
 ## 라우트
 
-| 경로                      | 설명                                |
-| ------------------------- | ----------------------------------- |
-| `/[locale]/resume`        | 이력서 페이지 (ISR revalidate=1800) |
-| `/[locale]/projects/[id]` | 프로젝트 상세 페이지 (Notion UUID)  |
+| 경로                          | 설명                         |
+| ----------------------------- | ---------------------------- |
+| `/[locale]/`                  | 홈 (HeroBio)                 |
+| `/[locale]/tech`              | Tech 포스트 목록             |
+| `/[locale]/life`              | Life 포스트 목록             |
+| `/[locale]/[category]/[slug]` | 포스트 상세                  |
+| `/[locale]/resume`            | 이력서 (ISR revalidate=1800) |
+| `/[locale]/projects/[id]`     | 프로젝트 상세 (Notion UUID)  |
