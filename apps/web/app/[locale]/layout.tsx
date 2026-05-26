@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { Geist_Mono, Space_Grotesk } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
@@ -23,6 +24,41 @@ const fontMono = Geist_Mono({
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hijero.me'
+  return {
+    metadataBase: new URL(siteUrl),
+    title: { default: 'hijero.me', template: '%s | hijero.me' },
+    description:
+      locale === 'ko'
+        ? '풀스택 개발자 Jerome의 개발 블로그'
+        : "Jerome's full-stack developer blog",
+    robots: { index: true, follow: true },
+    alternates: {
+      languages: {
+        ko: `${siteUrl}/ko`,
+        en: `${siteUrl}/en`,
+        'x-default': `${siteUrl}/ko`,
+      },
+    },
+    openGraph: {
+      type: 'website',
+      locale: locale === 'ko' ? 'ko_KR' : 'en_US',
+      alternateLocale: locale === 'ko' ? ['en_US'] : ['ko_KR'],
+      siteName: 'hijero.me',
+      url: `${siteUrl}/${locale}`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+    },
+  }
 }
 
 export default async function LocaleLayout({
