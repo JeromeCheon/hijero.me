@@ -2,8 +2,10 @@ import { notFound } from 'next/navigation'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import type { Metadata } from 'next'
 
+import { SITE_URL } from '@/lib/config/site'
 import { getAllPosts } from '@/lib/posts/getAllPosts'
 import { getPostBySlug } from '@/lib/posts/getPostBySlug'
+import { routing } from '@/i18n/routing'
 import { extractHeadings } from '@/lib/posts/extractHeadings'
 import GiscusComments from '@/components/post/GiscusComments'
 import PostBreadcrumb from '@/components/post/PostBreadcrumb'
@@ -46,29 +48,32 @@ export async function generateMetadata({
 }: {
   params: Promise<PageParams>
 }): Promise<Metadata> {
-  const { locale, category, slug } = await params
+  const { locale, slug } = await params
   const post = getPostBySlug(locale, slug)
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hijero.me'
 
   if (!post) {
     return { title: 'Not Found' }
   }
 
+  const canonicalUrl = `${SITE_URL}/${locale}/${post.category}/${slug}`
+  const altLanguages = Object.fromEntries(
+    routing.locales
+      .filter((l) => l !== locale && getPostBySlug(l, slug) != null)
+      .map((l) => [l, `${SITE_URL}/${l}/${post.category}/${slug}`])
+  )
+
   return {
     title: post.title,
     description: post.description,
     alternates: {
-      canonical: `${siteUrl}/${locale}/${category}/${slug}`,
-      languages: {
-        ko: `${siteUrl}/ko/${category}/${slug}`,
-        en: `${siteUrl}/en/${category}/${slug}`,
-      },
+      canonical: canonicalUrl,
+      languages: altLanguages,
     },
     openGraph: {
       title: post.title,
       description: post.description,
       type: 'article',
-      url: `${siteUrl}/${locale}/${category}/${slug}`,
+      url: canonicalUrl,
       publishedTime: post.publishedAt,
       tags: post.tags,
       images: [
@@ -120,7 +125,6 @@ export default async function PostPage({
 
   const formattedDate = post.publishedAt.slice(0, 10)
   const t = await getTranslations('PostList')
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hijero.me'
 
   return (
     <>
@@ -136,11 +140,11 @@ export default async function PostPage({
             author: {
               '@type': 'Person',
               name: 'Jerome',
-              url: siteUrl,
+              url: SITE_URL,
             },
-            url: `${siteUrl}/${locale}/${category}/${slug}`,
+            url: `${SITE_URL}/${locale}/${post.category}/${slug}`,
             inLanguage: locale,
-          }),
+          }).replace(/</g, '\\u003c'),
         }}
       />
       <ReadingProgressBar />
