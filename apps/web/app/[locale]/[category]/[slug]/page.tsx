@@ -46,8 +46,9 @@ export async function generateMetadata({
 }: {
   params: Promise<PageParams>
 }): Promise<Metadata> {
-  const { locale, slug } = await params
+  const { locale, category, slug } = await params
   const post = getPostBySlug(locale, slug)
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hijero.me'
 
   if (!post) {
     return { title: 'Not Found' }
@@ -56,12 +57,34 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.description,
+    alternates: {
+      canonical: `${siteUrl}/${locale}/${category}/${slug}`,
+      languages: {
+        ko: `${siteUrl}/ko/${category}/${slug}`,
+        en: `${siteUrl}/en/${category}/${slug}`,
+      },
+    },
     openGraph: {
       title: post.title,
       description: post.description,
       type: 'article',
+      url: `${siteUrl}/${locale}/${category}/${slug}`,
       publishedTime: post.publishedAt,
       tags: post.tags,
+      images: [
+        {
+          url: `/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description,
+      images: [`/opengraph-image`],
     },
   }
 }
@@ -97,8 +120,29 @@ export default async function PostPage({
 
   const formattedDate = post.publishedAt.slice(0, 10)
   const t = await getTranslations('PostList')
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hijero.me'
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            headline: post.title,
+            description: post.description,
+            datePublished: post.publishedAt,
+            author: {
+              '@type': 'Person',
+              name: 'Jerome',
+              url: siteUrl,
+            },
+            url: `${siteUrl}/${locale}/${category}/${slug}`,
+            inLanguage: locale,
+          }),
+        }}
+      />
       <ReadingProgressBar />
       <ViewCountTracker slug={post.slug} />
       <div className="mx-auto max-w-[1100px] py-8">
