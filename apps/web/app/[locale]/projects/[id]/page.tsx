@@ -26,10 +26,26 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, id } = await params
   const project = await getProjectById(id, locale)
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hijero.me'
+
   if (!project) return {}
+
   return {
     title: project.name,
     description: project.description,
+    openGraph: {
+      type: 'website',
+      title: project.name,
+      description: project.description ?? '',
+      url: `${siteUrl}/${locale}/projects/${id}`,
+      images: [{ url: `/opengraph-image`, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: project.name,
+      description: project.description ?? '',
+      images: [`/opengraph-image`],
+    },
   }
 }
 
