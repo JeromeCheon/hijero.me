@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { SITE_URL } from '@/lib/config/site'
 import { Geist_Mono, Space_Grotesk } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
@@ -32,9 +33,8 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
   const { locale } = await params
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hijero.me'
   return {
-    metadataBase: new URL(siteUrl),
+    metadataBase: new URL(SITE_URL),
     title: { default: 'hijero.me', template: '%s | hijero.me' },
     description:
       locale === 'ko'
@@ -43,9 +43,9 @@ export async function generateMetadata({
     robots: { index: true, follow: true },
     alternates: {
       languages: {
-        ko: `${siteUrl}/ko`,
-        en: `${siteUrl}/en`,
-        'x-default': `${siteUrl}/ko`,
+        ko: `${SITE_URL}/ko`,
+        en: `${SITE_URL}/en`,
+        'x-default': `${SITE_URL}/ko`,
       },
     },
     openGraph: {
@@ -53,7 +53,7 @@ export async function generateMetadata({
       locale: locale === 'ko' ? 'ko_KR' : 'en_US',
       alternateLocale: locale === 'ko' ? ['en_US'] : ['ko_KR'],
       siteName: 'hijero.me',
-      url: `${siteUrl}/${locale}`,
+      url: `${SITE_URL}/${locale}`,
     },
     twitter: {
       card: 'summary_large_image',

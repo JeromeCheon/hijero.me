@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { setRequestLocale } from 'next-intl/server'
 
+import { SITE_URL } from '@/lib/config/site'
 import { routing } from '@/i18n/routing'
 import { getProjectById, getProjects } from '@/lib/notion/projects'
 import { ProjectDetail } from '@/components/project/ProjectDetail'
@@ -26,18 +27,23 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, id } = await params
   const project = await getProjectById(id, locale)
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hijero.me'
 
   if (!project) return {}
 
   return {
     title: project.name,
     description: project.description,
+    alternates: {
+      canonical: `${SITE_URL}/${locale}/projects/${id}`,
+      languages: Object.fromEntries(
+        routing.locales.map((l) => [l, `${SITE_URL}/${l}/projects/${id}`])
+      ),
+    },
     openGraph: {
       type: 'website',
       title: project.name,
       description: project.description ?? '',
-      url: `${siteUrl}/${locale}/projects/${id}`,
+      url: `${SITE_URL}/${locale}/projects/${id}`,
       images: [{ url: `/opengraph-image`, width: 1200, height: 630 }],
     },
     twitter: {
