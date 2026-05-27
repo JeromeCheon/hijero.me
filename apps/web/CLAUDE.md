@@ -48,6 +48,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `lib/supabase/` — 상세 (클라이언트 3종 분리, 조회수 구조): `lib/supabase/CLAUDE.md`
 
+## SITE_URL
+
+`lib/config/site.ts` — `NEXT_PUBLIC_SITE_URL`을 읽어 `SITE_URL` 상수로 export.
+`sitemap.ts`, `robots.ts`, 각 페이지 `generateMetadata`에서 공통 참조하는 사이트 기준 URL.
+
 ## 검색 인덱스
 
 `scripts/build-search-index.ts` — 상세 (prebuild 훅, CDN 서빙, 인덱스 스키마): `scripts/CLAUDE.md`
