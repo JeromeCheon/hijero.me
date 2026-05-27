@@ -167,6 +167,26 @@ The `www` CNAME and `_vercel` TXT are set to DNS only (not Proxied) because enab
 
 ---
 
+## One More Thing: Check Your Environment Variables
+
+After completing the DNS integration, I headed over to [Google Search Console](https://search.google.com/search-console) to submit my sitemap — and noticed that the URLs inside it still pointed to `xxxx.vercel.app`.
+The culprit: the `NEXT_PUBLIC_SITE_URL` environment variable in Vercel was still set to the `.vercel.app` address from the initial deployment.
+
+In this project, `lib/config/site.ts` reads `NEXT_PUBLIC_SITE_URL` and exports it as the `SITE_URL` constant.
+Both `sitemap.ts` and `robots.ts` reference that constant directly — so if the value is wrong, every `sitemap.xml` URL, `robots.txt` sitemap pointer, canonical tag, and OG URL will point to the wrong address.
+
+> **Note**: Saving an environment variable in the Vercel dashboard does **not** rebuild your site. You need to trigger a Redeploy explicitly after saving for the change to take effect.
+
+The fix is straightforward:
+
+1. Vercel project → Settings → Environment Variables → update `NEXT_PUBLIC_SITE_URL` to your custom domain (`https://hijero.me`)
+2. Trigger a Redeploy → once it completes, open `https://hijero.me/sitemap.xml` directly to verify the URLs
+3. [Google Search Console](https://search.google.com/search-console) → Sitemaps → submit your sitemap URL
+
+Once Google successfully processes the sitemap, the **Submitted sitemaps** panel will show a "Success" status.
+
+---
+
 ## Wrap-up
 
 The whole process — from purchase to live DNS — took about 15–20 minutes. DNS propagation can take up to 48 hours in theory, but in my case it seemed to resolve within 5 minutes.
@@ -177,6 +197,8 @@ First, **Proxied vs DNS only** directly affects whether Vercel can issue its own
 
 Second, the **`_vercel` TXT record** is more interesting than it looks. It's not just a config value — it's an RFC-standard ownership verification mechanism designed to prevent domain hijacking in a multi-tenant platform. The same underscore-prefixed pattern used by `_dmarc` and `_acme-challenge`.
 
-That wraps it up. Buying a domain through Cloudflare and wiring it to Vercel is genuinely smooth, and I'm glad to have the personal infrastructure in place for whatever comes next.
+And finally, **environment variable hygiene**: if your app has a `NEXT_PUBLIC_SITE_URL` or similar constant that feeds your sitemap and SEO metadata, update it to your custom domain immediately after connecting — then redeploy. Miss this step and your sitemap will keep pointing at the wrong address.
+
+That wraps it up. Buying a domain on Cloudflare, wiring it to Vercel, and tidying up the environment variables is a clean end-to-end cycle — and I'm glad to have the personal infrastructure in place for whatever comes next.
 
 Thanks for reading.

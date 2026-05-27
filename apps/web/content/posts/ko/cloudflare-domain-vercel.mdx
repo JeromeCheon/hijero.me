@@ -201,6 +201,26 @@ A 레코드만 Proxied로 두어 메인 도메인은 Cloudflare CDN의 혜택을
 
 ---
 
+## 추가 확인 사항: 환경변수 업데이트 필요 여부
+
+도메인 연동을 마치고 [Google Search Console](https://search.google.com/search-console)에서 sitemap을 제출하러 들어갔는데, sitemap 내 URL이 여전히 `xxxx.vercel.app` 형태로 되어 있는 것을 발견했습니다.
+원인을 찾아보니 Vercel 환경변수 `NEXT_PUBLIC_SITE_URL`이 초기 배포 때 설정했던 `.vercel.app` 주소 그대로였습니다. 따라서 이 <u>환경변수값을 연결한 도메인으로 바꿔줘야 했습니다.</u>
+
+이 프로젝트에서는 `lib/config/site.ts`에서 `NEXT_PUBLIC_SITE_URL` 환경변수를 읽어 `SITE_URL` 상수를 만듭니다.
+그리고 `sitemap.ts`와 `robots.ts`가 이 상수를 공통으로 참조하고 있어, 변수 하나가 잘못되어 있으면 `sitemap.xml`, `robots.txt`, canonical 태그, OG URL 등이 전부 틀린 주소를 가리키게 됩니다.
+
+> **참고**: 환경변수 변경 후에는 **반드시 재배포**가 필요합니다. Vercel 대시보드에서 환경변수를 저장한 것만으로는 기존 빌드에 반영되지 않으므로, 저장 후 Redeploy를 명시적으로 트리거해야 합니다.
+
+처리 순서는 다음과 같습니다.
+
+1. Vercel 프로젝트 → Settings → Environment Variables → `NEXT_PUBLIC_SITE_URL` 값을 커스텀 도메인(`https://hijero.me`)으로 수정
+2. Redeploy 트리거 → 완료 후 `https://hijero.me/sitemap.xml` 직접 접근해 URL 확인
+3. [Google Search Console](https://search.google.com/search-console) → Sitemaps → sitemap URL 제출
+
+Google 이 sitemap을 통해 정상적으로 페이지들을 읽게 되면 **제출된 사이트맵** 에서 상태가 "성공" 으로 표시됩니다.
+
+---
+
 ## 마치며
 
 도메인 구매부터 실 연동 및 검증까지 전체 과정은 15-20분 정도 걸렸습니다.
@@ -216,6 +236,10 @@ Cloudflare Proxy를 켜면 트래픽이 Cloudflare 엣지에서 종료되어 Ver
 단순한 설정 값이 아니라, 멀티테넌트 플랫폼에서 도메인 하이재킹을 막기 위한 RFC 표준 기반의 소유권 검증 메커니즘이라는 점이 흥미로웠습니다.
 `_dmarc`나 `_acme-challenge`와 같은 패턴이라는 것도요.
 
-이렇게 해서 도메인 구매 및 연동까지 완료해 보았습니다. Cloudflare를 이렇게 개인적으로 활용해 보는게 좋은 것도 같습니다.
+마지막으로 **환경변수 업데이트** 역시 놓치기 쉬운 부분이었습니다.
+`NEXT_PUBLIC_SITE_URL`처럼 사이트 URL을 기반으로 하는 환경변수가 있다면, 도메인 연동 직후 값을 갱신하고 재배포해야 sitemap과 SEO 메타데이터가 올바른 URL을 가리킵니다.
+
+이렇게 해서 도메인 구매, Vercel 연동, 환경변수 정비까지 한 사이클을 마무리 해보았습니다. 
+Cloudflare를 이렇게 개인적으로 활용해 보는 것도 좋은 경험이었습니다.
 
 긴 글 읽어주셔서 감사합니다.
