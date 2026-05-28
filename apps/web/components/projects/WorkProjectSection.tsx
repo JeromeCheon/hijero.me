@@ -11,18 +11,26 @@ export async function WorkProjectSection() {
   let notionProjects: Awaited<ReturnType<typeof getProjects>> = []
   try {
     notionProjects = await getProjects()
-  } catch {
-    // Notion 실패 시 정적 이력서 데이터로 폴백
+  } catch (err) {
+    console.error(
+      '[WorkProjectSection] Notion fetch failed, using static fallback',
+      err
+    )
   }
 
-  const projects = notionProjects.length > 0 ? notionProjects : staticProjects
+  const usingNotionData = notionProjects.length > 0
+  const projects = usingNotionData ? notionProjects : staticProjects
 
   if (projects.length === 0) return null
 
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       {projects.map((project) => (
-        <WorkProjectCard key={project.id} project={project} />
+        <WorkProjectCard
+          key={project.id}
+          project={project}
+          showLink={usingNotionData}
+        />
       ))}
     </div>
   )

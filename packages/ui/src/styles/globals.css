@@ -267,6 +267,12 @@ code[data-theme*=' '] span {
   }
 }
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes bounce-drive {
   0%,
   100% {
