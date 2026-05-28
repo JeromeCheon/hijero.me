@@ -44,7 +44,7 @@ export interface StaticProject {
 const projects: StaticProject[] = [
   {
     slug: 'hijero-me',
-    thumbnailUrl: '/images/projects/hijero-me.png',
+    thumbnailUrl: '/images/projects/hijero-me.jpg',
     demoUrl: 'https://hijero.me',
     sourceUrl: 'https://github.com/hijero/hijero.me',
     title: {
