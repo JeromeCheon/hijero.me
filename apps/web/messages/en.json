@@ -37,6 +37,7 @@
     "tech": "Tech",
     "life": "Life",
     "resume": "Resume",
+    "projects": "Projects",
     "search": "Search",
     "avatarLabel": "My Profile",
     "openMenu": "Open menu",
@@ -75,6 +76,24 @@
     "postCount": "{count} posts",
     "techTitle": "About Tech, Development",
     "lifeTitle": "About Life, Etc"
+  },
+  "Projects": {
+    "title": "Projects",
+    "description": "A list of projects I have worked on",
+    "viewDemo": "View Demo",
+    "viewDetail": "View Detail",
+    "noProjects": "No projects yet",
+    "period": "Period",
+    "workProjects": "Work",
+    "personalProjects": "Personal",
+    "soloProject": "Solo",
+    "sectionOverview": "Overview",
+    "sectionProblem": "Problem",
+    "sectionTimeline": "Development Timeline",
+    "sectionTechStack": "Tech Stack",
+    "sectionKeyFeatures": "Key Features",
+    "sectionOutcome": "Outcome",
+    "sectionGallery": "Gallery"
   },
   "Meta": {
     "home": {

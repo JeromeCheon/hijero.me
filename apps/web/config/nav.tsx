@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react'
 
-import { Home, NotebookPen, SquareCode, Mail } from 'lucide-react'
+import { Home, NotebookPen, SquareCode, Mail, FolderGit2 } from 'lucide-react'
 
 // lucide-react v1.14에는 브랜드 아이콘 미포함 — 인라인 SVG로 대체
 export function GithubIcon({ className }: { className?: string }) {
@@ -31,7 +31,7 @@ export function LinkedinIcon({ className }: { className?: string }) {
   )
 }
 
-export type NavLabelKey = 'home' | 'tech' | 'life'
+export type NavLabelKey = 'home' | 'tech' | 'life' | 'projects'
 
 export const navItems: Array<{
   href: string
@@ -42,6 +42,7 @@ export const navItems: Array<{
   { href: '/', icon: Home, labelKey: 'home', exact: true },
   { href: '/tech', icon: SquareCode, labelKey: 'tech', exact: false },
   { href: '/life', icon: NotebookPen, labelKey: 'life', exact: false },
+  { href: '/projects', icon: FolderGit2, labelKey: 'projects', exact: false },
 ]
 
 export const socialLinks: Array<{

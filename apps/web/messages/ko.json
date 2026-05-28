@@ -37,6 +37,7 @@
     "tech": "기술",
     "life": "일상",
     "resume": "이력서",
+    "projects": "프로젝트",
     "search": "검색",
     "avatarLabel": "내 프로필",
     "openMenu": "메뉴 열기",
@@ -75,6 +76,24 @@
     "postCount": "{count}개의 포스트",
     "techTitle": "개발 관련",
     "lifeTitle": "일상 관련"
+  },
+  "Projects": {
+    "title": "프로젝트",
+    "description": "지금까지 진행한 프로젝트를 정리 해보았습니다.",
+    "viewDemo": "데모 보기",
+    "viewDetail": "상세 정보",
+    "noProjects": "프로젝트가 없습니다",
+    "period": "개발 기간",
+    "workProjects": "직장",
+    "personalProjects": "개인",
+    "soloProject": "1인 개발",
+    "sectionOverview": "개요",
+    "sectionProblem": "문제",
+    "sectionTimeline": "개발 타임라인",
+    "sectionTechStack": "기술 스택",
+    "sectionKeyFeatures": "구현 기능",
+    "sectionOutcome": "성과",
+    "sectionGallery": "갤러리"
   },
   "Meta": {
     "home": {
