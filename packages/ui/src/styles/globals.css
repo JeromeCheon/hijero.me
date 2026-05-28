@@ -49,6 +49,9 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
   --font-sans: var(--font-sans);
+  --animate-dot-flicker: dot-flicker 1.8s ease-in-out infinite;
+  --animate-jump-up: jump-up 0.4s ease-out;
+  --animate-icon-shake: icon-shake 0.5s ease-in-out;
 }
 
 :root {
@@ -118,6 +121,19 @@
   --sidebar-accent-foreground: oklch(0.987 0.002 197.1);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.56 0.021 213.5);
+}
+
+/* 섹션 헤더 형광펜 하이라이트: 다크에서는 hue 유지하며 lightness를 높여 대비 확보 */
+:root {
+  --section-highlight: color-mix(in oklab, var(--primary) 15%, transparent);
+}
+
+.dark {
+  --section-highlight: color-mix(
+    in oklab,
+    oklch(0.65 0.22 277) 40%,
+    transparent
+  );
 }
 
 @layer base {
@@ -199,7 +215,7 @@ code[data-theme*=' '] span {
 /* inline code 블록의 백틱(backtick) 숨기기 */
 .prose :not(pre) > code::before,
 .prose :not(pre) > code::after {
-  content: "";
+  content: '';
 }
 
 /* blockquote의 큰따옴표(quote marks) 숨기기 */
@@ -208,4 +224,45 @@ code[data-theme*=' '] span {
   content: none;
 }
 
+@keyframes dot-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
 
+@keyframes jump-up {
+  0% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes icon-shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(-8deg);
+  }
+  40% {
+    transform: rotate(8deg);
+  }
+  60% {
+    transform: rotate(-6deg);
+  }
+  80% {
+    transform: rotate(6deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
