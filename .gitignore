@@ -45,8 +45,7 @@ shrimp_data/
 .playwright-mcp
 
 # PRD and ROADMAP
-PRD.md
-ROADMAP.md
+docs/*.md
 
 # claude agent memory
 .claude/agent-memory
