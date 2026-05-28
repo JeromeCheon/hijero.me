@@ -61,13 +61,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `i18n/` — next-intl 설정. 번역: `messages/{ko,en}.json`. MDX: `content/posts/{ko,en}/`.
 
+## 정적 프로젝트 데이터
+
+`content/projects.ts` — 코드로 관리하는 정적 프로젝트 목록. `getAllProjects()` / `getProjectBySlug(id)` 유틸리티 제공.
+Notion 기반 프로젝트와 슬러그가 겹치지 않도록 주의한다.
+
 ## 라우트
 
-| 경로                          | 설명                         |
-| ----------------------------- | ---------------------------- |
-| `/[locale]/`                  | 홈 (HeroBio)                 |
-| `/[locale]/tech`              | Tech 포스트 목록             |
-| `/[locale]/life`              | Life 포스트 목록             |
-| `/[locale]/[category]/[slug]` | 포스트 상세                  |
-| `/[locale]/resume`            | 이력서 (ISR revalidate=1800) |
-| `/[locale]/projects/[id]`     | 프로젝트 상세 (Notion UUID)  |
+| 경로                          | 설명                                                 |
+| ----------------------------- | ---------------------------------------------------- |
+| `/[locale]/`                  | 홈 (HeroBio)                                         |
+| `/[locale]/tech`              | Tech 포스트 목록                                     |
+| `/[locale]/life`              | Life 포스트 목록                                     |
+| `/[locale]/[category]/[slug]` | 포스트 상세                                          |
+| `/[locale]/resume`            | 이력서 (ISR revalidate=1800)                         |
+| `/[locale]/projects`          | 프로젝트 목록 (정적 + 직장 프로젝트)                 |
+| `/[locale]/projects/[id]`     | 프로젝트 상세 (정적 슬러그 우선, 없으면 Notion UUID) |
