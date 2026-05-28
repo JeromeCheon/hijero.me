@@ -6,8 +6,15 @@ import { WorkProjectCard } from './WorkProjectCard'
 
 export async function WorkProjectSection() {
   const locale = await getLocale()
-  const notionProjects = await getProjects()
   const staticProjects = getResumeData(locale).projects
+
+  let notionProjects: Awaited<ReturnType<typeof getProjects>> = []
+  try {
+    notionProjects = await getProjects()
+  } catch {
+    // Notion 실패 시 정적 이력서 데이터로 폴백
+  }
+
   const projects = notionProjects.length > 0 ? notionProjects : staticProjects
 
   if (projects.length === 0) return null

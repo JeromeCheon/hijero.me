@@ -55,7 +55,7 @@ export async function StaticProjectDetail({
           href="/projects"
           className="mb-8 inline-flex text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
-          ← {t('title')}
+          <span aria-hidden="true">←</span> {t('title')}
         </Link>
 
         {/* Hero 섹션 */}
@@ -227,7 +227,9 @@ export async function StaticProjectDetail({
                   <Image
                     src={url}
                     alt={`${project.title[loc]} screenshot ${idx + 1}`}
-                    className="h-full w-full object-cover"
+                    fill
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                    className="object-cover"
                   />
                 </div>
               ))}

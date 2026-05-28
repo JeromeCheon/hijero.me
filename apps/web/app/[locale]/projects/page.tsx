@@ -77,7 +77,7 @@ export default async function ProjectsPage({
         <ProjectGrid
           projects={projects}
           emptyMessage={t('noProjects')}
-          showSoloBadge={true}
+          showSoloBadge
         />
       </section>
 

@@ -9,7 +9,10 @@ function isNavigationLink(link: HTMLAnchorElement): boolean {
   if (href.startsWith('#')) return false
   if (href.startsWith('mailto:') || href.startsWith('tel:')) return false
   if (link.target === '_blank') return false
-  if (href.startsWith('http') && link.host !== window.location.host)
+  if (
+    (href.startsWith('http') || href.startsWith('//')) &&
+    link.host !== window.location.host
+  )
     return false
   return true
 }
@@ -17,9 +20,19 @@ function isNavigationLink(link: HTMLAnchorElement): boolean {
 export function PageTransitionLoader() {
   const pathname = usePathname()
   const [isLoading, setIsLoading] = useState(false)
+  const [reducedMotion, setReducedMotion] = useState(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setReducedMotion(mq.matches)
+    const listener = (e: MediaQueryListEvent) => setReducedMotion(e.matches)
+    mq.addEventListener('change', listener)
+    return () => mq.removeEventListener('change', listener)
+  }, [])
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
+      if (e.ctrlKey || e.metaKey || e.shiftKey) return
       const link = (e.target as Element).closest('a')
       if (!link || !isNavigationLink(link as HTMLAnchorElement)) return
       setIsLoading(true)
@@ -32,32 +45,36 @@ export function PageTransitionLoader() {
     setIsLoading(false)
   }, [pathname])
 
+  // 네비게이션 실패/취소 시 8초 후 자동 해제
+  useEffect(() => {
+    if (!isLoading) return
+    const timer = setTimeout(() => setIsLoading(false), 8000)
+    return () => clearTimeout(timer)
+  }, [isLoading])
+
+  // Escape 키로 오버레이 직접 해제
+  useEffect(() => {
+    if (!isLoading) return
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsLoading(false)
+    }
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  }, [isLoading])
+
   if (!isLoading) return null
 
   return (
-    <>
-      <style>{`
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to   { transform: rotate(360deg); }
-        }
-        @keyframes bounce-drive {
-          0%, 100% { transform: translateY(0px); }
-          50%       { transform: translateY(-4px); }
-        }
-        @keyframes speed-line {
-          0%   { transform: translateX(0px);   opacity: 0.7; }
-          100% { transform: translateX(-18px); opacity: 0; }
-        }
-      `}</style>
-
-      <div
-        className="fixed inset-0 z-[200] flex items-center justify-center bg-background/70 backdrop-blur-sm"
-        aria-live="polite"
-        aria-label="페이지 로딩 중"
-      >
-        <div className="relative flex h-28 w-52 items-center justify-center">
-          {/* 자동차 SVG */}
+    <div
+      role="status"
+      aria-live="polite"
+      aria-label="페이지 로딩 중"
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-background/70 backdrop-blur-sm"
+    >
+      <div className="relative flex h-28 w-52 items-center justify-center">
+        {reducedMotion ? (
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+        ) : (
           <svg
             viewBox="0 0 160 75"
             width="160"
@@ -114,8 +131,8 @@ export function PageTransitionLoader() {
             {/* 앞유리 */}
             <path
               d="M70 30 L72 14 L108 14 L125 30Z"
-              fill="white"
-              opacity="0.2"
+              className="fill-background"
+              opacity="0.3"
             />
             {/* 앞바퀴 */}
             <circle cx="58" cy="60" r="13" fill="currentColor" />
@@ -123,7 +140,7 @@ export function PageTransitionLoader() {
               cx="58"
               cy="60"
               r="5"
-              fill="white"
+              className="fill-background"
               opacity="0.6"
               style={{
                 transformOrigin: '58px 60px',
@@ -136,7 +153,7 @@ export function PageTransitionLoader() {
               cx="120"
               cy="60"
               r="5"
-              fill="white"
+              className="fill-background"
               opacity="0.6"
               style={{
                 transformOrigin: '120px 60px',
@@ -150,12 +167,12 @@ export function PageTransitionLoader() {
               width="7"
               height="5"
               rx="2"
-              fill="white"
+              className="fill-background"
               opacity="0.7"
             />
           </svg>
-        </div>
+        )}
       </div>
-    </>
+    </div>
   )
 }

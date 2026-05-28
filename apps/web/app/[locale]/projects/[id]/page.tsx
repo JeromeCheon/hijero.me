@@ -60,7 +60,7 @@ export async function generateMetadata({
         description,
         url,
         ...(staticProject.thumbnailUrl
-          ? { images: [{ url: staticProject.thumbnailUrl }] }
+          ? { images: [{ url: `${SITE_URL}${staticProject.thumbnailUrl}` }] }
           : {}),
       },
     }
