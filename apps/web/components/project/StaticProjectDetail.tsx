@@ -1,11 +1,11 @@
 import { getTranslations } from 'next-intl/server'
 
 import type { StaticProject } from '@/content/projects'
-import Image from 'next/image'
 import { Badge } from '@workspace/ui/components/badge'
 import { Link } from '@/i18n/navigation'
 import ReadingProgressBar from '@/components/post/ReadingProgressBar'
 import ScrollToTopFAB from '@/components/post/ScrollToTopFAB'
+import ProjectGalleryCarousel from '@/components/project/ProjectGalleryCarousel'
 import {
   ExternalLink,
   Check,
@@ -218,22 +218,10 @@ export async function StaticProjectDetail({
             <h2 className="mb-4 text-2xl font-semibold">
               {t('sectionGallery')}
             </h2>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {project.galleryUrls.map((url, idx) => (
-                <div
-                  key={idx}
-                  className="relative aspect-video overflow-hidden rounded-lg bg-muted"
-                >
-                  <Image
-                    src={url}
-                    alt={`${project.title[loc]} screenshot ${idx + 1}`}
-                    fill
-                    sizes="(max-width: 640px) 100vw, 50vw"
-                    className="object-cover"
-                  />
-                </div>
-              ))}
-            </div>
+            <ProjectGalleryCarousel
+              urls={project.galleryUrls}
+              title={project.title[loc]}
+            />
           </section>
         )}
       </main>
