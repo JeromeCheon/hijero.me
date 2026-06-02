@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Image from 'next/image'
 
 import { cn } from '@workspace/ui/lib/utils'
@@ -18,7 +18,7 @@ import {
   DialogClose,
   DialogTitle,
 } from '@workspace/ui/components/dialog'
-import { X } from 'lucide-react'
+import { X, ZoomIn, ZoomOut } from 'lucide-react'
 
 interface ProjectGalleryCarouselProps {
   urls: string[]
@@ -33,6 +33,16 @@ export default function ProjectGalleryCarousel({
   const [activeIndex, setActiveIndex] = useState(0)
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [lightboxUrl, setLightboxUrl] = useState('')
+  const [zoom, setZoom] = useState(1)
+  const [panOffset, setPanOffset] = useState({ x: 0, y: 0 })
+  const [isDragging, setIsDragging] = useState(false)
+  const dragStartRef = useRef<{
+    x: number
+    y: number
+    panX: number
+    panY: number
+  } | null>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   const onSelect = useCallback(() => {
     if (!api) return
@@ -53,8 +63,52 @@ export default function ProjectGalleryCarousel({
     setLightboxOpen(true)
   }
 
+  const handleOpenChange = (open: boolean) => {
+    setLightboxOpen(open)
+    if (!open) {
+      setZoom(1)
+      setPanOffset({ x: 0, y: 0 })
+    }
+  }
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (zoom <= 1) return
+    e.preventDefault()
+    dragStartRef.current = {
+      x: e.clientX,
+      y: e.clientY,
+      panX: panOffset.x,
+      panY: panOffset.y,
+    }
+    setIsDragging(true)
+  }
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !dragStartRef.current) return
+    const dx = e.clientX - dragStartRef.current.x
+    const dy = e.clientY - dragStartRef.current.y
+    const el = containerRef.current
+    const maxX = el ? (el.clientWidth * (zoom - 1)) / 2 : 300
+    const maxY = el ? (el.clientHeight * (zoom - 1)) / 2 : 200
+    setPanOffset({
+      x: Math.max(-maxX, Math.min(maxX, dragStartRef.current.panX + dx)),
+      y: Math.max(-maxY, Math.min(maxY, dragStartRef.current.panY + dy)),
+    })
+  }
+
+  const handleMouseUp = () => {
+    setIsDragging(false)
+    dragStartRef.current = null
+  }
+
+  const handleDoubleClick = () => {
+    const newZoom = zoom === 1 ? 2 : 1
+    setZoom(newZoom)
+    if (newZoom === 1) setPanOffset({ x: 0, y: 0 })
+  }
+
   return (
-    <>
+    <div className="rounded-xl border border-border p-4">
       <Carousel
         setApi={setApi}
         opts={{ align: 'start', loop: false }}
@@ -66,12 +120,9 @@ export default function ProjectGalleryCarousel({
               key={idx}
               className={cn(
                 'basis-[85%] pl-3 transition-all duration-300',
-                idx === activeIndex
-                  ? 'scale-100 opacity-100'
-                  : 'scale-[0.97] opacity-40'
+                idx === activeIndex ? 'scale-100' : 'scale-[0.97]'
               )}
             >
-              {/* 클릭하면 라이트박스로 확대 */}
               <button
                 type="button"
                 onClick={() => openLightbox(url)}
@@ -83,19 +134,21 @@ export default function ProjectGalleryCarousel({
                   alt={`${title} screenshot ${idx + 1}`}
                   fill
                   sizes="(max-width: 640px) 85vw, 60vw"
-                  className="object-cover"
+                  loading="eager"
+                  className={cn(
+                    'object-cover transition-all duration-300',
+                    idx !== activeIndex && 'brightness-50'
+                  )}
                 />
               </button>
             </CarouselItem>
           ))}
         </CarouselContent>
 
-        {/* 화살표 — 데스크탑에서만 표시 */}
         <CarouselPrevious className="hidden sm:flex" />
         <CarouselNext className="hidden sm:flex" />
       </Carousel>
 
-      {/* 도트 인디케이터 */}
       {urls.length > 1 && (
         <div className="mt-4 flex items-center justify-center gap-1.5">
           {urls.map((_, idx) => (
@@ -115,33 +168,77 @@ export default function ProjectGalleryCarousel({
         </div>
       )}
 
-      {/* 라이트박스 — ESC는 Radix Dialog가 자동 처리 */}
-      <Dialog open={lightboxOpen} onOpenChange={setLightboxOpen}>
+      <Dialog open={lightboxOpen} onOpenChange={handleOpenChange}>
         <DialogContent
           showCloseButton={false}
-          className="max-w-5xl border-none bg-black/90 p-0 shadow-none"
+          className="w-[90vw] max-w-[90vw] border-none bg-black/90 p-0 shadow-none sm:max-w-[90vw]"
           aria-describedby={undefined}
         >
-          {/* 스크린리더용 숨김 타이틀 — Radix Dialog 접근성 요구사항 */}
           <DialogTitle className="sr-only">{title} 갤러리 이미지</DialogTitle>
-          <DialogClose className="absolute top-3 right-3 z-10 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:outline-none">
-            <X className="h-5 w-5 text-white" />
-            <span className="sr-only">닫기</span>
-          </DialogClose>
+
+          <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => setZoom((z) => Math.max(1, z - 0.5))}
+              disabled={zoom <= 1}
+              aria-label="축소"
+              className="rounded-full bg-black/60 p-1.5 text-white transition-colors hover:bg-black/80 disabled:opacity-40"
+            >
+              <ZoomOut className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setZoom((z) => Math.min(2, z + 0.5))}
+              disabled={zoom >= 2}
+              aria-label="확대"
+              className="rounded-full bg-black/60 p-1.5 text-white transition-colors hover:bg-black/80 disabled:opacity-40"
+            >
+              <ZoomIn className="h-4 w-4" />
+            </button>
+            <DialogClose
+              aria-label="닫기"
+              className="rounded-full bg-black/60 p-1.5 text-white transition-colors hover:bg-black/80 focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:outline-none"
+            >
+              <X className="h-4 w-4" />
+            </DialogClose>
+          </div>
+
           {lightboxUrl && (
-            <div className="relative aspect-video w-full">
-              <Image
-                src={lightboxUrl}
-                alt={`${title} 확대 이미지`}
-                fill
-                sizes="90vw"
-                className="object-contain"
-                priority
-              />
+            <div
+              ref={containerRef}
+              className="relative w-full overflow-hidden"
+              style={{ height: 'min(calc(90vw * 9 / 16), 85vh)' }}
+            >
+              <div
+                className="absolute inset-0 transition-transform duration-300 select-none"
+                style={{
+                  transform: `translate(${panOffset.x}px, ${panOffset.y}px) scale(${zoom})`,
+                  transformOrigin: 'center center',
+                  cursor: isDragging
+                    ? 'grabbing'
+                    : zoom > 1
+                      ? 'grab'
+                      : 'zoom-in',
+                }}
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseUp}
+                onDoubleClick={handleDoubleClick}
+              >
+                <Image
+                  src={lightboxUrl}
+                  alt={`${title} 확대 이미지`}
+                  fill
+                  sizes="90vw"
+                  className="object-contain"
+                  priority
+                />
+              </div>
             </div>
           )}
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   )
 }
