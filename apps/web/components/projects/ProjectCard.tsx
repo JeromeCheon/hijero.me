@@ -41,7 +41,7 @@ export function ProjectCard({
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         ) : (
-          <div className="flex h-full items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5">
+          <div className="flex h-full items-center justify-center bg-linear-to-br from-primary/10 to-primary/5">
             <span className="text-4xl font-bold text-primary/30">
               {project.title[locale].charAt(0)}
             </span>
@@ -50,7 +50,7 @@ export function ProjectCard({
       </div>
 
       <CardHeader className="pb-2">
-        <div className="h-[3rem] overflow-hidden">
+        <div className="h-12 overflow-hidden">
           <h3 className="line-clamp-2 text-lg leading-tight font-semibold">
             {project.title[locale]}
           </h3>
@@ -71,7 +71,7 @@ export function ProjectCard({
       </CardHeader>
 
       <CardContent className="flex flex-1 flex-col gap-3">
-        <div className="h-[4.5rem] overflow-hidden">
+        <div className="h-18 overflow-hidden">
           <p className="line-clamp-3 text-sm text-muted-foreground">
             {project.description[locale]}
           </p>
