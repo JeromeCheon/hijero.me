@@ -8,8 +8,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
   type CarouselApi,
 } from '@workspace/ui/components/carousel'
 import {
@@ -18,7 +16,7 @@ import {
   DialogClose,
   DialogTitle,
 } from '@workspace/ui/components/dialog'
-import { X, ZoomIn, ZoomOut } from 'lucide-react'
+import { X, ZoomIn, ZoomOut, ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface ProjectGalleryCarouselProps {
   urls: string[]
@@ -32,7 +30,7 @@ export default function ProjectGalleryCarousel({
   const [api, setApi] = useState<CarouselApi>()
   const [activeIndex, setActiveIndex] = useState(0)
   const [lightboxOpen, setLightboxOpen] = useState(false)
-  const [lightboxUrl, setLightboxUrl] = useState('')
+  const [lightboxIndex, setLightboxIndex] = useState(0)
   const [zoom, setZoom] = useState(1)
   const [panOffset, setPanOffset] = useState({ x: 0, y: 0 })
   const [isDragging, setIsDragging] = useState(false)
@@ -58,10 +56,21 @@ export default function ProjectGalleryCarousel({
     }
   }, [api, onSelect])
 
-  const openLightbox = (url: string) => {
-    setLightboxUrl(url)
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index)
     setLightboxOpen(true)
   }
+
+  const navigateLightbox = useCallback(
+    (dir: -1 | 1) => {
+      const next = lightboxIndex + dir
+      if (next < 0 || next >= urls.length) return
+      setLightboxIndex(next)
+      setZoom(1)
+      setPanOffset({ x: 0, y: 0 })
+    },
+    [lightboxIndex, urls.length]
+  )
 
   const handleOpenChange = (open: boolean) => {
     setLightboxOpen(open)
@@ -70,6 +79,16 @@ export default function ProjectGalleryCarousel({
       setPanOffset({ x: 0, y: 0 })
     }
   }
+
+  useEffect(() => {
+    if (!lightboxOpen) return
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') navigateLightbox(-1)
+      if (e.key === 'ArrowRight') navigateLightbox(1)
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [lightboxOpen, navigateLightbox])
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (zoom <= 1) return
@@ -109,45 +128,88 @@ export default function ProjectGalleryCarousel({
 
   return (
     <div className="rounded-xl border border-border p-4">
-      <Carousel
-        setApi={setApi}
-        opts={{ align: 'start', loop: false }}
-        className="w-full"
-      >
-        <CarouselContent className="-ml-3">
-          {urls.map((url, idx) => (
-            <CarouselItem
-              key={idx}
-              className={cn(
-                'basis-[85%] pl-3 transition-all duration-300',
-                idx === activeIndex ? 'scale-100' : 'scale-[0.97]'
-              )}
-            >
-              <button
-                type="button"
-                onClick={() => openLightbox(url)}
-                className="relative block aspect-video w-full overflow-hidden rounded-lg bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-                aria-label={`${title} screenshot ${idx + 1} 확대 보기`}
-              >
-                <Image
-                  src={url}
-                  alt={`${title} screenshot ${idx + 1}`}
-                  fill
-                  sizes="(max-width: 640px) 85vw, 60vw"
-                  loading="eager"
-                  className={cn(
-                    'object-cover transition-all duration-300',
-                    idx !== activeIndex && 'brightness-50'
-                  )}
-                />
-              </button>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
+      {urls.length > 1 ? (
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => api?.scrollPrev()}
+            disabled={activeIndex === 0}
+            aria-label="이전 슬라이드"
+            className="hidden shrink-0 text-foreground/50 transition-colors hover:text-foreground disabled:opacity-20 sm:block"
+          >
+            <ChevronLeft className="h-10 w-6" />
+          </button>
 
-        <CarouselPrevious className="hidden sm:flex" />
-        <CarouselNext className="hidden sm:flex" />
-      </Carousel>
+          <Carousel
+            setApi={setApi}
+            opts={{ align: 'start', loop: false }}
+            className="min-w-0 flex-1"
+          >
+            <CarouselContent className="-ml-3">
+              {urls.map((url, idx) => (
+                <CarouselItem key={idx} className="basis-[90%] pl-3">
+                  <button
+                    type="button"
+                    onClick={() => openLightbox(idx)}
+                    className="relative block aspect-video w-full overflow-hidden rounded-lg bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+                    aria-label={`${title} screenshot ${idx + 1} 확대 보기`}
+                  >
+                    <Image
+                      src={url}
+                      alt={`${title} screenshot ${idx + 1}`}
+                      fill
+                      sizes="(max-width: 640px) 85vw, 60vw"
+                      loading="eager"
+                      className={cn(
+                        'object-cover transition-all duration-300',
+                        idx !== activeIndex && 'brightness-50'
+                      )}
+                    />
+                  </button>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+
+          <button
+            type="button"
+            onClick={() => api?.scrollNext()}
+            disabled={activeIndex === urls.length - 1}
+            aria-label="다음 슬라이드"
+            className="hidden shrink-0 text-foreground/50 transition-colors hover:text-foreground disabled:opacity-20 sm:block"
+          >
+            <ChevronRight className="h-10 w-6" />
+          </button>
+        </div>
+      ) : (
+        <Carousel
+          setApi={setApi}
+          opts={{ align: 'start', loop: false }}
+          className="w-full"
+        >
+          <CarouselContent className="-ml-3">
+            {urls.map((url, idx) => (
+              <CarouselItem key={idx} className="basis-[90%] pl-3">
+                <button
+                  type="button"
+                  onClick={() => openLightbox(idx)}
+                  className="relative block aspect-video w-full overflow-hidden rounded-lg bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+                  aria-label={`${title} screenshot ${idx + 1} 확대 보기`}
+                >
+                  <Image
+                    src={url}
+                    alt={`${title} screenshot ${idx + 1}`}
+                    fill
+                    sizes="(max-width: 640px) 85vw, 60vw"
+                    loading="eager"
+                    className="object-cover transition-all duration-300"
+                  />
+                </button>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+      )}
 
       {urls.length > 1 && (
         <div className="mt-4 flex items-center justify-center gap-1.5">
@@ -176,6 +238,29 @@ export default function ProjectGalleryCarousel({
         >
           <DialogTitle className="sr-only">{title} 갤러리 이미지</DialogTitle>
 
+          {urls.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={() => navigateLightbox(-1)}
+                disabled={lightboxIndex === 0}
+                aria-label="이전 이미지"
+                className="absolute top-1/2 left-2 z-10 -translate-y-1/2 text-white/60 transition-colors hover:text-white disabled:opacity-20"
+              >
+                <ChevronLeft className="h-10 w-6" />
+              </button>
+              <button
+                type="button"
+                onClick={() => navigateLightbox(1)}
+                disabled={lightboxIndex === urls.length - 1}
+                aria-label="다음 이미지"
+                className="absolute top-1/2 right-2 z-10 -translate-y-1/2 text-white/60 transition-colors hover:text-white disabled:opacity-20"
+              >
+                <ChevronRight className="h-10 w-6" />
+              </button>
+            </>
+          )}
+
           <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5">
             <button
               type="button"
@@ -203,7 +288,7 @@ export default function ProjectGalleryCarousel({
             </DialogClose>
           </div>
 
-          {lightboxUrl && (
+          {urls[lightboxIndex] && (
             <div
               ref={containerRef}
               className="relative w-full overflow-hidden"
@@ -227,7 +312,7 @@ export default function ProjectGalleryCarousel({
                 onDoubleClick={handleDoubleClick}
               >
                 <Image
-                  src={lightboxUrl}
+                  src={urls[lightboxIndex]}
                   alt={`${title} 확대 이미지`}
                   fill
                   sizes="90vw"
