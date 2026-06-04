@@ -12,6 +12,10 @@ pnpm lint         # 전체 린팅
 pnpm typecheck    # 전체 타입 체크
 pnpm format       # Prettier 포매팅
 pnpm check        # typecheck + lint + format:check 일괄 검사
+
+# 필터 (packages/ui가 이미 빌드된 경우)
+pnpm dev:web      # apps/web만 dev 서버 실행
+pnpm build:web    # apps/web만 빌드
 ```
 
 ## Dev 서버 실행 규칙
