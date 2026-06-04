@@ -274,11 +274,11 @@ Static fallback on failure.',
     demoUrl: 'https://elevelyn.vercel.app/',
     title: {
       ko: '[MLP] Elevelyn — 선생님과 아이들을 위한 맞춤 영어도우미 플랫폼',
-      en: '[MLP] Elevelyn — English Helper Service for Teachers and Kids',
+      en: '[MLP] Elevelyn — A Tailored English Learning Platform for Teachers & Students',
     },
     description: {
       ko: '누구나 구글 계정으로 손쉽게 가입하여 영어 받아쓰기 단어장을 만들고, 학생들은 별도 가입 없이 초대링크를 통해 접속하여 브라우저에서 손글씨로 단어를 쓰고, OCR 기술을 활용하여 자동으로 채점하는 에듀테크 서비스',
-      en: 'An EduTech service that allows anyone to easily create English dictation word lists, and students can write words by hand in the browser without separate registration by accessing the generated invitation link, with the text automatically graded using OCR.',
+      en: 'An EduTech service that simplifies English dictation: teachers easily create word lists using Google sign-in, and students write words by hand in the browser via a shared link for instant OCR-based grading without registering.',
     },
     period: {
       ko: '2025.05 ~ 현재',
@@ -299,33 +299,39 @@ Static fallback on failure.',
       ko: '초등 3~6학년 영어 수업에서 단어 쓰기 연습을 디지털로 전환하기 위해 MLP(Minimum Lovable Product) 수준으로 만든 서비스입니다. \
 선생님이 그룹(예: 3학년 1반)과 단어 쓰기장을 생성하면 랜덤 URL이 발급되고, 학생들은 교육용 기기를 사용하여 앱 설치·회원가입 없이 인터넷에서 해당 URL로 접속해 선생님이 입력한 단어들을 펜으로 따라써보며 영어 단어 학습 및 글씨 연습을 수행하는 방식입니다. \
 Tesseract.js(Google이 관리하는 오픈소스 OCR 엔진, LSTM 신경망 기반) 기술을 활용해 이미지를 인식·채점하며, 선생님은 학생들이 따라 쓴 글씨와 정답 여부를 선생님 단어장 대시보드에서 실시간으로 확인할 수 있습니다.',
-      en: "An MLP (Minimum Lovable Product) designed to digitize English dictation practice for elementary students (grades 3–6). \
-A teacher creates a group and a word list, which generates a random URL; students access it instantly via a browser without installing an app or signing up, then write English words by hand on a Canvas. \
-Using Tesseract.js (Google's open-source OCR engine based on LSTM neural networks), the service recognizes and grades the handwriting; teachers can view each student's submissions and correctness in real-time on a dashboard.",
+      en: 'This project is an MLP (Minimum Lovable Product) developed to digitize English word writing practice in 3rd to 6th-grade elementary school classrooms in Korea. \
+When a teacher creates a class group (e.g., 3rd Grade, Class 1) and a dictation worksheet, a random URL is generated. \
+Without any app installation or sign-up, students can access the link on their school-issued devices to practice writing and spelling English words by hand with a stylus or touch input. \
+The application leverages Tesseract.js (an open-source OCR engine managed by Google and based on LSTM neural networks) to recognize and grade the handwriting directly in the browser. \
+Teachers can then monitor student submissions and check correctness in real time through their dashboard.',
     },
     overviewBullets: [
       {
-        ko: '랜덤 URL + 6자리 초대 코드·QR — 앱 설치 없이 어떤 기기에서도 즉시 참여',
-        en: 'Random URL + 6-digit invite code & QR — instant join on any device, no app install required',
+        ko: '랜덤 URL — 앱 설치 없이 어떤 기기에서도 즉시 참여',
+        en: 'Random URLs: Instant participation on any device without installing apps',
       },
       {
-        ko: 'Tesseract.js Worker를 학생 브라우저에서 직접 실행 — 채점 서버 비용 $0',
-        en: "Tesseract.js Worker runs directly in the student's browser — $0 grading server cost",
+        ko: 'Tesseract.js Worker를 링크 접속 브라우저에서 직접 실행 — 채점 비용 무료',
+        en: 'In-browser Tesseract.js Worker: Zero-cost OCR grading executed directly on the client side',
       },
       {
-        ko: 'Levenshtein 유사도 0.9 임계값으로 흘려 쓴 글씨도 정답 인정',
-        en: 'Levenshtein similarity threshold of 0.9 accepts slightly messy handwriting as correct',
+        ko: 'Levenshtein 유사도 0.9 임계값으로 손글씨 정답률 미세 보정',
+        en: 'Handwriting Tolerance: Fine-tuned grading accuracy utilizing a Levenshtein distance similarity threshold of 0.9',
       },
       {
-        ko: 'Google OAuth 교사 로그인 + 3초 폴링 실시간 제출 현황',
-        en: 'Google OAuth teacher login + 3-second polling for real-time submission status',
+        ko: 'Google OAuth 교사 로그인 + 3초 폴링 제출 현황 모니터링',
+        en: 'Google OAuth & Real-time Dashboard: Secure teacher authentication combined with 3-second polling for live student submission tracking',
       },
     ],
     problem: {
-      ko: '초등 영어 수업에서 단어 쓰기 연습은 오프라인 종이에 의존하고 교사가 직접 수기로 채점해야 했다. \
-디지털 교과서를 사용하는 교실에서도 링크 하나로 접속해 브라우저에 손으로 쓰고 즉시 채점받는 도구가 없었다.',
-      en: 'Elementary English word-writing practice depended on offline paper and manual teacher grading. \
-Even in classrooms using digital textbooks, no tool existed that let students join via a single link, write by hand in the browser, and receive instant grading.',
+      ko: '서울시의 경우 초등학교 내 디지털 수업 일환으로 노트북, 태블릿 PC 와 같은 전자기기가 보급 되었지만 영어 수업 중에 이를 활용할 방안이 마땅치 않았음. \
+학생들의 영어 손글씨 연습, 영어 퀴즈 등은 여전히 필기구를 사용하거나 오프라인으로 진행될 수 밖에 없는 상황. \
+이에 따라 교사들은 학생들이 쓴 단어들을 일일이 확인하고 채점하는 데 많은 시간을 할애할 수 밖에 없었음. \
+이러한 선생님들의 고충을 해소하면서 아이들이 쉽고 재밌게 인터넷 환경에서 영어를 학습할 수 있는 플랫폼이 있으면 좋겠다는 니즈를 확인하게 되었음.',
+      en: 'In school districts like Seoul, although digital devices such as laptops and tablets have been widely distributed in classrooms, teachers struggled to find practical ways to integrate them into English classes. \
+Activities like handwriting practice and quizzes still relied heavily on offline paper and pencils. \
+Consequently, teachers spent a significant amount of time manually reviewing and grading every single student\'s work. \
+I identified a strong need to solve this pain point: a lightweight web platform that eliminates grading overhead for teachers while offering students a fun, interactive way to learn English online.',
     },
     timeline: [
       {
@@ -338,9 +344,8 @@ Even in classrooms using digital textbooks, no tool existed that let students jo
           ko: 'ResizeObserver 기반 5선지 레이아웃 + Pointer Events 드로잉 엔진 + Tesseract.js OCR 초기 통합. \
 DB/Auth 없이 URL params만으로 동작. \
 Vercel 프리뷰로 선생님 Canvas UX 검증.',
-          en: 'ResizeObserver-based 5-line staff layout + Pointer Events drawing engine + initial Tesseract.js OCR integration. \
-Runs on URL params alone with no DB or Auth. \
-Teacher Canvas UX validated via Vercel Preview.',
+          en: 'Built a ResizeObserver-based 5-line handwriting guide layout, Pointer Events drawing engine, and initial Tesseract.js OCR integration. \
+Operating solely on URL parameters without database or authentication, we quickly validated the teacher canvas UX via Vercel Preview.',
         },
       },
       {
@@ -351,13 +356,11 @@ Teacher Canvas UX validated via Vercel Preview.',
         },
         description: {
           ko: 'notes / note_words / note_sessions 3-table 설계. \
-SECURITY DEFINER 함수로 invite_code 안전 조회. \
 Google OAuth + proxy.ts 보호 라우트. \
-노트 생성 → 초대 코드 발급 플로우 완성.',
-          en: '3-table schema (notes / note_words / note_sessions). \
-SECURITY DEFINER function for safe invite_code lookup. \
-Google OAuth + proxy.ts protected routes. \
-Full note creation → invite code issuance flow.',
+노트 생성 → URL 발급 및 참여 현황 실시간 대시보드 확인 플로우 완성.',
+          en: 'Designed a 3-table database schema (notes / note_words / note_sessions). \
+Secured routes with Google OAuth and proxy.ts. \
+Established the core flow from dictation list creation to URL generation and dashboard monitoring.',
         },
       },
       {
@@ -367,14 +370,12 @@ Full note creation → invite code issuance flow.',
           en: 'Student Flow & MLP Complete',
         },
         description: {
-          ko: '초대 코드 입력 → /api/notes/lookup → 워크시트 진입. \
-localStorage UUID 익명 제출. \
+          ko: 'URL 입력 접속 → 워크시트 진입. \
+LocalStorage UUID 익명 제출. \
 완료 화면. \
 실 Supabase 전체 루프 동작.',
-          en: 'Invite code entry → /api/notes/lookup → worksheet. \
-localStorage UUID anonymous submission. \
-Completion screen. \
-Full Supabase end-to-end loop working.',
+          en: 'Completed the student user flow: URL access to worksheet, anonymous submission tracking using localStorage UUIDs, and a completion screen. \
+Established a fully functional, end-to-end database loop with Supabase.',
         },
       },
       {
@@ -388,10 +389,8 @@ Full Supabase end-to-end loop working.',
 그룹별 노트 카드 리스트. \
 총 참가/완료 지표 대시보드. \
 프로필 관리 + GNB 탭 네비게이션.',
-          en: 'groups table + notes.group_id schema extension. \
-Group-based note card list. \
-Total joined/completed metrics dashboard. \
-Profile management + GNB tab navigation.',
+          en: 'Extended the schema to support class groups (groups table + notes.group_id). \
+Developed group-specific worksheet lists, a key-metrics dashboard displaying total participation and completion rates, along with profile management and tab-based GNB navigation.',
         },
       },
       {
@@ -402,7 +401,7 @@ Profile management + GNB tab navigation.',
         },
         description: {
           ko: 'MLP E2E 시나리오 검증 + /admin 백오피스(계정 목록·통계) 구현 예정.',
-          en: 'MLP E2E scenario validation + /admin backoffice (account list & stats) planned.',
+          en: 'Validating core MLP E2E scenarios and preparing to develop an /admin backoffice for managing accounts and viewing usage statistics.',
         },
       },
     ],
@@ -414,27 +413,25 @@ Profile management + GNB tab navigation.',
           en: 'Worksheet Creation & URL Issuance',
         },
         description: {
-          ko: '그룹·단어 입력 → 랜덤 URL·6자리 초대 코드 자동 생성. \
+          ko: '그룹 선택·단어 입력 → 랜덤 URL 자동 생성. \
 인쇄 불필요. \
-몇 번의 클릭으로 완료.',
-          en: 'Group & word input → random URL + 6-digit invite code auto-generated. \
-No printing needed. \
-Done in a few clicks.',
+몇 번의 클릭으로 완료',
+          en: 'Instantly generate a random URL by choosing a group and entering words. \
+Eliminates the need for printing worksheets—done in just a few clicks.',
         },
       },
       {
         icon: 'ScanText',
         title: {
-          ko: '클라이언트 OCR 채점 시스템',
-          en: 'Client-side OCR Grading System',
+          ko: '따라쓰기 OCR 채점 시스템',
+          en: 'Handwriting OCR Grading System',
         },
         description: {
           ko: 'Tesseract.js Worker 브라우저 실행. \
 devicePixelRatio 고해상도 Canvas → OCR 인식률 향상. \
-Levenshtein 0.9로 흘려 쓴 글씨 허용.',
-          en: 'Tesseract.js Worker runs in-browser. \
-High-res Canvas with devicePixelRatio boosts OCR accuracy. \
-Levenshtein 0.9 allows messy handwriting.',
+Levenshtein 0.9로 흘려 쓴 글씨도 허용',
+          en: 'Runs a Tesseract.js Worker directly in the browser. \
+Uses devicePixelRatio for a high-resolution Canvas to maximize OCR accuracy, and supports a Levenshtein similarity of 0.9 to accommodate natural variations in children\'s handwriting.',
         },
       },
       {
@@ -444,69 +441,64 @@ Levenshtein 0.9 allows messy handwriting.',
           en: 'Supabase Schema & RLS Design',
         },
         description: {
-          ko: 'notes/note_words/note_sessions 3-table 설계. \
-SECURITY DEFINER 함수로 invite_code 안전 검증. \
-anon INSERT RLS로 학생 무로그인 제출.',
-          en: '3-table design (notes/note_words/note_sessions). \
-SECURITY DEFINER function for safe invite_code validation. \
-anon INSERT RLS for student login-free submission.',
+          ko: 'notes | note_words | note_sessions DB table 설계. \
+anon INSERT RLS로 학생 무로그인 제출',
+          en: 'Structured database tables around notes, note_words, and note_sessions. \
+Configured Row Level Security (RLS) policies to allow anonymous student submissions without login hurdles.',
         },
       },
       {
         icon: 'UserCheck',
         title: {
-          ko: '마찰 없는 학생 참여',
-          en: 'Frictionless Student Participation',
+          ko: '누구나 동시에 참여 가능',
+          en: 'Everyone can participate at the same time',
         },
         description: {
-          ko: 'localStorage UUID로 학생 식별. \
+          ko: 'localStorage UUID로 단어장 접속 유저 식별. \
 Google 계정·앱 설치 불필요. \
-URL 하나로 즉시 참여.',
-          en: 'Student identification via localStorage UUID. \
-No Google account or app install required. \
-Join instantly with one URL.',
+URL 하나로 누구나 즉시 참여',
+          en: 'Identifies student sessions via localStorage UUIDs. \
+Requires no Google account or app installations—anyone can join the practice session instantly with a single URL.',
         },
       },
       {
         icon: 'Activity',
         title: {
-          ko: '실시간 대시보드 & 그룹 관리',
-          en: 'Real-time Dashboard & Group Management',
+          ko: '태블릿/모바일 환경 친화적인 대시보드 & 유저 그룹 관리',
+          en: 'Tablet/Mobile Friendly Dashboard & User Group Management',
         },
         description: {
           ko: '3초 폴링 완료 카운터. \
 그룹별 노트 관리. \
 총 참가/완료 지표 카드. \
-GNB 탭 네비게이션.',
-          en: '3-second polling completion counter. \
-Group-based note management. \
-Total joined/completed metric cards. \
-GNB tab navigation.',
+GNB 탭 네비게이션',
+          en: 'Equipped with a 3-second polling completion counter, group-based activity lists, overall participation metrics, and an intuitive tabbed navigation optimized for mobile and tablet screens.',
         },
       },
     ],
     outcome: {
-      ko: '클라이언트 OCR + Vercel + Supabase Free Tier로 운영비 $0. \
-초등 교실 즉시 도입 가능한 구조로, 홍보·피드백 수렴 후 단어장 퀴즈·말하기 연습 등 콘텐츠 확장 예정.',
-      en: '$0 operating cost with client-side OCR + Vercel + Supabase Free Tier. \
-Deployable instantly in elementary classrooms; content expansion (word quizzes, speaking practice) planned after promotion and user feedback.',
+      ko: '클라이언트 OCR + Vercel + Supabase Free Tier로 상용 서버 운영비 $0. \
+초등학교 교실 현장, 개인 교습 어디든 즉시 도입 가능한 구조로, 홍보·피드백 수렴 후 단어장 퀴즈·말하기 연습 등 콘텐츠 확장 예정.',
+      en: 'Achieved $0 in server maintenance fees by utilizing client-side OCR, Vercel, and Supabase\'s free tier. \
+The architecture is lightweight and ready for immediate deployment in elementary classrooms or private tutoring. \
+We plan to expand the content with vocabulary quizzes, speaking practice, and more based on teacher feedback.',
     },
     outcomeBullets: [
       {
         ko: '클라이언트 OCR — 사용자 규모 무관하게 서버 비용 $0',
-        en: 'Client-side OCR — $0 server cost regardless of user scale',
+        en: 'Client-side OCR processing: Scalable to unlimited users with $0 server overhead',
       },
       {
         ko: 'Vercel + Supabase Free Tier로 운영비 $0',
-        en: '$0 operating cost with Vercel + Supabase Free Tier',
+        en: 'Zero infrastructure cost: Built entirely on Vercel and Supabase Free Tier',
       },
       {
         ko: '앱 설치·회원가입 없이 초등 교실 즉시 도입 가능',
-        en: 'Immediately deployable in elementary classrooms — no app install or signup required',
+        en: 'No barriers to entry: Deployable instantly in classrooms without app installation or signups',
       },
       {
         ko: '홍보·피드백 수렴 후 단어장 퀴즈·말하기 연습 등 콘텐츠 확장 예정',
-        en: 'Content expansion planned (word quizzes, speaking practice) after promotion and user feedback',
+        en: 'Future pipeline: Plans to expand features to include pronunciation practice, vocabulary quizzes, and speech-to-text assessments',
       },
     ],
     galleryUrls: [
