@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { memo, useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 
 import { cn } from '@workspace/ui/lib/utils'
@@ -18,7 +18,7 @@ interface ProjectGalleryCarouselProps {
   title: string
 }
 
-function GallerySlide({
+const GallerySlide = memo(function GallerySlide({
   url,
   title,
   idx,
@@ -53,7 +53,7 @@ function GallerySlide({
       </button>
     </CarouselItem>
   )
-}
+})
 
 export default function ProjectGalleryCarousel({
   urls,
@@ -78,10 +78,10 @@ export default function ProjectGalleryCarousel({
     }
   }, [api, onSelect])
 
-  const openLightbox = (index: number) => {
+  const openLightbox = useCallback((index: number) => {
     setLightboxIndex(index)
     setLightboxOpen(true)
-  }
+  }, [])
 
   return (
     <div className="rounded-xl border border-border p-4">
@@ -92,9 +92,9 @@ export default function ProjectGalleryCarousel({
             onClick={() => api?.scrollPrev()}
             disabled={activeIndex === 0}
             aria-label="이전 슬라이드"
-            className="hidden shrink-0 text-foreground/50 transition-colors hover:text-foreground disabled:opacity-20 sm:block"
+            className="hidden min-h-[44px] min-w-[44px] shrink-0 items-center justify-center text-foreground/50 transition-colors hover:text-foreground disabled:opacity-20 sm:flex"
           >
-            <ChevronLeft className="h-10 w-6" />
+            <ChevronLeft className="h-6 w-6" />
           </button>
 
           <Carousel
@@ -121,9 +121,9 @@ export default function ProjectGalleryCarousel({
             onClick={() => api?.scrollNext()}
             disabled={activeIndex === urls.length - 1}
             aria-label="다음 슬라이드"
-            className="hidden shrink-0 text-foreground/50 transition-colors hover:text-foreground disabled:opacity-20 sm:block"
+            className="hidden min-h-[44px] min-w-[44px] shrink-0 items-center justify-center text-foreground/50 transition-colors hover:text-foreground disabled:opacity-20 sm:flex"
           >
-            <ChevronRight className="h-10 w-6" />
+            <ChevronRight className="h-6 w-6" />
           </button>
         </div>
       ) : (
