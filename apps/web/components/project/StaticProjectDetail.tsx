@@ -38,6 +38,22 @@ interface StaticProjectDetailProps {
   locale: string
 }
 
+function CheckList({ items }: { items: string[] }) {
+  return (
+    <ul className="mt-3 space-y-1.5">
+      {items.map((item, idx) => (
+        <li
+          key={idx}
+          className="group flex items-start gap-2 text-sm text-muted-foreground"
+        >
+          <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary group-hover:animate-jump-up" />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 export async function StaticProjectDetail({
   project,
   locale,
@@ -107,17 +123,7 @@ export async function StaticProjectDetail({
               {project.overview[loc]}
             </p>
             {project.overviewBullets && project.overviewBullets.length > 0 && (
-              <ul className="mt-3 space-y-1.5">
-                {project.overviewBullets.map((bullet, idx) => (
-                  <li
-                    key={idx}
-                    className="group flex items-start gap-2 text-sm text-muted-foreground"
-                  >
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary group-hover:animate-jump-up" />
-                    <span>{bullet[loc]}</span>
-                  </li>
-                ))}
-              </ul>
+              <CheckList items={project.overviewBullets.map((b) => b[loc])} />
             )}
           </section>
         )}
@@ -174,17 +180,7 @@ export async function StaticProjectDetail({
               {project.outcome[loc]}
             </p>
             {project.outcomeBullets && project.outcomeBullets.length > 0 && (
-              <ul className="mt-3 space-y-1.5">
-                {project.outcomeBullets.map((bullet, idx) => (
-                  <li
-                    key={idx}
-                    className="group flex items-start gap-2 text-sm text-muted-foreground"
-                  >
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary group-hover:animate-jump-up" />
-                    <span>{bullet[loc]}</span>
-                  </li>
-                ))}
-              </ul>
+              <CheckList items={project.outcomeBullets.map((b) => b[loc])} />
             )}
           </section>
         )}
