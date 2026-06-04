@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Image from 'next/image'
 
+import { cn } from '@workspace/ui/lib/utils'
 import {
   Dialog,
   DialogContent,
@@ -45,13 +46,17 @@ export default function GalleryLightbox({
 
   const navigateLightbox = useCallback(
     (dir: -1 | 1) => {
-      const next = lightboxIndex + dir
-      if (next < 0 || next >= urls.length) return
-      setLightboxIndex(next)
+      setLightboxIndex((prev) => {
+        const next = prev + dir
+        if (next < 0 || next >= urls.length) return prev
+        return next
+      })
       setZoom(1)
       setPanOffset({ x: 0, y: 0 })
+      setIsDragging(false)
+      dragStartRef.current = null
     },
-    [lightboxIndex, urls.length]
+    [urls.length]
   )
 
   const handleOpenChange = (next: boolean) => {
@@ -106,7 +111,7 @@ export default function GalleryLightbox({
   const handleDoubleClick = () => {
     const newZoom = zoom === 1 ? 2 : 1
     setZoom(newZoom)
-    if (newZoom === 1) setPanOffset({ x: 0, y: 0 })
+    setPanOffset({ x: 0, y: 0 })
   }
 
   return (
@@ -125,18 +130,18 @@ export default function GalleryLightbox({
               onClick={() => navigateLightbox(-1)}
               disabled={lightboxIndex === 0}
               aria-label="이전 이미지"
-              className="absolute top-1/2 left-2 z-10 -translate-y-1/2 text-white/60 transition-colors hover:text-white disabled:opacity-20"
+              className="absolute top-1/2 left-2 z-10 flex min-h-[44px] min-w-[44px] -translate-y-1/2 items-center justify-center text-white/60 transition-colors hover:text-white disabled:opacity-20"
             >
-              <ChevronLeft className="h-10 w-6" />
+              <ChevronLeft className="h-6 w-6" />
             </button>
             <button
               type="button"
               onClick={() => navigateLightbox(1)}
               disabled={lightboxIndex === urls.length - 1}
               aria-label="다음 이미지"
-              className="absolute top-1/2 right-2 z-10 -translate-y-1/2 text-white/60 transition-colors hover:text-white disabled:opacity-20"
+              className="absolute top-1/2 right-2 z-10 flex min-h-[44px] min-w-[44px] -translate-y-1/2 items-center justify-center text-white/60 transition-colors hover:text-white disabled:opacity-20"
             >
-              <ChevronRight className="h-10 w-6" />
+              <ChevronRight className="h-6 w-6" />
             </button>
           </>
         )}
@@ -147,7 +152,7 @@ export default function GalleryLightbox({
             onClick={() => setZoom((z) => Math.max(1, z - 0.5))}
             disabled={zoom <= 1}
             aria-label="축소"
-            className="rounded-full bg-black/60 p-1.5 text-white transition-colors hover:bg-black/80 disabled:opacity-40"
+            className="rounded-full bg-black/60 p-1.5 text-white transition-colors hover:bg-black/80 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black focus-visible:outline-none disabled:opacity-40"
           >
             <ZoomOut className="h-4 w-4" />
           </button>
@@ -156,7 +161,7 @@ export default function GalleryLightbox({
             onClick={() => setZoom((z) => Math.min(2, z + 0.5))}
             disabled={zoom >= 2}
             aria-label="확대"
-            className="rounded-full bg-black/60 p-1.5 text-white transition-colors hover:bg-black/80 disabled:opacity-40"
+            className="rounded-full bg-black/60 p-1.5 text-white transition-colors hover:bg-black/80 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black focus-visible:outline-none disabled:opacity-40"
           >
             <ZoomIn className="h-4 w-4" />
           </button>
@@ -175,7 +180,10 @@ export default function GalleryLightbox({
             style={{ height: 'min(calc(90vw * 9 / 16), 85vh)' }}
           >
             <div
-              className="absolute inset-0 transition-transform duration-300 select-none"
+              className={cn(
+                'absolute inset-0 select-none',
+                !isDragging && 'transition-transform duration-300'
+              )}
               style={{
                 transform: `translate(${panOffset.x}px, ${panOffset.y}px) scale(${zoom})`,
                 transformOrigin: 'center center',
