@@ -48,14 +48,14 @@ const projects: StaticProject[] = [
     demoUrl: 'https://hijero.me',
     sourceUrl: 'https://github.com/hijero/hijero.me',
     title: {
-      ko: 'hijero.me — 커스텀 블로그 애플리케이션',
-      en: 'hijero.me — Personal Portfolio',
+      ko: 'hijero.me — 개인 브랜딩 홈페이지',
+      en: 'hijero.me — Personal Branding Web Application',
     },
     description: {
-      ko: '기술 블로그와 포트폴리오를 하나의 도메인에서 운영하기 위해 직접 개발한 개인 사이트입니다. \
-Next.js App Router, MDX 블로그, Notion API 프로젝트, next-intl 다국어를 하나의 코드베이스에 통합했습니다.',
+      ko: '기술 블로그와 포트폴리오를 아울러 직접 구축한 개인 홈페이지.\
+Next.js App Router 기반이고, MDX 파일로 블로그를 관리하며, next-intl 다국어 기능, Notion CMS 기능을 담고 있습니다.',
       en: 'A personal site built from scratch to run a tech blog and portfolio under one domain. \
-Integrates Next.js App Router, MDX blog, Notion API projects, and next-intl multilingual support in a single codebase.',
+Integrates Next.js App Router, MDX blog, Notion CMS, and next-intl multilingual support in a single codebase.',
     },
     period: {
       ko: '2025.05 ~ 현재',
@@ -72,7 +72,7 @@ Integrates Next.js App Router, MDX blog, Notion API projects, and next-intl mult
       { name: 'Supabase' },
     ],
     overview: {
-      ko: 'Next.js 16+ App Router와 React 19 기반으로 직접 개발한 개인 블로그·포트폴리오 통합 사이트입니다. \
+      ko: 'Next.js 16+ App Router와 React 19 기반으로 직접 개발한 개인 블로그·포트폴리오 통합 웹 애플리케이션 입니다. \
 쿠키 없이 SHA-256 서버 핑거프린팅으로 조회수를 추적하고, prebuild 훅으로 생성한 정적 JSON 인덱스로 서버 없이 Cmd+K 전역 검색을 구현했습니다. \
 Notion API를 이력서 CMS로 연결하고 ISR로 30분마다 갱신하며, Turborepo 모노레포로 UI 패키지를 분리해 재사용성과 빌드 성능을 함께 확보했습니다.',
       en: 'A personal blog and portfolio built from scratch on Next.js 16+ App Router and React 19. \
