@@ -66,6 +66,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 `content/projects.ts` — 코드로 관리하는 정적 프로젝트 목록. `getAllProjects()` / `getProjectBySlug(id)` 유틸리티 제공.
 Notion 기반 프로젝트와 슬러그가 겹치지 않도록 주의한다.
 
+**ko/en 정합성**: 각 `LocalizedString` 필드(`ko`, `en`)는 동일한 정보를 담아야 한다.
+ko를 수정했으면 반드시 en도 함께 업데이트한다. en은 자연스러운 영문 블로그 어조로 번역한다.
+타임라인 날짜 en 형식: `'Mon DD, YYYY'` (예: `'May 12, 2026'`).
+
 ## 라우트
 
 | 경로                          | 설명                                                 |
