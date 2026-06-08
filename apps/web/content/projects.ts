@@ -10,8 +10,20 @@ export interface TechItem {
   color?: string
 }
 
+export type FeatureIconName =
+  | 'Globe'
+  | 'BookOpen'
+  | 'Search'
+  | 'Eye'
+  | 'Database'
+  | 'Zap'
+  | 'ScanText'
+  | 'UserCheck'
+  | 'Activity'
+  | 'Crown'
+
 export interface ProjectFeature {
-  icon?: string
+  icon?: FeatureIconName
   title: LocalizedString
   description: LocalizedString
 }
@@ -52,7 +64,7 @@ const projects: StaticProject[] = [
       en: 'hijero.me — Personal Branding Web Application',
     },
     description: {
-      ko: '기술 블로그와 포트폴리오를 아울러 직접 구축한 개인 홈페이지.\
+      ko: '기술 블로그와 포트폴리오를 아울러 직접 구축한 개인 홈페이지. \
 Next.js App Router 기반이고, MDX 파일로 블로그를 관리하며, next-intl 다국어 기능, Notion CMS 기능을 담고 있습니다.',
       en: 'A personal site built from scratch to run a tech blog and portfolio under one domain. \
 Integrates Next.js App Router, MDX blog, Notion CMS, and next-intl multilingual support in a single codebase.',
@@ -72,7 +84,7 @@ Integrates Next.js App Router, MDX blog, Notion CMS, and next-intl multilingual 
       { name: 'Supabase' },
     ],
     overview: {
-      ko: 'Next.js 16+ App Router와 React 19 기반으로 직접 개발한 개인 블로그·포트폴리오 통합 웹 애플리케이션 입니다. \
+      ko: 'Next.js 16+ App Router와 React 19 기반으로 직접 개발한 개인 블로그·포트폴리오 통합 웹 애플리케이션입니다. \
 쿠키 없이 SHA-256 서버 핑거프린팅으로 조회수를 추적하고, prebuild 훅으로 생성한 정적 JSON 인덱스로 전용 검색 서버 없이 Cmd+K와 슬래시(/) 커맨드 기반 전역 검색을 구현했습니다. \
 Notion API를 이력서 CMS로 연결하고 ISR로 30분마다 갱신하며, Turborepo 모노레포로 UI 패키지를 분리해 재사용성과 빌드 성능을 함께 확보했습니다.',
       en: 'A personal blog and portfolio built from scratch on Next.js 16+ App Router and React 19. \
@@ -93,7 +105,7 @@ The Notion API serves as the resume CMS with 30-minute ISR revalidation, while a
         en: 'SHA-256(IP|UA|Accept-Language) server fingerprinting — 24h view count deduplication without cookies or personal data',
       },
       {
-        ko: 'prebuild 훅으로 정적 JSON 검색 인덱스 생성 → Cmd+K와 slash(/)을 사용한 전역 Command Palette 검색',
+        ko: 'prebuild 훅으로 정적 JSON 검색 인덱스 생성 → Cmd+K와 slash(/)를 사용한 전역 Command Palette 검색',
         en: 'prebuild hook generates static JSON search index → serverless instant Cmd+K and slash(/) command-based global search',
       },
     ],
@@ -224,13 +236,13 @@ Serverless instant Cmd+K Command Palette search.',
         icon: 'Globe',
         title: {
           ko: 'next-intl v4 다국어 및 다크모드 지원',
-          en: 'next-intl v4 Multilingual & Darkmode',
+          en: 'next-intl v4 Multilingual & Dark Mode',
         },
         description: {
           ko: '/ko/, /en/ URL 분리. \
 Accept-Language 자동 감지. \
 빌드 타임 번역 키 강제 검증. \
-hreflang·사이트맵 완비와 함께 Light/Dark 다크모드 지원',
+hreflang·사이트맵 완비와 함께 Light/Dark 다크모드 지원.',
           en: '/ko/, /en/ URL split. \
 Auto Accept-Language detection. \
 Build-time translation key enforcement. \
@@ -514,11 +526,11 @@ GNB 탭 네비게이션',
           ko: '/admin 라우트에 role 기반 가드. \
 계정 목록 + 통계 카드. \
 역할 변경 · 노트 삭제 · 계정 삭제(cascade) Server Action. \
-SUPABASE_SERVICE_ROLE_KEY 기반 admin 클라이언트로 일반 RLS 우회.',
+Supabase service role 기반 admin 클라이언트로 일반 RLS 우회.',
           en: 'Role-gated /admin route. \
 Account list with stats cards. \
 Server Actions for role change, note deletion, and cascading account deletion. \
-Admin client using SUPABASE_SERVICE_ROLE_KEY bypasses standard RLS.',
+Admin client with Supabase service role privileges bypasses standard RLS.',
         },
       },
     ],
