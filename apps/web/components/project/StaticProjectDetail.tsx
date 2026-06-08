@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
-import type { StaticProject } from '@/content/projects'
+import type { StaticProject, FeatureIconName } from '@/content/projects'
 import { Badge } from '@workspace/ui/components/badge'
 import { Link } from '@/i18n/navigation'
 import ReadingProgressBar from '@/components/post/ReadingProgressBar'
@@ -22,7 +22,7 @@ import {
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
-const FEATURE_ICONS: Record<string, LucideIcon> = {
+const FEATURE_ICONS: Record<FeatureIconName, LucideIcon> = {
   Globe,
   BookOpen,
   Search,
