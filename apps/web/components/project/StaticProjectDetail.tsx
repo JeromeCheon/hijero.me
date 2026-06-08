@@ -18,6 +18,7 @@ import {
   ScanText,
   UserCheck,
   Activity,
+  Crown,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -31,6 +32,7 @@ const FEATURE_ICONS: Record<string, LucideIcon> = {
   ScanText,
   UserCheck,
   Activity,
+  Crown,
 }
 
 interface StaticProjectDetailProps {
