@@ -28,14 +28,15 @@ pnpm dev
 
 ## 스크립트
 
-| 명령어           | 설명                           |
-| ---------------- | ------------------------------ |
-| `pnpm dev`       | 모든 앱 개발 서버 실행         |
-| `pnpm build`     | 모든 앱 빌드                   |
-| `pnpm lint`      | 전체 린팅                      |
-| `pnpm format`    | Prettier 포매팅                |
-| `pnpm typecheck` | TypeScript 타입 체크           |
-| `pnpm check`     | typecheck + lint + format 일괄 |
+| 명령어           | 설명                        |
+| ---------------- | --------------------------- |
+| `pnpm dev`       | 모든 앱 개발 서버 동시 실행 |
+| `pnpm dev:web`   | web 앱 개발 서버 실행       |
+| `pnpm build`     | 모든 앱 빌드                |
+| `pnpm lint`      | 전체 린팅                   |
+| `pnpm format`    | Prettier 포매팅             |
+| `pnpm typecheck` | TypeScript 타입 체크        |
+| `pnpm check`     | typecheck + lint + format   |
 
 ## UI 컴포넌트 추가
 
