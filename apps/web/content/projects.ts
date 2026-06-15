@@ -566,6 +566,7 @@ We plan to expand the content with vocabulary quizzes, speaking practice, and mo
       '/images/projects/elevelyn/04-invite-code.png',
       '/images/projects/elevelyn/05-student-canvas.png',
       '/images/projects/elevelyn/06-result.png',
+      '/images/projects/elevelyn/07-submitted-dashboard.png',
     ],
   },
 ]
