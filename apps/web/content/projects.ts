@@ -344,8 +344,8 @@ Teachers can then monitor student submissions and check correctness in real time
     },
     overviewBullets: [
       {
-        ko: '랜덤 URL — 앱 설치 없이 어떤 기기에서도 즉시 참여',
-        en: 'Random URLs: Instant participation on any device without installing apps',
+        ko: '랜덤 URL + QR 코드 — 앱 설치 없이 어떤 기기에서도 즉시 참여',
+        en: 'Random URL + QR Code: Instant participation on any device without installing apps',
       },
       {
         ko: 'Tesseract.js Worker를 링크 접속 브라우저에서 직접 실행 — 채점 비용 무료',
@@ -450,15 +450,15 @@ Developed group-specific worksheet lists, a key-metrics dashboard displaying tot
       {
         icon: 'Zap',
         title: {
-          ko: '단어 쓰기장 생성 & URL 발급',
-          en: 'Worksheet Creation & URL Issuance',
+          ko: '단어 쓰기장 생성 & URL/QR 발급',
+          en: 'Worksheet Creation & URL / QR Code Issuance',
         },
         description: {
-          ko: '그룹 선택·단어 입력 → 랜덤 URL 자동 생성. \
-인쇄 불필요. \
-몇 번의 클릭으로 완료',
-          en: 'Instantly generate a random URL by choosing a group and entering words. \
-Eliminates the need for printing worksheets—done in just a few clicks.',
+          ko: '그룹 선택·단어 입력 → 랜덤 URL + QR 코드 자동 생성. \
+QR 코드를 칠판에 띄우면 학생이 카메라로 즉시 접속. \
+인쇄 불필요. 몇 번의 클릭으로 완료.',
+          en: 'Choose a group and enter words to instantly generate a random URL and matching QR code. \
+Display the QR code on screen — students join with a camera scan, no printing needed.',
         },
       },
       {
@@ -497,9 +497,9 @@ Configured Row Level Security (RLS) policies to allow anonymous student submissi
         description: {
           ko: 'localStorage UUID로 단어장 접속 유저 식별. \
 Google 계정·앱 설치 불필요. \
-URL 하나로 누구나 즉시 참여',
+URL 또는 QR 코드 스캔으로 누구나 즉시 참여.',
           en: 'Identifies student sessions via localStorage UUIDs. \
-Requires no Google account or app installations—anyone can join the practice session instantly with a single URL.',
+No Google account or app installation needed — anyone can join instantly via URL or by scanning the QR code.',
         },
       },
       {
@@ -512,8 +512,11 @@ Requires no Google account or app installations—anyone can join the practice s
           ko: '3초 폴링 완료 카운터. \
 그룹별 노트 관리. \
 총 참가/완료 지표 카드. \
-GNB 탭 네비게이션',
-          en: 'Equipped with a 3-second polling completion counter, group-based activity lists, overall participation metrics, and an intuitive tabbed navigation optimized for mobile and tablet screens.',
+제출된 학생 손글씨 이미지와 정답 여부를 대시보드에서 열람 가능. \
+GNB 탭 네비게이션.',
+          en: "Equipped with a 3-second polling completion counter, group-based activity lists, overall participation metrics, \
+and a submitted-work dashboard where teachers can review each student's handwriting and grading results. \
+Intuitive tabbed GNB navigation optimized for mobile and tablet screens.",
         },
       },
       {
