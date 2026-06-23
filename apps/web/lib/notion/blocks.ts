@@ -67,7 +67,18 @@ export function blocksToMarkdown(blocks: BlockWithChildren[]): string {
 
     if (block._children && block._children.length > 0) {
       const childMarkdown = blocksToMarkdown(block._children)
-      if (childMarkdown) lines.push(childMarkdown)
+      if (childMarkdown) {
+        const isListItem =
+          block.type === 'bulleted_list_item' ||
+          block.type === 'numbered_list_item'
+        const indented = isListItem
+          ? childMarkdown
+              .split('\n')
+              .map((l) => `  ${l}`)
+              .join('\n')
+          : childMarkdown
+        lines.push(indented)
+      }
     }
   }
 
@@ -125,6 +136,30 @@ function blockToMarkdown(block: BlockObjectResponse): string {
   }
 }
 
+const NOTION_TEXT_COLORS: Record<string, string> = {
+  gray: 'rgb(120,119,116)',
+  brown: 'rgb(159,107,83)',
+  orange: 'rgb(217,115,13)',
+  yellow: 'rgb(203,145,47)',
+  green: 'rgb(68,131,97)',
+  blue: 'rgb(51,126,169)',
+  purple: 'rgb(144,101,176)',
+  pink: 'rgb(193,76,138)',
+  red: 'rgb(212,76,71)',
+}
+
+const NOTION_BG_COLORS: Record<string, string> = {
+  gray_background: 'rgb(241,241,239)',
+  brown_background: 'rgb(244,238,238)',
+  orange_background: 'rgb(251,236,221)',
+  yellow_background: 'rgb(251,243,219)',
+  green_background: 'rgb(237,243,236)',
+  blue_background: 'rgb(231,243,248)',
+  purple_background: 'rgb(244,240,247)',
+  pink_background: 'rgb(249,238,243)',
+  red_background: 'rgb(253,235,236)',
+}
+
 function extractText(richTextBlock: {
   rich_text: Array<{
     plain_text: string
@@ -133,6 +168,7 @@ function extractText(richTextBlock: {
       italic: boolean
       code: boolean
       strikethrough: boolean
+      color?: string
     }
     href: string | null
   }>
@@ -154,6 +190,15 @@ function extractText(richTextBlock: {
           if (text.annotations.bold) decorated = `**${decorated}**`
           if (text.annotations.italic) decorated = `*${decorated}*`
           if (text.annotations.strikethrough) decorated = `~~${decorated}~~`
+
+          const color = text.annotations.color
+          if (color && color !== 'default') {
+            if (NOTION_TEXT_COLORS[color]) {
+              decorated = `<span style="color:${NOTION_TEXT_COLORS[color]}">${decorated}</span>`
+            } else if (NOTION_BG_COLORS[color]) {
+              decorated = `<span style="background-color:${NOTION_BG_COLORS[color]}">${decorated}</span>`
+            }
+          }
         }
 
         if (text.href) {

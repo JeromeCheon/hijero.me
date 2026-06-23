@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 import Markdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw'
 
 import { Link } from '@/i18n/navigation'
 import { Badge } from '@workspace/ui/components/badge'
@@ -52,6 +53,7 @@ export async function ProjectDetail({ project }: ProjectDetailProps) {
       <div className="prose prose-sm max-w-none dark:prose-invert">
         {project.markdownContent ? (
           <Markdown
+            rehypePlugins={[rehypeRaw]}
             components={{
               p({ node, children }) {
                 return hasImageChild(node) ? (
