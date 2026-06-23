@@ -62,7 +62,10 @@ export async function HeroBio({
               {t('experienceResumeLabel')
                 .split('\n\n')
                 .map((para, i) => (
-                  <p key={i} className="text-sm text-muted-foreground">
+                  <p
+                    key={i}
+                    className="text-sm whitespace-pre-line text-muted-foreground"
+                  >
                     {para}
                   </p>
                 ))}
