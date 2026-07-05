@@ -348,6 +348,10 @@ Teachers can then monitor student submissions and check correctness in real time
         en: 'Random URL + QR Code: Instant participation on any device without installing apps',
       },
       {
+        ko: '워크시트 4종 — 영어 따라쓰기 · 한국어→영어 쓰기 · 4지 선다 퀴즈 · 역방향 퀴즈',
+        en: '4 Worksheet Modes — English handwriting, reverse handwriting, 4-choice quiz, and reverse quiz',
+      },
+      {
         ko: 'Tesseract.js Worker를 링크 접속 브라우저에서 직접 실행 — 채점 비용 무료',
         en: 'In-browser Tesseract.js Worker: Zero-cost OCR grading executed directly on the client side',
       },
@@ -362,6 +366,14 @@ Teachers can then monitor student submissions and check correctness in real time
       {
         ko: 'role 기반 /admin 백오피스 — 계정 관리 · 노트 삭제 · 역할 변경 Server Action',
         en: 'Role-gated /admin backoffice — account management, note deletion, and role change via Server Actions',
+      },
+      {
+        ko: '6자리 초대 코드 + URL 이중 공유 — 학생이 코드 입력만으로 즉시 워크시트 진입',
+        en: '6-digit invite code + URL dual sharing — students access worksheets instantly by entering a code',
+      },
+      {
+        ko: '/join 페이지 학생 이름 수집 — 쿠키 저장, 제출 현황에서 학생 이름 식별',
+        en: '/join page student name collection — stored as a cookie, teacher dashboard identifies submitters by name',
       },
     ],
     problem: {
@@ -445,6 +457,39 @@ Developed group-specific worksheet lists, a key-metrics dashboard displaying tot
           en: 'Completed admin CRUD: teacher detail view, note deletion, role change, and account deletion with cascade. Separated privileges using SECURITY DEFINER functions and a service_role-based admin client. All 26 Tasks across Phase 1~4 complete.',
         },
       },
+      {
+        date: { ko: '2026.06.10', en: 'Jun 10, 2026' },
+        title: {
+          ko: '퀴즈 워크시트 타입 추가',
+          en: 'Quiz Worksheet Type',
+        },
+        description: {
+          ko: 'notes 스키마에 worksheet_type 컬럼 추가. 영어 단어 보고 한국어 뜻 4지 선다 퀴즈 구현. QuizCard 프로그레스바 + 60초 타이머 + 확인 플로우.',
+          en: 'Added worksheet_type column to notes schema. Implemented 4-choice quiz (English word → Korean meaning). QuizCard with progress bar, 60-second timer, and confirmation flow.',
+        },
+      },
+      {
+        date: { ko: '2026.06.12', en: 'Jun 12, 2026' },
+        title: {
+          ko: 'QR 코드 초대 & 프로필 리디자인',
+          en: 'QR Code Invite & Profile Redesign',
+        },
+        description: {
+          ko: '초대 대시보드에 QR 코드 표시 + SVG 다운로드 추가. 프로필 페이지 아바타 원형 + 인라인 닉네임 편집으로 리디자인.',
+          en: 'Added QR code display and SVG download to the invite dashboard. Redesigned profile page with circular avatar and inline nickname editing.',
+        },
+      },
+      {
+        date: { ko: '2026.06.17', en: 'Jun 17, 2026' },
+        title: {
+          ko: '역방향 워크시트 변형 추가',
+          en: 'Reverse Worksheet Variants',
+        },
+        description: {
+          ko: 'reverse_handwriting(한국어 뜻 보고 영어 손글씨)·reverse_quiz(한국어 뜻 보고 영어 4지 선다) 추가. WORKSHEET_TYPE_CONFIG 단일 SSoT로 타입별 설정 관리. 2단계 타입 선택 UI 도입.',
+          en: 'Added reverse_handwriting (Korean → English handwriting) and reverse_quiz (Korean → English 4-choice). Centralized type config in WORKSHEET_TYPE_CONFIG. Introduced 2-step worksheet type selector UI.',
+        },
+      },
     ],
     features: [
       {
@@ -454,11 +499,8 @@ Developed group-specific worksheet lists, a key-metrics dashboard displaying tot
           en: 'Worksheet Creation & URL / QR Code Issuance',
         },
         description: {
-          ko: '그룹 선택·단어 입력 → 랜덤 URL + QR 코드 자동 생성. \
-QR 코드를 칠판에 띄우면 학생이 카메라로 즉시 접속. \
-인쇄 불필요. 몇 번의 클릭으로 완료.',
-          en: 'Choose a group and enter words to instantly generate a random URL and matching QR code. \
-Display the QR code on screen — students join with a camera scan, no printing needed.',
+          ko: '그룹 선택·단어 입력 → 워크시트 타입 선택(따라쓰기/역방향 쓰기/퀴즈/역방향 퀴즈) → 랜덤 URL + QR 코드 자동 생성. QR 코드를 칠판에 띄우면 학생이 카메라로 즉시 접속. 인쇄 불필요.',
+          en: 'Choose a group, enter words, select a worksheet type (handwriting / reverse handwriting / quiz / reverse quiz), and instantly generate a random URL + QR code. Display the QR on screen — students join via camera scan, no printing needed.',
         },
       },
       {
@@ -495,11 +537,8 @@ Configured Row Level Security (RLS) policies to allow anonymous student submissi
           en: 'Everyone can participate at the same time',
         },
         description: {
-          ko: 'localStorage UUID로 단어장 접속 유저 식별. \
-Google 계정·앱 설치 불필요. \
-URL 또는 QR 코드 스캔으로 누구나 즉시 참여.',
-          en: 'Identifies student sessions via localStorage UUIDs. \
-No Google account or app installation needed — anyone can join instantly via URL or by scanning the QR code.',
+          ko: 'localStorage UUID로 단어장 접속 유저 식별. /join 페이지에서 학생 이름 수집 후 쿠키로 저장. 6자리 초대 코드 또는 URL로 즉시 참여. Google 계정·앱 설치 불필요.',
+          en: 'Identifies student sessions via localStorage UUIDs. Collects student names on the /join page and stores them as cookies. Anyone can join instantly via a 6-digit invite code or URL. No Google account or app installation required.',
         },
       },
       {
@@ -513,10 +552,10 @@ No Google account or app installation needed — anyone can join instantly via U
 그룹별 노트 관리. \
 총 참가/완료 지표 카드. \
 제출된 학생 손글씨 이미지와 정답 여부를 대시보드에서 열람 가능. \
-GNB 탭 네비게이션.',
+GNB 탭 네비게이션.\n학생 이름이 제출 현황과 함께 표시되어 누가 완료했는지 즉시 파악 가능.',
           en: "Equipped with a 3-second polling completion counter, group-based activity lists, overall participation metrics, \
 and a submitted-work dashboard where teachers can review each student's handwriting and grading results. \
-Intuitive tabbed GNB navigation optimized for mobile and tablet screens.",
+Intuitive tabbed GNB navigation optimized for mobile and tablet screens.\nStudent names are shown with submissions so teachers can see at a glance who has completed their work.",
         },
       },
       {
@@ -539,10 +578,11 @@ Admin client with Supabase service role privileges bypasses standard RLS.',
     ],
     outcome: {
       ko: '클라이언트 OCR + Vercel + Supabase Free Tier로 상용 서버 운영비 $0. \
-초등학교 교실 현장, 개인 교습 어디든 즉시 도입 가능한 구조로, 홍보·피드백 수렴 후 단어장 퀴즈·말하기 연습 등 콘텐츠 확장 예정.',
+따라쓰기·역방향 쓰기·퀴즈·역방향 퀴즈 워크시트 4종 완성(Phase 1~7). \
+초등학교 교실 현장, 개인 교습 어디든 즉시 도입 가능한 구조.',
       en: "Achieved $0 in server maintenance fees by utilizing client-side OCR, Vercel, and Supabase's free tier. \
-The architecture is lightweight and ready for immediate deployment in elementary classrooms or private tutoring. \
-We plan to expand the content with vocabulary quizzes, speaking practice, and more based on teacher feedback.",
+Completed 4 worksheet modes — handwriting, reverse handwriting, quiz, and reverse quiz — across Phase 1~7. \
+The architecture is lightweight and ready for immediate deployment in elementary classrooms or private tutoring.",
     },
     outcomeBullets: [
       {
@@ -558,8 +598,8 @@ We plan to expand the content with vocabulary quizzes, speaking practice, and mo
         en: 'No barriers to entry: Deployable instantly in classrooms without app installation or signups',
       },
       {
-        ko: '홍보·피드백 수렴 후 단어장 퀴즈·말하기 연습 등 콘텐츠 확장 예정',
-        en: 'Future pipeline: Plans to expand features to include pronunciation practice, vocabulary quizzes, and speech-to-text assessments',
+        ko: '워크시트 4종(따라쓰기·역방향 쓰기·퀴즈·역방향 퀴즈) — Phase 1~7 전체 완료',
+        en: '4 worksheet modes (handwriting, reverse handwriting, quiz, reverse quiz) — Phase 1~7 complete',
       },
     ],
     galleryUrls: [
@@ -570,6 +610,8 @@ We plan to expand the content with vocabulary quizzes, speaking practice, and mo
       '/images/projects/emproving/05-student-canvas.png',
       '/images/projects/emproving/06-result.png',
       '/images/projects/emproving/07-submitted-dashboard.png',
+      '/images/projects/emproving/08-join.png',
+      '/images/projects/emproving/09-quiz-worksheet.png',
     ],
   },
 ]
