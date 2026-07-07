@@ -17,6 +17,7 @@ hijero.me의 Next.js 웹 애플리케이션입니다.
 | @giscus/react           | 3.1.0              |
 | @vercel/analytics       | 2.0.1              |
 | rehype-pretty-code      | 0.14.3             |
+| rehype-raw              | 7.0.0              |
 | react-markdown          | 10.1.0             |
 | @tailwindcss/typography | 0.5.19             |
 
