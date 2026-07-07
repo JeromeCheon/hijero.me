@@ -333,10 +333,10 @@ and a Notion-backed resume CMS with ISR — all from a single codebase.',
       { name: 'Vercel' },
     ],
     overview: {
-      ko: '초등 3~6학년 영어 수업에서 단어 쓰기 연습을 디지털로 전환하기 위해 MLP(Minimum Lovable Product) 수준으로 만든 서비스입니다. \
+      ko: '초등 3~6학년 영어 수업에서 단어 쓰기 연습을 디지털로 전환하기 위해 현직 초등학교 선생님의 자문을 구해 MLP(Minimum Lovable Product) 수준으로 만든 서비스입니다. \
 선생님이 그룹(예: 3학년 1반)과 단어 쓰기장을 생성하면 랜덤 URL이 발급되고, 학생들은 교육용 기기를 사용하여 앱 설치·회원가입 없이 인터넷에서 해당 URL로 접속해 선생님이 입력한 단어들을 펜으로 따라써보며 영어 단어 학습 및 글씨 연습을 수행하는 방식입니다. \
 Tesseract.js(Google이 관리하는 오픈소스 OCR 엔진, LSTM 신경망 기반) 기술을 활용해 이미지를 인식·채점하며, 선생님은 학생들이 따라 쓴 글씨와 정답 여부를 선생님 단어장 대시보드에서 실시간으로 확인할 수 있습니다.',
-      en: 'This project is an MLP (Minimum Lovable Product) developed to digitize English word writing practice in 3rd to 6th-grade elementary school classrooms in Korea. \
+      en: 'This project is an MLP (Minimum Lovable Product) developed to digitize English word writing practice in 3rd to 6th-grade elementary school classrooms in Korea, in consultation with an elementary school teacher. \
 When a teacher creates a class group (e.g., 3rd Grade, Class 1) and a dictation worksheet, a random URL is generated. \
 Without any app installation or sign-up, students can access the link on their school-issued devices to practice writing and spelling English words by hand with a stylus or touch input. \
 The application leverages Tesseract.js (an open-source OCR engine managed by Google and based on LSTM neural networks) to recognize and grade the handwriting directly in the browser. \
@@ -348,8 +348,8 @@ Teachers can then monitor student submissions and check correctness in real time
         en: 'Random URL + QR Code: Instant participation on any device without installing apps',
       },
       {
-        ko: '워크시트 4종 — 영어 따라쓰기 · 한국어→영어 쓰기 · 4지 선다 퀴즈 · 역방향 퀴즈',
-        en: '4 Worksheet Modes — English handwriting, reverse handwriting, 4-choice quiz, and reverse quiz',
+        ko: '워크시트 4종 — 영어 따라쓰기 · 한글 뜻 보고 영어단어 쓰기 · 4지 선다 퀴즈 · 한글 뜻 영어 맞추기 퀴즈',
+        en: '4 Worksheet Modes — English handwriting, Korean meaning → English word handwriting, 4-choice quiz, and Korean meaning → English word quiz',
       },
       {
         ko: 'Tesseract.js Worker를 링크 접속 브라우저에서 직접 실행 — 채점 비용 무료',
@@ -482,12 +482,12 @@ Developed group-specific worksheet lists, a key-metrics dashboard displaying tot
       {
         date: { ko: '2026.06.17', en: 'Jun 17, 2026' },
         title: {
-          ko: '역방향 워크시트 변형 추가',
-          en: 'Reverse Worksheet Variants',
+          ko: '한글 뜻 보고 영어단어 쓰기 워크시트 변형 추가',
+          en: 'Korean Meaning → English Word Worksheet Variants',
         },
         description: {
           ko: 'reverse_handwriting(한국어 뜻 보고 영어 손글씨)·reverse_quiz(한국어 뜻 보고 영어 4지 선다) 추가. WORKSHEET_TYPE_CONFIG 단일 SSoT로 타입별 설정 관리. 2단계 타입 선택 UI 도입.',
-          en: 'Added reverse_handwriting (Korean → English handwriting) and reverse_quiz (Korean → English 4-choice). Centralized type config in WORKSHEET_TYPE_CONFIG. Introduced 2-step worksheet type selector UI.',
+          en: 'Added Korean meaning → English word handwriting (reverse_handwriting) and Korean meaning → English word 4-choice quiz (reverse_quiz). Centralized type config in WORKSHEET_TYPE_CONFIG. Introduced 2-step worksheet type selector UI.',
         },
       },
     ],
@@ -499,8 +499,8 @@ Developed group-specific worksheet lists, a key-metrics dashboard displaying tot
           en: 'Worksheet Creation & URL / QR Code Issuance',
         },
         description: {
-          ko: '그룹 선택·단어 입력 → 워크시트 타입 선택(따라쓰기/역방향 쓰기/퀴즈/역방향 퀴즈) → 랜덤 URL + QR 코드 자동 생성. QR 코드를 칠판에 띄우면 학생이 카메라로 즉시 접속. 인쇄 불필요.',
-          en: 'Choose a group, enter words, select a worksheet type (handwriting / reverse handwriting / quiz / reverse quiz), and instantly generate a random URL + QR code. Display the QR on screen — students join via camera scan, no printing needed.',
+          ko: '그룹 선택·단어 입력 → 워크시트 타입 선택(따라쓰기/한글 뜻 보고 영어단어 쓰기/퀴즈/한글 뜻 영어 맞추기 퀴즈) → 랜덤 URL + QR 코드 자동 생성. QR 코드를 칠판에 띄우면 학생이 카메라로 즉시 접속. 인쇄 불필요.',
+          en: 'Choose a group, enter words, select a worksheet type (handwriting / Korean meaning → English word handwriting / quiz / Korean meaning → English word quiz), and instantly generate a random URL + QR code. Display the QR on screen — students join via camera scan, no printing needed.',
         },
       },
       {
@@ -578,10 +578,10 @@ Admin client with Supabase service role privileges bypasses standard RLS.',
     ],
     outcome: {
       ko: '클라이언트 OCR + Vercel + Supabase Free Tier로 상용 서버 운영비 $0. \
-따라쓰기·역방향 쓰기·퀴즈·역방향 퀴즈 워크시트 4종 완성(Phase 1~7). \
+따라쓰기·한글 뜻 보고 영어단어 쓰기·퀴즈·한글 뜻 영어 맞추기 퀴즈 워크시트 4종 완성(Phase 1~7). \
 초등학교 교실 현장, 개인 교습 어디든 즉시 도입 가능한 구조.',
       en: "Achieved $0 in server maintenance fees by utilizing client-side OCR, Vercel, and Supabase's free tier. \
-Completed 4 worksheet modes — handwriting, reverse handwriting, quiz, and reverse quiz — across Phase 1~7. \
+Completed 4 worksheet modes — handwriting, Korean meaning → English word handwriting, quiz, and Korean meaning → English word quiz — across Phase 1~7. \
 The architecture is lightweight and ready for immediate deployment in elementary classrooms or private tutoring.",
     },
     outcomeBullets: [
@@ -598,8 +598,8 @@ The architecture is lightweight and ready for immediate deployment in elementary
         en: 'No barriers to entry: Deployable instantly in classrooms without app installation or signups',
       },
       {
-        ko: '워크시트 4종(따라쓰기·역방향 쓰기·퀴즈·역방향 퀴즈) — Phase 1~7 전체 완료',
-        en: '4 worksheet modes (handwriting, reverse handwriting, quiz, reverse quiz) — Phase 1~7 complete',
+        ko: '워크시트 4종(따라쓰기·한글 뜻 보고 영어단어 쓰기·퀴즈·한글 뜻 영어 맞추기 퀴즈) — Phase 1~7 전체 완료',
+        en: '4 worksheet modes (handwriting, Korean meaning → English word handwriting, quiz, and Korean meaning → English word quiz) — Phase 1~7 complete',
       },
     ],
     galleryUrls: [
