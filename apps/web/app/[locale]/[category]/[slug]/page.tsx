@@ -154,7 +154,11 @@ export default async function PostPage({
         }}
       />
       <ReadingProgressBar />
-      <ViewCountTracker slug={post.slug} />
+      <ViewCountTracker
+        locale={locale}
+        category={post.category}
+        slug={post.slug}
+      />
       <div className="mx-auto max-w-[1100px] py-8">
         <div className="flex gap-10">
           {/* 메인 콘텐츠 */}
