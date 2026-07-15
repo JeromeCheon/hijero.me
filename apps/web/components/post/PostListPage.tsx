@@ -31,8 +31,6 @@ export default function PostListPage({
     : allPosts
 
   // 정렬
-  // sort=popular: 현재 Supabase 미연결 상태이므로 최신순 fallback
-  // TODO: Supabase 조회수 데이터 연동 후 인기순 정렬 구현
   const sortedPosts =
     sort === 'popular'
       ? [...filteredPosts].sort(

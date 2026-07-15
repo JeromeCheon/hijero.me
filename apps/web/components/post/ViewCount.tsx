@@ -4,9 +4,6 @@ import { Eye } from 'lucide-react'
 
 import { createClient } from '@/lib/supabase/server'
 
-// ---------------------------------------------------------------------------
-// ViewCountInner — async Server Component (streaming 렌더링)
-// ---------------------------------------------------------------------------
 async function ViewCountInner({ slug }: { slug: string }) {
   const supabase = createClient()
 
@@ -25,18 +22,6 @@ async function ViewCountInner({ slug }: { slug: string }) {
     </span>
   )
 }
-
-// ---------------------------------------------------------------------------
-// ViewCount — Suspense boundary wrapper (export default)
-// ---------------------------------------------------------------------------
-// TODO(human): Task-021 포스트 상세 페이지에서 아래처럼 헤더 영역에 배치하고 스타일 조정:
-//
-//   import ViewCount from '@/components/post/ViewCount'
-//
-//   <ViewCount slug={post.slug} />
-//
-// ViewCount 내부에 Suspense가 이미 포함돼 있으므로 외부에서 추가 Suspense는 불필요하다.
-// 헤더에서 날짜/읽기 시간과 같은 행에 배치할 때 flex gap-3 정렬을 활용할 수 있다.
 
 export default function ViewCount({ slug }: { slug: string }) {
   return (
