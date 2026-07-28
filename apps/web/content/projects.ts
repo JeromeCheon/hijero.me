@@ -318,8 +318,8 @@ and a Notion-backed resume CMS with ISR — all from a single codebase.',
       en: 'An EduTech service that simplifies English dictation: teachers easily create word lists using Google sign-in, and students write words by hand in the browser via a shared link for instant OCR-based grading without registering.',
     },
     period: {
-      ko: '2025.05 ~ 현재',
-      en: '2025.05 ~ Present',
+      ko: '2025.05 ~ 2025.06',
+      en: '2025.05 ~ 2025.06',
     },
     techItems: [
       { name: 'Next.js' },
