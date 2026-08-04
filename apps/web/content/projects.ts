@@ -195,9 +195,9 @@ Achieved Lighthouse performance 95+, SEO 100, then deployed to Vercel.',
         },
         description: {
           ko: '직장/개인 프로젝트 섹션 분리, soloProject 배지, 페이지 전환 애니메이션 추가. \
-현재도 기능 고도화 중.',
+이후 별도 추가 기능 구현 x',
           en: 'Split work/personal project sections, added soloProject badge and page transition animation. \
-Ongoing feature improvements continue.',
+Then nothing has been changed or developed',
         },
       },
     ],
