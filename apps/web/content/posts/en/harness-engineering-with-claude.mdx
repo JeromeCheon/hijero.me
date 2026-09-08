@@ -1,0 +1,294 @@
+---
+slug: harness-engineering-with-claude
+title: 'Getting the Most Out of AI Agents — A Review of "Harness Engineering with Claude Code" by Minho Hwang'
+description: A review of Minho Hwang's "Harness Engineering with Claude Code," exploring the idea that the bottleneck in AI coding isn't model capability but structure — and how to build agent teams with agents, skills, and orchestrators.
+category: tech
+tags:
+  - Claude Code
+  - Harness Engineering
+  - Book Review
+publishedAt: '2026-08-31'
+featured: true
+---
+
+I've been building with Claude Code lately, but I constantly find myself pondering: how can we truly get the most out of AI agents?
+
+Anyone who writes code with LLMs knows that output quality swings wildly based on the depth and nuance of your prompts.
+Whenever I hit a wall, I'd switch models or craft increasingly elaborate prompts — but it always felt like something was still missing.
+
+That's when I picked up *Harness Engineering with Claude Code* by Minho Hwang.
+The book starts from the premise that "the bottleneck in AI coding isn't the model — it's the structure around it," laying out a clear framework for how to design that environment.
+The shift in perspective and practical takeaways were so compelling that I wanted to organize what I learned, alongside my experience actually building a harness myself.
+
+![Cover of "Harness Engineering with Claude Code"](/images/posts/harness-engineering-with-claude/harness-engineering-book.jpeg)
+
+# Key Ideas from Harness Engineering
+
+## 1. The Bottleneck Is Structure, Not Capability
+
+The book's starting point is clear: **"If you keep the model fixed and only change the environment around it, how much does the outcome change?"**
+
+The author presents multiple cases showing that even with the same Claude Sonnet model, simply improving the project configuration (`.claude/`), the editing interface (Hashline), or the middleware and agent structure caused success rates and benchmark scores to rebound dramatically.
+The thread running through all these cases: **the decisive factor separating AI agent success from failure wasn't the model's raw capability — it was the environment and structure in which it worked.**
+
+This connects deeply to the history of software engineering.
+
+Just as the history of development has been a process of delegating work to lower layers, AI agents are simply the next step on that same ladder.
+
+> Delegation doesn't make responsibility disappear. It only moves the layer where responsibility lives.
+
+What distinguishes this from previous paradigms is that AI agents operate **probabilistically (non-deterministically)**.
+Therefore, an engineer's core responsibility extends far beyond tweaking prompt phrasing — it is **designing an architecture that encapsulates the probabilistic model within robust, deterministic rules and a rigorous verification environment**.
+
+Ultimately, the bottleneck in AI coding isn't a limitation of the model's raw intelligence. It's the <u>absence of a harness — the structure — that enables the model to unleash its full capability</u>.
+
+## What Is a Harness?
+
+So what exactly is a harness?
+
+The literal meaning of *harness* refers to horse tack — saddles, bridles, and gear used to equip a horse.
+A harness channels the horse's strength, guides its direction, and enables it to carry heavy loads.
+
+If we analogize an AI agent to a horse, a harness is the architecture of permissions, tools, verification, state, and observability that empowers the model to exert its full capability — without touching its underlying weights.
+
+High-quality prompts and rich context are still essential within a harness.
+On top of those, you layer permission boundaries, verification loops, state persistence, and observability pipelines. From this perspective, harness engineering is a much broader paradigm than prompt engineering or context engineering.
+
+> Prompt Engineering ⊆ Context Engineering ⊆ Harness Engineering
+
+The book also addresses three common misconceptions about harnesses, which were immensely helpful in clarifying the concept:
+
+**First, a harness is not an extension of prompt engineering.**
+A prompt is an instruction, not an enforcement mechanism. In a probabilistic system, instructions are only probabilistically followed.
+To borrow the author's phrasing: prompts rely on persuasion, whereas a harness relies on mechanical enforcement.
+
+**Second, a harness is not an agent framework like LangChain.**
+Frameworks provide the raw materials for building a harness, not the harness itself.
+Deciding which agent gets which permissions, when verification intervenes, and how state is persisted — these are deliberate architectural choices a developer layers on top.
+A framework is a starting line, not the finished product.
+
+**Third, a harness is not an IDE or plugin.**
+Cursor and Claude Code are agent runtime products. A harness is what the developer layers on top.
+The key distinction: even if you switch runtimes, pointers like `.claude/agents/*.md` that you've embedded in your repo stay put.
+
+And there's one sentence that runs through this entire chapter:
+
+> If there's no file, it doesn't exist.
+
+Agents must exist as `.claude/agents/{name}.md`, and skills as `.claude/skills/{name}/SKILL.md`.
+Putting a role directly into the prompt argument of an agent tool call is only valid for that session.
+The author compares this to telling a new employee their responsibilities verbally on day one.
+The next day, they'll have forgotten most of it — and agents remember nothing once the session ends.
+As teams grow, the only thing that survives is the contract written in a file.
+
+## Who, How, When — Splitting Responsibility into Three
+
+The author decomposes the harness into three responsibilities:
+
+> A harness divides into three elements: who (Agent), how (Skill), and when/with whom (Orchestrator). Each is designed independently and only meshes together at runtime.
+
+**Agent** is "who."
+The author says to think of agent definition files not as config files but as role contracts.
+Config files store values; contracts store promises.
+A single `description` line changes when this agent gets called, and a single `tools` line changes the scope of side effects this agent can cause.
+An agent is a role asset reused across sessions.
+
+**Skill** is "how."
+Workflows, triggers, and procedural knowledge belong to the skill.
+If an agent is a role asset reused across sessions, a skill is a procedural asset reused across sessions.
+
+**Orchestrator** is "when and with whom."
+Team composition, task dependencies, and phase transitions belong here.
+What sets it apart from the other two: the orchestrator isn't fixed in a single persistent file.
+Its rules can live in a skill body or in `CLAUDE.md`, but the executor is the runtime's main loop — the thing that assembles the team, transitions phases, and dissolves it when a user request comes in.
+The author describes the orchestrator not as a micromanager issuing orders, but as <u>a conductor</u>.
+Its role is to step back and let each musician play their own instrument.
+
+So why go through the trouble of separating these three?
+Using a two-person commit message generation team as an example, the author highlights four failure modes that occur when you merge the author and reviewer into a single agent:
+
+1. **No reuse**
+   - If you want to reuse the commit format checking logic in a PR review agent, copy-pasting is your only option — and modifying one requires synchronizing the other.
+2. **No parallelism**
+   - When generation and verification reside in the same agent, the two tasks cannot run concurrently.
+3. **Compounded blind spots**
+   - A single agent that overlooks an assumption during generation will miss it again during verification — the failure mode persists undetected.
+4. **Context explosion**
+   - Role descriptions, evaluation criteria, format conventions, invocation order, and error recovery policies all pile up in one file, bloating it to hundreds of lines.
+
+One thing I found interesting: the author repositions Task not as an independent element, but as an internal tool of the orchestrator.
+Claude Code's original documentation treats agents, skills, and tasks as three separate systems. This book argues that Task is a means of coordination, not a separate concern.
+A tool like `TaskCreate` is just a way for the orchestrator to record "have A do this, then B goes next."
+The author doesn't call the original wrong — just a different perspective. Claude Code uses an execution-based decomposition; this book uses a responsibility-based one.
+
+Reading this chapter, I found myself rethinking my own agent files.
+Had I been cramming role, judgment criteria, and procedural knowledge all into a single file?
+
+## Generate–Verify: The Smallest Possible Team
+
+The minimal unit the book keeps returning to is the generate–verify pattern.
+An author agent writes a draft to `_workspace/`, and a reviewer agent reads that file and issues a PASS or REDO verdict.
+The key here is that the two agents communicate through files, not conversation.
+This structure prevents you from merging your own PR, maximizing the likelihood that flaws missed by one agent are caught against the standards of the other.
+
+The author says this pattern requires exactly two rules in the reviewer file:
+
+- **Objective verdict criteria**
+  - Without explicitly locking down when REDO is issued — e.g., "only for format violations or factual inaccuracies" — the model will make a different call every time
+- **Retry ceiling**
+  - Without a termination condition, generate–verify falls into an infinite loop
+  - In practice, you set an explicit ceiling like "if still REDO after 2 regenerations, PASS with a warning," or add a middle verdict tier: PASS / FIX / REDO
+
+This part of the book hit home because it called out a mistake I made all too frequently:
+<u>A prohibition written in natural language is not a safety mechanism.</u>
+
+Writing "never modify this file" in markdown inside an agent's prompt is still just a suggestion. It cannot reliably prevent the agent's actions.
+The primary guardrail ensuring safety in AI agent workflows is the `tools` field in frontmatter.
+
+If a dedicated "reviewer" agent retains `Edit` permissions, it will inevitably edit the code itself instead of providing critique — causing the entire verification loop to collapse.
+
+To illustrate why fewer tools are better, the author cites an experiment by Vercel: reducing an agent's available tools from 15 to 2 boosted accuracy from 80% to 100%.
+Too many options trigger "token paralysis," where decision quality degrades under the weight of excessive choices.
+
+When defining skills, the author emphasizes writing the `description` **pushily — that is, aggressively and assertively**.
+Because skills trigger based on natural language requests, a vague description means the orchestrator won't invoke it at all.
+
+The author breaks this into three practical steps: express what the skill actually does using explicit verbs, specify exact trigger conditions as conditionals ("use this skill when the user mentions X"), and clearly define negative boundaries — scenarios where the skill should *not* be used.
+
+The body of the skill, conversely, should be written **Why-First**.
+Simply listing imperative rules frequently backfires with LLMs. Supplying the underlying reasoning gives the model enough context to navigate nuance and make sensible judgment calls in unpredicted edge cases.
+While human manuals enforce rigid rules to eliminate arbitrary judgment, instructions for LLMs do the opposite: they preserve the rationale so the model can reason through ambiguities.
+
+## Building a Team in 6 Steps
+
+In Part 3, the author introduces a meta-harness skill that automates all of this.
+Where a normal skill captures "how to do a task," a meta-skill captures "what agents and skills need to be built."
+The output is new agent files and skill files — a skill one layer up.
+
+The pipeline this meta-skill opens has six steps:
+
+1. **Domain Analysis**
+   - Not making answers, but refining questions
+   - Understand domain type, existing `.claude/` state, codebase module boundaries, user expertise, and potential conflicts or duplications with existing configuration
+2. **Team Architecture Design**
+   - Start with "do tasks need to wait for each other, or can they run concurrently?"
+   - Decide on execution mode (agent team / subagent / hybrid) and architecture pattern
+3. **Agent Definition**
+   - Translate the design into actual files; finalize "who does the work"
+4. **Skill Creation**
+   - Extract repeated procedures into skills; finalize "how the work gets done"
+5. **Orchestration**
+   - Connect the built agents and skills into a workflow
+   - The core principle: the leader is a monitor, not a relay station
+6. **Verification**
+   - Run the same test prompt under two conditions — with and without the harness — and compare the results side by side
+
+On step 6, the author warns that assuming quality improved just because the skill exists is an easy way to fall into confirmation bias.
+If the same result can be achieved without the skill, that skill is unnecessary.
+
+These six steps are wrapped in a Phase 0 (current-state audit) and Phase 7 (operational loop) to form a cycle.
+Completing the six steps doesn't end the pipeline — feedback from running it flows back in: quality issues return to skills, role confusion returns to agent files, sequencing problems return to the orchestrator.
+
+For choosing team shape, the book identifies six architecture patterns:
+
+| Pattern | Structure | When to choose it |
+| --- | --- | --- |
+| Pipeline | Each step's output feeds the next | When there's a strong sequential dependency — the next agent can't start without the previous result |
+| Fan-out / Fan-in | Multiple agents process the same input in parallel; a leader synthesizes | When one agent's finding needs to redirect another's work in real time |
+| Expert Pool\* | A router classifies input type and routes to exactly one specialist | When input types are clearly distinct and each type's expertise doesn't overlap |
+| Generate–Verify | Make it, check it, redo if it fails | When output quality assurance matters and verification criteria are clear |
+| Supervisor\* | Supervisor manages a task queue; workers actively claim their next task | When the number of tasks isn't known in advance and requires actual scanning |
+| Hierarchical Delegation\* | Top → team lead → individual contributor, delegating to sub-teams | When the problem naturally breaks into independent sub-domains, each sufficiently complex |
+
+The three marked with `*` deserve a closer look.
+
+**Expert Pool** success depends entirely on the router's classification accuracy.
+A misclassification doesn't just produce one failure — it makes unwanted changes in the wrong domain that are hard to roll back.
+
+**Supervisor** — the key mechanic is workers *claiming* tasks.
+The supervisor doesn't direct one-by-one; workers actively pull from a shared queue, process, and report completion.
+
+**Hierarchical Delegation** — the most important constraint is depth.
+Don't go beyond two levels. The author is firm: at three levels, latency and context loss grow exponentially.
+
+The principle the author repeats: don't choose a pattern first and then fit your problem to it.
+Understand your problem's structure precisely and the right pattern follows naturally. In practice, different patterns apply at different phases, connected at their boundaries through `_workspace/` files — hybrid is the default.
+
+## A Harness Is a Living System
+
+Completing those six steps and building a team does not mean the harness is 100% done.
+The author emphasizes that a harness should not be a snapshot — it needs to become a sustainable, evolving system.
+It only becomes an operational system when it gets automatically re-invoked in each new session; it only evolves when you change one thing at a time and record it immediately.
+
+### First Point: Registration
+
+No matter how well-crafted a skill is, if there's no pointer in `CLAUDE.md` saying "a harness exists here," it may never be called in a new session.
+In Claude Code's harness hierarchy, `CLAUDE.md` is layer zero — the only layer that's always active.
+So the pointer's proper home is the project scope, not the personal scope.
+This makes the harness shared infrastructure available to the whole team.
+The pointer itself should be a short guide linking to the detailed files — not an encyclopedia of rules — and should only cover harness location, goals, triggers, and a changelog.
+
+### Second Point: Evolution
+
+The author gives three signals that a harness is starting to drift from reality:
+repeated feedback, repeated failures, and — the most decisive — bypass behavior.
+If a user opens the editor directly instead of invoking the harness, that's the most direct evidence the harness isn't doing its job.
+The response shouldn't be to encourage more harness use — it should be to ask why they're bypassing it, then fix the `description` or the workflow.
+
+When making changes, the author records them in a changelog table in `CLAUDE.md` with date, content, target, and *reason* — and stresses that the "reason" column is especially important.
+
+<u>
+  It's not just a log. It's the device that later lets you judge
+  which rules can safely be removed.
+</u>
+
+Reading this, I realized I'd almost never recorded *why* I changed a config file.
+
+## Putting It into Practice
+
+The book's core can be summarized like this:
+
+> The bottleneck in AI coding is structure, not model capability. A harness is the work of designing the environment around the model, and that environment divides into three responsibilities: who, how, and when.
+
+> The smallest team is a generate–verify pair. Building a team can be formalized in six steps. And a harness is not something you build once and finish — it's a living system you continuously refine.
+
+To understand the book's ideas firsthand, I built a "tech post writing team" harness for this blog.
+
+Source code: [GitHub link](https://github.com/JeromeCheon/hijero.me/tree/main/.claude)
+
+Here's how it's structured:
+
+- The **`tech-post-writer`** agent handles "who."
+  - It receives a brief (`_workspace/tech-post-brief.md`) from the orchestrator skill, reads `style-guide.md` and the corpus, then writes a draft to `_workspace/tech-post-draft.mdx`.
+  - No judging, no verifying. Just writing.
+- The **`tech-post-style-reviewer`** agent handles verification.
+  - It scores the draft on six axes — voice, structure, reasoning, formatting, metadata, and snippet density — and records a PASS or REDO in `_workspace/tech-post-review.md`.
+  - It doesn't rewrite the draft. It only leaves specific revision instructions the writer can act on immediately.
+- Coordinating both agents from Phase 0 through Phase 6 is the **`write-tech-post`** orchestrator skill.
+  - It writes the brief, calls the writer, and if the reviewer issues a REDO, it re-calls the writer with the revision instructions attached. When PASS comes in, it saves the file to `apps/web/content/posts/ko/` after user confirmation.
+
+Three reference files serve as the ground truth for evaluation:
+`style-guide.md` (voice, structure, and author's tone), `frontmatter-schema.md` (a mirror of the frontmatter Zod schema), and `corpus-map.md` (an index of existing posts by type).
+Two agents, one skill, three reference files. A six-file team inside `.claude/`.
+
+## Wrapping Up
+
+There is truly no substitute for building something yourself to make theoretical concepts click.
+
+When I first gave the `write-tech-post` skill a brief, generic `description`, Claude failed to pick it up and fell back to default responses.
+Only after I added trigger conditions starting with action verbs and clearly defined boundaries — such as "use this skill when the user says X, and do not use it for Y" — did it invoke reliably. The book's insistence on being pushy was spot on.
+
+Similarly, `tech-post-style-reviewer` initially modified the draft directly.
+Writing "do not modify this file" in the prompt was mere persuasion. The real mechanical enforcement came from the frontmatter's `tools` field — a lesson that hit home the moment I removed `Edit`, finally keeping the reviewer firmly within its reviewing role.
+
+For the style guide, I shifted from writing "write like this" to explaining "why we write this way."
+The Why-First principle applied just as effectively to authoring reference documentation.
+
+And the post you are reading right now is the very outcome of that harness, lightly polished for publication.
+I fed it the brief, the writer produced a draft, the style-reviewer rejected it twice with REDO verdicts, and on the third attempt, it earned a PASS.
+
+Waiting for foundation models to get smarter is one path forward. But discovering how much of the operational environment I can engineer myself today was the most valuable lesson from this book.
+If you are grappling with similar challenges in agentic workflows, I wholeheartedly recommend giving it a read. I hope sharing these notes proves helpful.
+
+Wishing everyone a smooth Happy Coding journey — let's keep building!
+
