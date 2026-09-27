@@ -49,3 +49,6 @@ docs/*.md
 
 # claude agent memory
 .claude/agent-memory
+
+# claude workspace
+.claude/_workspace
