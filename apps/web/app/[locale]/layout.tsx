@@ -42,13 +42,6 @@ export async function generateMetadata({
         ? '풀스택 개발자 Jerome의 개발 블로그'
         : "Jerome's full-stack developer blog",
     robots: { index: true, follow: true },
-    alternates: {
-      languages: {
-        ko: `${SITE_URL}/ko`,
-        en: `${SITE_URL}/en`,
-        'x-default': `${SITE_URL}/ko`,
-      },
-    },
     openGraph: {
       type: 'website',
       locale: locale === 'ko' ? 'ko_KR' : 'en_US',

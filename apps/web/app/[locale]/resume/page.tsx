@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { SITE_URL } from '@/lib/config/site'
+import { pageAlternates } from '@/lib/seo/alternates'
 
 import { HeroBio } from '@/components/home/HeroBio'
 import { ProfileSection } from '@/components/resume/ProfileSection'
@@ -16,17 +18,18 @@ export async function generateMetadata({
 }: ResumePageProps): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'Meta.resume' })
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hijero.me'
   return {
     title: t('title'),
     description: t('description'),
+    alternates: pageAlternates(locale, '/resume'),
     openGraph: {
       title: t('title'),
       description: t('description'),
-      url: `${siteUrl}/${locale}/resume`,
+      url: `${SITE_URL}/${locale}/resume`,
       siteName: 'hijero.me',
       locale,
       type: 'website',
+      images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
     },
     twitter: {
       card: 'summary_large_image',

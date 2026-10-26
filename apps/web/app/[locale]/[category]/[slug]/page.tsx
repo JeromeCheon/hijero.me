@@ -56,11 +56,14 @@ export async function generateMetadata({
   }
 
   const canonicalUrl = `${SITE_URL}/${locale}/${post.category}/${slug}`
+  const koPost = getPostBySlug('ko', slug)
   const altLanguages = {
-    'x-default': `${SITE_URL}/ko`,
+    'x-default': koPost
+      ? `${SITE_URL}/ko/${koPost.category}/${slug}`
+      : canonicalUrl,
     ...Object.fromEntries(
       routing.locales
-        .filter((l) => l !== locale && getPostBySlug(l, slug) != null)
+        .filter((l) => getPostBySlug(l, slug) != null)
         .map((l) => {
           const altPost = getPostBySlug(l, slug)!
           return [l, `${SITE_URL}/${l}/${altPost.category}/${slug}`]
