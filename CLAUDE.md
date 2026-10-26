@@ -16,6 +16,7 @@ pnpm check        # typecheck + lint + format:check 일괄 검사
 # 필터 (packages/ui가 이미 빌드된 경우)
 pnpm dev:web      # apps/web만 dev 서버 실행
 pnpm build:web    # apps/web만 빌드
+pnpm --filter web check:seo  # SEO 색인 신호 점검 (서버 기동 후 실행, 상세는 apps/web/scripts/CLAUDE.md)
 ```
 
 ## Dev 서버 실행 규칙

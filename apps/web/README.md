@@ -47,9 +47,10 @@ apps/web/
 ├── hooks/                # 앱 전용 훅
 ├── i18n/                 # next-intl 라우팅 설정
 ├── messages/             # UI 번역 파일 {ko,en}.json
-├── scripts/              # 빌드 스크립트 (build-search-index.ts)
+├── scripts/              # 빌드·점검 스크립트 (build-search-index.ts, seo-audit.ts)
 └── lib/
     ├── notion/           # Notion CMS 연동
+    ├── seo/              # SEO 메타데이터 헬퍼 (pageAlternates)
     ├── supabase/         # client / server / admin / database.types.ts
     ├── posts/            # MDX 파싱 유틸
     └── resume/           # 정적 이력서 데이터 (Notion API 실패 시 fallback)

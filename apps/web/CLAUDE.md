@@ -53,6 +53,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 `lib/config/site.ts` — `NEXT_PUBLIC_SITE_URL`을 읽어 `SITE_URL` 상수로 export.
 `sitemap.ts`, `robots.ts`, 각 페이지 `generateMetadata`에서 공통 참조하는 사이트 기준 URL.
 
+## SEO 메타데이터
+
+`lib/seo/alternates.ts` — `pageAlternates(locale, path)`가 `{ canonical, languages }`(ko/en/`x-default`=ko)를 반환. 홈·tech·life·resume `generateMetadata`가 사용한다.
+쿼리(`?tag`, `?sort`, `?category`)는 canonical에 넣지 않는다(쿼리 변형은 canonical 통일, noindex 아님).
+hreflang은 `<head>`가 단일 소스이고, `i18n/routing.ts`의 `alternateLinks: false`로 next-intl의 `Link` 헤더 hreflang은 끈다.
+`proxy.ts` matcher는 `opengraph-image`를 제외한다(i18n 리다이렉트 대상이 아님).
+점검: `scripts/seo-audit.ts` (`pnpm --filter web check:seo`) — 상세: `scripts/CLAUDE.md`
+
 ## 검색 인덱스
 
 `scripts/build-search-index.ts` — 상세 (prebuild 훅, CDN 서빙, 인덱스 스키마): `scripts/CLAUDE.md`
