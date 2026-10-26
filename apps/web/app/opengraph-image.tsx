@@ -7,7 +7,7 @@ export const contentType = 'image/png'
 
 export default async function Image() {
   const fontData = await fetch(
-    'https://fonts.gstatic.com/s/spacegrotesk/v16/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gozFl7F3A.woff2'
+    'https://cdn.jsdelivr.net/npm/@fontsource/space-grotesk@5.3.0/files/space-grotesk-latin-700-normal.woff'
   ).then((res) => res.arrayBuffer())
 
   return new ImageResponse(
